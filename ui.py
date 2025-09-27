@@ -64,7 +64,15 @@ class TranslatorUI(QWidget):
         main_layout.addLayout(result_layout)
 
         self.setLayout(main_layout)
+        # Nút đảo ngôn ngữ
+        self.swap_btn = QPushButton("↔")
+        self.swap_btn.setFixedWidth(40)
+        lang_layout.addWidget(self.swap_btn)
 
+        self.lang_dst = QComboBox()
+        self.lang_dst.addItems(["Tiếng Việt", "Tiếng Anh", "Tiếng Nhật", "Tiếng Trung"]) # (nữa bổ sung thêm)
+        lang_layout.addWidget(self.lang_dst)
+        
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = TranslatorUI()
