@@ -64,7 +64,15 @@ class TranslatorUI(QWidget):
         main_layout.addLayout(result_layout)
 
         self.setLayout(main_layout)
-        
+
+        # Nút micro
+        self.micro_btn = QToolButton()
+        self.micro_btn.setIcon(QIcon.fromTheme("microphone"))
+        self.micro_btn.setText("🎤")
+        self.micro_btn.setToolTip("Ấn để nói")
+        lang_layout.addWidget(self.micro_btn)
+        main_layout.addLayout(result_layout)
+        self.setLayout(main_layout)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = TranslatorUI()
