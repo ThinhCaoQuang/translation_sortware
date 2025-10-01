@@ -36,3 +36,13 @@ def main(page: ft.Page):
 # Công cụ copy & đọc
     copy_btn = ft.IconButton(icon="content_copy", tooltip="Copy")
     speak_btn = ft.IconButton(icon="volume_up", tooltip="Đọc")
+# Layout
+    page.add(
+        ft.Row([src_lang, swap_btn, dst_lang, file_btn, img_btn], alignment="start"),
+        input_text,
+        ft.Row([context_check, translate_btn], alignment="spaceBetween"),
+        output_text,
+        ft.Row([copy_btn, speak_btn], alignment="end"),
+    )
+
+ft.app(target=main)
