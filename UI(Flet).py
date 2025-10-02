@@ -45,4 +45,24 @@ def main(page: ft.Page):
         ft.Row([copy_btn, speak_btn], alignment="end"),
     )
 
+# Input text có nút micro ở bên phải
+    input_text = ft.TextField(
+        label="Nhập văn bản",
+        multiline=True,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+        suffix=ft.IconButton(icon="mic", tooltip="Ghi âm"),
+    )
+
+# Output
+    output_text = ft.TextField(
+        label="Kết quả dịch",
+        multiline=True,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+        read_only=True,
+    )
+
 ft.app(target=main)
