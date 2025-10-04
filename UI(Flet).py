@@ -28,11 +28,11 @@ def main(page: ft.Page):
         value="Tiếng Anh",
         width=150,
     )
-# Nút chức năng (dùng string icon thay vì flet.icons)
-    swap_btn = ft.IconButton(icon="compare_arrows", tooltip="Đổi chiều")
-    file_btn = ft.IconButton(icon="upload_file", tooltip="Tải file")
-    img_btn = ft.IconButton(icon="image", tooltip="Tải ảnh")
+    # Nút chức năng (dùng string icon thay vì flet.icons)
+        swap_btn = ft.IconButton(icon="compare_arrows", tooltip="Đổi chiều")
+        file_btn = ft.IconButton(icon="upload_file", tooltip="Tải file")
+        img_btn = ft.IconButton(icon="image", tooltip="Tải ảnh")
 
-# Công cụ copy & đọc
-    copy_btn = ft.IconButton(icon="content_copy", tooltip="Copy")
-    speak_btn = ft.IconButton(icon="volume_up", tooltip="Đọc")
+    # Công cụ copy & đọc
+        copy_btn = ft.IconButton(icon="content_copy", tooltip="Copy")
+        speak_btn = ft.IconButton(icon="volume_up", tooltip="Đọc")
