@@ -1,48 +1,68 @@
-import requests
-
-API_KEY = ""  # thay bằng key thật
-API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+from typing import Optional
+from openai import OpenAI
+from config import settings
 
 LANGUAGES = {
     "Auto Detect": "auto",
-    "English": "en",
-    "Vietnamese": "vi",
-    "French": "fr",
-    "Japanese": "ja",
-    "Chinese": "zh"
+    "Tiếng Việt": "vi",
+    "Tiếng Anh": "en",
+    "Tiếng Nhật": "ja",
+    "Tiếng Pháp": "fr",
+    "Tiếng Trung": "zh",
+    "Tiếng Hàn": "ko",
+    "Tiếng Đức": "de",
+    "Tiếng Thái": "th",
+    "Tiếng Indonesia": "id",
 }
 
-CONTEXTS = ["General", "Study", "Technical", "Travel", "Work", "Gaming"]
+CONTEXTS = [
+    "General","Medical/Healthcare","Technical/IT","Legal/Contracts",
+    "Business/Work","Gaming/Entertainment","Travel/Tourism","Study/Education"
+]
 
-def generate_prompt(context, src_lang, tgt_lang, text):
-    if src_lang == "Auto Detect":
-        src_lang = "the detected source language"
+def _client() -> OpenAI:
+    if not settings.openai_api_key:
+        raise RuntimeError("Chưa đặt OPENAI_API_KEY.")
+    return OpenAI(api_key=settings.openai_api_key)
 
-    if context == "General":
-        return f"Translate the following text from {src_lang} to {tgt_lang}, keeping the meaning natural and accurate:\n{text}"
-    elif context == "Study":
-        return f"Translate the following text from {src_lang} to {tgt_lang} in an educational context, making it clear and easy for students to understand:\n{text}"
-    elif context == "Technical":
-        return f"Translate the following text from {src_lang} to {tgt_lang} in a technical context, keeping the translation precise and using correct technical terms:\n{text}"
-    elif context == "Travel":
-        return f"Translate the following text from {src_lang} to {tgt_lang} in a travel context, making it sound natural and conversational as if used by a traveler:\n{text}"
-    elif context == "Work":
-        return f"Translate the following text from {src_lang} to {tgt_lang} in a professional/business context, using polite and formal language:\n{text}"
-    elif context == "Gaming":
-        return f"Translate the following text from {src_lang} to {tgt_lang} in a gaming context (FPS voice chat), keeping it short, natural, and using gamer slang if appropriate:\n{text}"
-    else:
-        return f"Translate the following text from {src_lang} to {tgt_lang}:\n{text}"
+def _system_prompt(src_code: str, dst_code: str, domain: Optional[str]) -> str:
+    goals = [
+        "You are a professional translator.",
+        "Return only the translated text. No explanations.",
+        "Preserve original line breaks and punctuation.",
+        "Keep code snippets and URLs unchanged.",
+        "If the source language is 'auto', first infer it, then translate."
+    ]
+    if domain and domain != "General":
+        goals.append(f"Bias terminology and tone toward the domain: {domain}.")
+    return "\n".join(goals) + f"\nSource language code: {src_code}. Target language code: {dst_code}."
 
+def translate_text(
+    text: str,
+    src_lang_code: str = "auto",
+    dst_lang_code: str = "en",
+    domain: Optional[str] = None,
+    model: Optional[str] = None,
+) -> str:
+    if not text.strip():
+        return ""
+    client = _client()
+    model = model or settings.openai_text_model
+    system = _system_prompt(src_lang_code, dst_lang_code, domain)
 
-def translate_with_gemini(prompt):
-    headers = {"Content-Type": "application/json"}
-    params = {"key": API_KEY}
-    data = {"contents": [{"parts": [{"text": prompt}]}]}
-
+    resp = client.responses.create(
+        model=model,
+        input=[
+            {"role":"system","content":[{"type":"text","text":system}]},
+            {"role":"user","content":[{"type":"text","text":text}]},
+        ],
+        temperature=0.2,
+    )
     try:
-        response = requests.post(API_URL, headers=headers, params=params, json=data)
-        response.raise_for_status()
-        result = response.json()
-        return result["candidates"][0]["content"]["parts"][0]["text"]
-    except Exception as e:
-        return f"Error: {e}"
+        return (resp.output_text or "").strip()
+    except Exception:
+        parts = []
+        for item in getattr(resp, "output", []):
+            if getattr(item, "type", "") == "output_text":
+                parts.append(getattr(item, "text", ""))
+        return "\n".join(p for p in parts if p).strip()
