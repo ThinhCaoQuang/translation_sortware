@@ -1,5 +1,3 @@
-# speech_to_text.py
-
 from openai import OpenAI
 from config import settings
 
