@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70"  # thay bằng key thật
+API_KEY = ""
 API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 LANGUAGES = {
