@@ -38,7 +38,7 @@ def main(page: ft.Page):
         width=170,
     )
 
-    swap_btn = ft.IconButton(icon=ft.icons.SWAP_HORIZ, tooltip="Đổi chiều")
+    swap_btn = ft.IconButton(icons=ft.icons.SWAP_HORIZ, tooltip="Đổi chiều")
     def do_swap(e):
         s, d = src_lang.value, dst_lang.value
         src_lang.value, dst_lang.value = d, s
@@ -118,13 +118,13 @@ def main(page: ft.Page):
 
     pick_any.on_result = on_pick_any
 
-    file_btn = ft.IconButton(icon=ft.icons.UPLOAD_FILE, tooltip="Mở .txt",
+    file_btn = ft.IconButton(icons=ft.icons.UPLOAD_FILE, tooltip="Mở .txt",
                              on_click=lambda e: pick_txt.pick_files(allow_multiple=False, allowed_extensions=["txt"]))
-    img_btn  = ft.IconButton(icon=ft.icons.IMAGE, tooltip="Mở ảnh/âm thanh/khác",
+    img_btn  = ft.IconButton(icons=ft.icons.IMAGE, tooltip="Mở ảnh/âm thanh/khác",
                              on_click=lambda e: pick_any.pick_files(allow_multiple=False))
 
     # -------------------- Copy / Speak --------------------
-    copy_btn = ft.IconButton(icon=ft.icons.CONTENT_COPY, tooltip="Copy")
+    copy_btn = ft.IconButton(icons=ft.icons.CONTENT_COPY, tooltip="Copy")
     def do_copy(e):
         page.set_clipboard(output_text.value or "")
         page.snack_bar = ft.SnackBar(ft.Text("Đã copy vào clipboard"))
@@ -132,7 +132,7 @@ def main(page: ft.Page):
         page.update()
     copy_btn.on_click = do_copy
 
-    speak_btn = ft.IconButton(icon=ft.icons.VOLUME_UP, tooltip="Đọc")
+    speak_btn = ft.IconButton(icons=ft.icons.VOLUME_UP, tooltip="Đọc")
     def do_speak(e):
         try:
             speak(output_text.value or "")
