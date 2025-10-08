@@ -1,6 +1,6 @@
 import os
 import flet as ft
-from API import translate_text, LANGUAGES, CONTEXTS
+from api import translate_text, LANGUAGES, CONTEXTS
 from text_to_speech import speak
 from speech_to_text import transcribe_audio
 
