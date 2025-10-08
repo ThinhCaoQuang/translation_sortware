@@ -1,80 +1,186 @@
-import sys
-from PyQt6.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QHBoxLayout,
-    QLabel, QTextEdit, QPushButton, QComboBox, QToolButton
-)
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon
+import os
+import flet as ft
+from api import translate_text, LANGUAGES, CONTEXTS
+from text_to_speech import speak
+from speech_to_text import transcribe_audio
 
-class TranslatorUI(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Phần mềm dịch thuật")
-        self.resize(700, 450)
+# OCR: dùng nếu có, nếu thiếu sẽ báo snack bar khi bấm
+try:
+    from PIL import Image
+    import pytesseract
+    _HAS_OCR = True
+except Exception:
+    _HAS_OCR = False
 
-        main_layout = QVBoxLayout()
 
-        # Tiêu đề
-        title = QLabel("Phần mềm dịch thuật")
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        main_layout.addWidget(title)
+def _lang_code(display: str) -> str:
+    return LANGUAGES.get(display, "auto")
 
-        # Ô nhập
-        self.input_text = QTextEdit()
-        self.input_text.setPlaceholderText("Nhập văn bản cần dịch...")
-        main_layout.addWidget(self.input_text)
 
-        # HBox cho ngôn ngữ và nút dịch
-        lang_layout = QHBoxLayout()
+def main(page: ft.Page):
+    page.title = "Phần mềm dịch thuật"
+    page.theme_mode = "dark"
+    page.padding = 20
+    page.vertical_alignment = "start"
+    page.scroll = "adaptive"
 
-        self.lang_src = QComboBox()
-        self.lang_src.addItems(["Tiếng Anh", "Tiếng Việt", "Tiếng Nhật", "Tiếng Trung"])
-        lang_layout.addWidget(self.lang_src)
+    # -------------------- Language controls --------------------
+    src_lang = ft.Dropdown(
+        label="Ngôn ngữ nguồn",
+        options=[ft.dropdown.Option(lang) for lang in LANGUAGES.keys()],
+        value="Auto Detect",
+        width=170,
+    )
+    dst_lang = ft.Dropdown(
+        label="Ngôn ngữ đích",
+        options=[ft.dropdown.Option(lang) for lang in LANGUAGES.keys()],
+        value="Tiếng Việt",
+        width=170,
+    )
 
-        # Nút đảo ngôn ngữ
-        self.swap_btn = QPushButton("↔")
-        self.swap_btn.setFixedWidth(40)
-        lang_layout.addWidget(self.swap_btn)
+    swap_btn = ft.IconButton(icons=ft.icons.SWAP_HORIZ, tooltip="Đổi chiều")
+    def do_swap(e):
+        s, d = src_lang.value, dst_lang.value
+        src_lang.value, dst_lang.value = d, s
+        page.update()
+    swap_btn.on_click = do_swap
 
-        self.lang_dst = QComboBox()
-        self.lang_dst.addItems(["Tiếng Việt", "Tiếng Anh", "Tiếng Nhật", "Tiếng Trung"])
-        lang_layout.addWidget(self.lang_dst)
+    # -------------------- Text fields --------------------
+    input_text = ft.TextField(
+        label="Nhập văn bản",
+        multiline=True,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+    )
+    output_text = ft.TextField(
+        label="Kết quả dịch",
+        multiline=True,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+        read_only=True,
+    )
 
-        # Nút dịch
-        self.translate_btn = QPushButton("Dịch")
-        lang_layout.addWidget(self.translate_btn)
+    # -------------------- Context / Domain --------------------
+    use_context = ft.Checkbox(label="Dịch theo ngữ cảnh")
+    domain_dd = ft.Dropdown(
+        label="Ngữ cảnh",
+        options=[ft.dropdown.Option(x) for x in CONTEXTS],
+        value="General",
+        width=220,
+    )
 
-        main_layout.addLayout(lang_layout)
+    # -------------------- File pickers --------------------
+    pick_txt = ft.FilePicker()
+    pick_any = ft.FilePicker()
+    page.overlay.append(pick_txt)
+    page.overlay.append(pick_any)
 
-        # HBox cho kết quả + loa
-        result_layout = QHBoxLayout()
+    def on_pick_txt(e: ft.FilePickerResultEvent):
+        if e.files:
+            p = e.files[0].path
+            try:
+                with open(p, "r", encoding="utf-8", errors="ignore") as rf:
+                    input_text.value = rf.read()
+                page.update()
+            except Exception as ex:
+                page.snack_bar = ft.SnackBar(ft.Text(f"Lỗi đọc file: {ex}"))
+                page.snack_bar.open = True
+                page.update()
 
-        self.output_text = QTextEdit()
-        self.output_text.setReadOnly(True)
-        self.output_text.setPlaceholderText("Kết quả dịch sẽ hiện ở đây...")
-        result_layout.addWidget(self.output_text)
+    pick_txt.on_result = on_pick_txt
 
-        # Nút loa (biểu tượng speaker)
-        self.speaker_btn = QToolButton()
-        self.speaker_btn.setIcon(QIcon.fromTheme("audio-volume-high"))  # Dùng icon hệ thống
-        self.speaker_btn.setText("🔊")  # fallback nếu không có icon
-        self.speaker_btn.setToolTip("Nghe kết quả dịch")
-        result_layout.addWidget(self.speaker_btn)
+    def on_pick_any(e: ft.FilePickerResultEvent):
+        if not e.files:
+            return
+        p = e.files[0].path.lower()
+        try:
+            if p.endswith((".wav", ".mp3", ".m4a", ".flac", ".ogg")):
+                # STT cho file âm thanh
+                txt = transcribe_audio(e.files[0].path)
+                input_text.value = txt
+            elif p.endswith((".png", ".jpg", ".jpeg", ".bmp", ".tiff")):
+                # OCR cho ảnh
+                if not _HAS_OCR:
+                    raise RuntimeError("Thiếu thư viện OCR (pillow, pytesseract).")
+                img = Image.open(e.files[0].path)
+                input_text.value = (pytesseract.image_to_string(img) or "").strip()
+            else:
+                # Thử đọc như .txt
+                with open(e.files[0].path, "r", encoding="utf-8", errors="ignore") as rf:
+                    input_text.value = rf.read()
+            page.update()
+        except Exception as ex:
+            page.snack_bar = ft.SnackBar(ft.Text(f"Lỗi xử lý file: {ex}"))
+            page.snack_bar.open = True
+            page.update()
 
-        main_layout.addLayout(result_layout)
+    pick_any.on_result = on_pick_any
 
-        self.setLayout(main_layout)
+    file_btn = ft.IconButton(icons=ft.icons.UPLOAD_FILE, tooltip="Mở .txt",
+                             on_click=lambda e: pick_txt.pick_files(allow_multiple=False, allowed_extensions=["txt"]))
+    img_btn  = ft.IconButton(icons=ft.icons.IMAGE, tooltip="Mở ảnh/âm thanh/khác",
+                             on_click=lambda e: pick_any.pick_files(allow_multiple=False))
 
-        # Nút micro
-        self.micro_btn = QToolButton()
-        self.micro_btn.setIcon(QIcon.fromTheme("microphone"))
-        self.micro_btn.setText("🎤")
-        self.micro_btn.setToolTip("Ấn để nói")
-        lang_layout.addWidget(self.micro_btn)
-        main_layout.addLayout(result_layout)
-        self.setLayout(main_layout)
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = TranslatorUI()
-    window.show()
-    sys.exit(app.exec())
+    # -------------------- Copy / Speak --------------------
+    copy_btn = ft.IconButton(icons=ft.icons.CONTENT_COPY, tooltip="Copy")
+    def do_copy(e):
+        page.set_clipboard(output_text.value or "")
+        page.snack_bar = ft.SnackBar(ft.Text("Đã copy vào clipboard"))
+        page.snack_bar.open = True
+        page.update()
+    copy_btn.on_click = do_copy
+
+    speak_btn = ft.IconButton(icons=ft.icons.VOLUME_UP, tooltip="Đọc")
+    def do_speak(e):
+        try:
+            speak(output_text.value or "")
+        except Exception as ex:
+            page.snack_bar = ft.SnackBar(ft.Text(f"TTS lỗi: {ex}"))
+            page.snack_bar.open = True
+            page.update()
+    speak_btn.on_click = do_speak
+
+    # -------------------- Translate --------------------
+    prog = ft.ProgressBar(visible=False)
+    translate_btn = ft.ElevatedButton(text="Dịch")
+
+    def do_translate(e):
+        text = (input_text.value or "").strip()
+        if not text:
+            page.snack_bar = ft.SnackBar(ft.Text("Vui lòng nhập nội dung"))
+            page.snack_bar.open = True
+            page.update()
+            return
+
+        src_code = _lang_code(src_lang.value)
+        dst_code = _lang_code(dst_lang.value)
+        domain = domain_dd.value if use_context.value else None
+
+        translate_btn.disabled = True
+        prog.visible = True
+        page.update()
+
+        def worker():
+            try:
+                result = translate_text(text, src_code, dst_code, domain)
+            except Exception as ex:
+                result = f"[Lỗi] {ex}"
+            output_text.value = result
+            translate_btn.disabled = False
+            prog.visible = False
+            page.update()
+
+        page.run_thread(worker)
+
+    translate_btn.on_click = do_translate
+
+    # -------------------- Layout --------------------
+    page.add(
+        ft.Row([src_lang, swap_btn, dst_lang, file_btn, img_btn], alignment="start"),
+        input_text,
+        ft.Row([use_context, domain_dd, translate_btn, prog], alignment="spaceBetween"),
+        output_text,
+        ft.Row([copy_btn, speak_btn], alignment="end"),
+    )

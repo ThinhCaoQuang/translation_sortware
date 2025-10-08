@@ -1,9 +1,5 @@
-import sys
-from PyQt5.QtWidgets import QApplication
-from gui import TranslatorApp
+import flet as ft
+from ui import main
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = TranslatorApp()
-    window.show()
-    sys.exit(app.exec_())
+    ft.app(target=main)
