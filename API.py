@@ -1,6 +1,7 @@
-from typing import Optional
-from openai import OpenAI
-from config import settings
+import requests
+
+API_KEY = "AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70" 
+API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 LANGUAGES = {
     "Auto Detect": "auto",
@@ -16,53 +17,37 @@ LANGUAGES = {
 }
 
 CONTEXTS = [
-    "General","Medical/Healthcare","Technical/IT","Legal/Contracts",
-    "Business/Work","Gaming/Entertainment","Travel/Tourism","Study/Education"
+    "General", "Medical/Healthcare", "Technical/IT", "Legal/Contracts",
+    "Business/Work", "Gaming/Entertainment", "Travel/Tourism", "Study/Education"
 ]
 
-def _client() -> OpenAI:
-    if not settings.openai_api_key:
-        raise RuntimeError("Chưa đặt OPENAI_API_KEY.")
-    return OpenAI(api_key=settings.openai_api_key)
 
-def _system_prompt(src_code: str, dst_code: str, domain: Optional[str]) -> str:
-    goals = [
-        "You are a professional translator.",
-        "Return only the translated text. No explanations.",
-        "Preserve original line breaks and punctuation.",
-        "Keep code snippets and URLs unchanged.",
-        "If the source language is 'auto', first infer it, then translate."
-    ]
-    if domain and domain != "General":
-        goals.append(f"Bias terminology and tone toward the domain: {domain}.")
-    return "\n".join(goals) + f"\nSource language code: {src_code}. Target language code: {dst_code}."
-
-def translate_text(
-    text: str,
-    src_lang_code: str = "auto",
-    dst_lang_code: str = "en",
-    domain: Optional[str] = None,
-    model: Optional[str] = None,
-) -> str:
+def translate_text(text, src_lang="auto", dst_lang="en", domain="General"):
+    """Dịch văn bản bằng Gemini API"""
     if not text.strip():
         return ""
-    client = _client()
-    model = model or settings.openai_text_model
-    system = _system_prompt(src_lang_code, dst_lang_code, domain)
 
-    resp = client.responses.create(
-        model=model,
-        input=[
-            {"role":"system","content":[{"type":"text","text":system}]},
-            {"role":"user","content":[{"type":"text","text":text}]},
-        ],
-        temperature=0.2,
+    # Prompt hướng dẫn cho AI
+    prompt = (
+        f"You are a professional translator. Translate this text "
+        f"from {src_lang} to {dst_lang}. "
+        f"Preserve formatting and punctuation. "
+        f"Domain: {domain}.\n\n"
+        f"Text:\n{text}"
     )
+
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}]
+    }
+
     try:
-        return (resp.output_text or "").strip()
-    except Exception:
-        parts = []
-        for item in getattr(resp, "output", []):
-            if getattr(item, "type", "") == "output_text":
-                parts.append(getattr(item, "text", ""))
-        return "\n".join(p for p in parts if p).strip()
+        response = requests.post(
+            f"{API_URL}?key={API_KEY}",
+            json=payload,
+            timeout=30
+        )
+        response.raise_for_status()
+        data = response.json()
+        return data["candidates"][0]["content"]["parts"][0]["text"]
+    except Exception as e:
+        return f"[Error when translating: {e}]"

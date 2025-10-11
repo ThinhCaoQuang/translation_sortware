@@ -1,6 +1,6 @@
 import os
 import flet as ft
-from API import translate_text, LANGUAGES, CONTEXTS
+from api import translate_text, LANGUAGES, CONTEXTS
 from text_to_speech import speak
 from speech_to_text import transcribe_audio
 
@@ -38,11 +38,13 @@ def main(page: ft.Page):
         width=170,
     )
 
-    swap_btn = ft.IconButton(icon=ft.icons.SWAP_HORIZ, tooltip="Đổi chiều")
+    swap_btn = ft.IconButton(icon=ft.Icons.SWAP_HORIZ, tooltip="Đổi chiều")
+
     def do_swap(e):
         s, d = src_lang.value, dst_lang.value
         src_lang.value, dst_lang.value = d, s
         page.update()
+
     swap_btn.on_click = do_swap
 
     # -------------------- Text fields --------------------
@@ -97,17 +99,14 @@ def main(page: ft.Page):
         p = e.files[0].path.lower()
         try:
             if p.endswith((".wav", ".mp3", ".m4a", ".flac", ".ogg")):
-                # STT cho file âm thanh
                 txt = transcribe_audio(e.files[0].path)
                 input_text.value = txt
             elif p.endswith((".png", ".jpg", ".jpeg", ".bmp", ".tiff")):
-                # OCR cho ảnh
                 if not _HAS_OCR:
                     raise RuntimeError("Thiếu thư viện OCR (pillow, pytesseract).")
                 img = Image.open(e.files[0].path)
                 input_text.value = (pytesseract.image_to_string(img) or "").strip()
             else:
-                # Thử đọc như .txt
                 with open(e.files[0].path, "r", encoding="utf-8", errors="ignore") as rf:
                     input_text.value = rf.read()
             page.update()
@@ -118,21 +117,30 @@ def main(page: ft.Page):
 
     pick_any.on_result = on_pick_any
 
-    file_btn = ft.IconButton(icon=ft.icons.UPLOAD_FILE, tooltip="Mở .txt",
-                             on_click=lambda e: pick_txt.pick_files(allow_multiple=False, allowed_extensions=["txt"]))
-    img_btn  = ft.IconButton(icon=ft.icons.IMAGE, tooltip="Mở ảnh/âm thanh/khác",
-                             on_click=lambda e: pick_any.pick_files(allow_multiple=False))
+    file_btn = ft.IconButton(
+        icon=ft.Icons.UPLOAD_FILE,
+        tooltip="Mở .txt",
+        on_click=lambda e: pick_txt.pick_files(allow_multiple=False, allowed_extensions=["txt"]),
+    )
+    img_btn = ft.IconButton(
+        icon=ft.Icons.IMAGE,
+        tooltip="Mở ảnh/âm thanh/khác",
+        on_click=lambda e: pick_any.pick_files(allow_multiple=False),
+    )
 
     # -------------------- Copy / Speak --------------------
-    copy_btn = ft.IconButton(icon=ft.icons.CONTENT_COPY, tooltip="Copy")
+    copy_btn = ft.IconButton(icon=ft.Icons.CONTENT_COPY, tooltip="Copy")
+
     def do_copy(e):
         page.set_clipboard(output_text.value or "")
         page.snack_bar = ft.SnackBar(ft.Text("Đã copy vào clipboard"))
         page.snack_bar.open = True
         page.update()
+
     copy_btn.on_click = do_copy
 
-    speak_btn = ft.IconButton(icon=ft.icons.VOLUME_UP, tooltip="Đọc")
+    speak_btn = ft.IconButton(icon=ft.Icons.VOLUME_UP, tooltip="Đọc")
+
     def do_speak(e):
         try:
             speak(output_text.value or "")
@@ -140,6 +148,7 @@ def main(page: ft.Page):
             page.snack_bar = ft.SnackBar(ft.Text(f"TTS lỗi: {ex}"))
             page.snack_bar.open = True
             page.update()
+
     speak_btn.on_click = do_speak
 
     # -------------------- Translate --------------------
