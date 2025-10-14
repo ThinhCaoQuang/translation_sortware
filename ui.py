@@ -143,7 +143,7 @@ def main(page: ft.Page):
 
     def do_speak(e):
         try:
-            speak(output_text.value or "")
+            speak(output_text.value or "", _lang_code(dst_lang.value))  # Dùng ngôn ngữ đích
         except Exception as ex:
             page.snack_bar = ft.SnackBar(ft.Text(f"TTS lỗi: {ex}"))
             page.snack_bar.open = True

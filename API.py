@@ -20,39 +20,57 @@ LANGUAGES = {
 
 CONTEXTS = [
     "General", "Medical/Healthcare", "Technical/IT", "Legal/Contracts",
-    "Business/Work", "Gaming/Entertainment", "Travel/Tourism", "Study/Education"
+    "Business/Work", "Study/Education", "Slang"
 ]
 
-def translate_text(text, src_lang="auto", dst_lang="en", domain="General"):
+def translate_text(text, src_lang="auto", dst_lang="en", domain="General") -> str:
     """Dịch văn bản bằng Gemini API — tự động nhận biết từ đơn hoặc câu"""
     if not text.strip():
         return ""
-
+    context_note = (
+        f"Use terminology appropriate for the field: {domain}."
+        if domain else
+        "Use general, everyday language."
+    )
     # Xác định có phải 1 từ đơn không (chỉ gồm chữ cái và không có khoảng trắng)
-    is_single_word = len(text.strip().split()) == 1 and text.isalpha()
-
-    if is_single_word:
+    words = text.strip().split()
+    is_short_phrase = 1 <= len(words) <= 2 and all(w.isalpha() for w in words)
+    if domain and domain.lower() == "slang":
+        prompt = (
+            f"You are an expert in modern slang and idiomatic expressions.\n"
+            f"Translate or interpret the slang phrase below from {src_lang} to {dst_lang}.\n"
+            f"Give the most natural and concise equivalent in {dst_lang}.\n"
+            f"DO NOT explain or add commentary, just output the translation result.\n\n"
+            f"Text: {text}"
+        )
+    elif is_short_phrase:
         # 🔹 Prompt cho từ đơn — ngắn gọn, đúng định dạng
         prompt = (
-            f"You are a bilingual dictionary assistant. Analyze the single word below.\n"
-            f"Source language: {src_lang}, Target language: {dst_lang}, Domain: {domain}.\n"
+            f"You are a bilingual dictionary assistant.\n"
+            f"The user is reading a text in the field of '{domain}', and wants to understand the word below in that specific context.\n"
+            f"Source language: {src_lang}, Target language: {dst_lang}.\n"
+            f"Explain the word ONLY in the given context.\n"
+            f"IPA Pronunciation:\n"
+            f"- If target language is English → provide IPA of the English translation.\n"
+            f"- If target language is NOT English → provide IPA of the original word ({dst_lang}).\n\n"
             f"Return your answer ONLY in the following exact format (no extra text):\n\n"
-            f"Nghĩa: <nghĩa ngắn gọn>\n"
-            f"Loại từ: <danh từ/động từ/tính từ...>\n"
-            f"Giải thích: <một câu ngắn giải thích nghĩa>\n"
+            f"Nghĩa: <nghĩa ngắn gọn bằng {dst_lang}>\n"
+            f"Loại từ: <tên loại từ bằng tiếng Anh> (<tên loại từ tiếng Việt>)\n"
+            f"Phiên âm: <Phiên âm IPA theo hướng dẫn trên>\n"
+            f"Giải thích: <giải thích ngắn nghĩa theo lĩnh vực {domain} > – <dịch tiếng Việt>\n"
             f"Ví dụ:\n"
-            f"1. <câu ví dụ 1> – <dịch nghĩa>\n"
-            f"2. <câu ví dụ 2> – <dịch nghĩa>\n"
-            f"3. <câu ví dụ 3> – <dịch nghĩa>\n\n"
+            f"1. <câu ví dụ 1 > – <dịch nghĩa>\n"
+            f"2. <câu ví dụ 2 > – <dịch nghĩa>\n"
+            f"3. <câu ví dụ 3 > – <dịch nghĩa>\n\n"
             f"Word: {text}"
         )
     else:
         # 🔹 Prompt cho câu hoặc đoạn
         prompt = (
-            f"You are a professional translator. Translate this text "
+            f"You are a professional translator. Translate the following text "
             f"from {src_lang} to {dst_lang}. "
-            f"Preserve formatting and punctuation. "
-            f"Domain: {domain}.\n\n"
+            f"Preserve formatting, punctuation, and meaning.\n"
+            f"Use terminology appropriate for the domain: {domain}.\n\n"
             f"Text:\n{text}"
         )
 
