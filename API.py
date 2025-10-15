@@ -57,7 +57,7 @@ def translate_text(text, src_lang="auto", dst_lang="en", domain="General") -> st
             f"Nghĩa: <nghĩa ngắn gọn bằng {dst_lang}>\n"
             f"Loại từ: <tên loại từ bằng tiếng Anh> (<tên loại từ tiếng Việt>)\n"
             f"Phiên âm: <Phiên âm IPA theo hướng dẫn trên>\n"
-            f"Giải thích: <giải thích ngắn nghĩa theo lĩnh vực {domain} > – <dịch tiếng Việt>\n"
+            f"Giải thích: <giải thích ngắn nghĩa theo lĩnh vực {domain} bằng {src_lang} > – <dịch tiếng Việt>\n"
             f"Ví dụ:\n"
             f"1. <câu ví dụ 1 > – <dịch nghĩa>\n"
             f"2. <câu ví dụ 2 > – <dịch nghĩa>\n"
