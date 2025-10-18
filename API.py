@@ -67,14 +67,23 @@ def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> st
         )
     else:
         #  Prompt cho câu hoặc đoạn
-        prompt = (
-            f"You are a professional translator. Translate the following text "
-            f"from {src_lang} to {dst_lang}. "
-            f"Preserve formatting, punctuation, and meaning.\n"
-            f"If the text contains idioms, translate them into their natural and equivalent idiomatic expression in {dst_lang}, "
-            f"without providing explanations or literal meanings.\n\n"
-            f"Text:\n{text}"
-        )
+        if not domain or domain.lower() in ["daily", "none", ""]:
+             prompt = (
+                f"You are a neutral translator.\n"
+                f"Translate the following text from {src_lang} to {dst_lang} literally.\n"
+                f"Do NOT interpret idioms, slang, or figurative meanings.\n"
+                f"Preserve structure, punctuation, and literal meaning exactly.\n\n"
+                f"Text:\n{text}"
+            )
+        else:
+            prompt = (
+                f"You are a professional translator. Translate the following text "
+                f"from {src_lang} to {dst_lang}. "
+                f"Preserve formatting, punctuation, and meaning.\n"
+                f"If the text contains idioms, translate them into their natural and equivalent idiomatic expression in {dst_lang}, "
+                f"without providing explanations or literal meanings.\n\n"
+                f"Text:\n{text}"
+            )
 
     # Payload gửi đến Gemini API
     payload = {"contents": [{"parts": [{"text": prompt}]}]}
@@ -92,13 +101,3 @@ def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> st
     except Exception as e:
         return f"[Error when translating: {e}]"
 
-
-#  Ví dụ sử dụng:
-if __name__ == "__main__":
-    # Ví dụ 1: dịch một từ đơn
-    print("---- Ví dụ: từ đơn ----")
-    print(translate_text("love", "en", "vi"))
-
-    # Ví dụ 2: dịch một câu
-    print("\n---- Ví dụ: câu ----")
-    print(translate_text("I love programming.", "en", "vi"))

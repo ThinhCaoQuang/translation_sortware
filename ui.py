@@ -34,9 +34,15 @@ def main(page: ft.Page):
         value="Tiếng Việt",
         width=330,
     )
+    
+    theme_btn = ft.IconButton(icon=ft.Icons.LIGHT_MODE, tooltip="Chuyển chế độ nền")
+    def toggle_theme(e):
+        page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
+        theme_btn.icon = ft.Icons.DARK_MODE if page.theme_mode == "light" else ft.Icons.LIGHT_MODE
+        page.update()
+    theme_btn.on_click = toggle_theme
 
     swap_btn = ft.IconButton(icon=ft.Icons.SWAP_HORIZ, tooltip="Đổi chiều")
-
     def do_swap(e):
         s, d = src_lang.value, dst_lang.value
         src_lang.value, dst_lang.value = d, s
@@ -73,7 +79,13 @@ def main(page: ft.Page):
         options=[ft.dropdown.Option(x) for x in CONTEXTS],
         value="Daily",
         width=300,
+        opacity=0,
+        animate_opacity=300
     )
+    def toggle_context(e):
+        domain_dd.opacity = 1.0 if use_context.value else 0.0
+        page.update()
+    use_context.on_change = toggle_context
 
     # -------------------- File pickers --------------------
     pick_txt = ft.FilePicker()
@@ -249,11 +261,19 @@ def main(page: ft.Page):
 
     # -------------------- Layout --------------------
     page.add(
-        ft.Row([src_lang, swap_btn, dst_lang, file_btn, img_btn, mic_btn, history_btn], alignment="start"),
+        ft.Row([src_lang, swap_btn, dst_lang, file_btn, img_btn, mic_btn, history_btn, theme_btn], alignment="start", scroll="adaptive"),
         input_text,
-        ft.Row([use_context, domain_dd, translate_btn, prog], alignment="spaceBetween"),
+        ft.Row(
+            [ 
+                ft.Row([use_context, domain_dd],spacing= 30),
+                translate_btn,
+                prog
+            ],
+            alignment="spaceBetween"),
         output_text,
         ft.Row([copy_btn, speak_btn], alignment="end"),
     )
     page.overlay.append(page.snack_bar)
+    page.horizontal_alignment = "stretch"
+
 
