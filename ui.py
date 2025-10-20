@@ -2,9 +2,9 @@ import flet as ft
 from docx import Document
 from api import translate_text, LANGUAGES, CONTEXTS
 from text_to_speech import speak
-from speech_to_text import transcribe_audio
+from speech_to_text import transcribe_audio, start_recording
 from languages import LANGUAGES
-from history import init_db, add_history, get_history
+from history import init_db, add_history, get_history   
 
 
 def _lang_code(display: str) -> str:
@@ -173,24 +173,46 @@ def main(page: ft.Page):
     speak_btn.on_click = do_speak
 
     mic_btn = ft.IconButton(icon=ft.Icons.MIC, tooltip="Ghi âm")
-
+    recording = False
+    record_spinner = ft.ProgressRing(width=20, height=20, visible=False)
     def do_record(e):
-        try:
-            text = transcribe_audio(lang="vi-VN")
-            input_text.value = text
+        nonlocal recording
+        if not recording:
+        # Bắt đầu ghi âm
+            record_spinner.visible = True
+            mic_btn.icon_color = "red"
+            recording = True
             page.update()
-        except Exception as ex:
-            page.snack_bar.content.value = "Lỗi ghi âm: {ex}"
-            page.snack_bar.open = True
-            page.update()
-
+            page.run_thread(start_recording)
+        else:
+        # Dừng ghi âm và nhận dạng
+            recording = False
+            def worker():
+                src_code = _lang_code(src_lang.value)
+                if src_code == "auto":
+                    src_code = "en"  # fallback mặc định
+                text = transcribe_audio(lang=src_code)
+                input_text.value = text  # chỉ đưa vào ô nhập
+                record_spinner.visible = False
+                mic_btn.icon_color = None
+                page.update()
+            page.run_thread(worker)
     mic_btn.on_click = do_record
 
     # -------------------- Translate --------------------
     prog = ft.ProgressBar(visible=False)
-    translate_btn = ft.ElevatedButton(text="Dịch")
+    loading_ring = ft.ProgressRing(width=16, height=16, visible=False)
+
+    # Nút dịch ban đầu
+    translate_btn = ft.ElevatedButton(
+        text="Dịch",
+        icon=ft.Icons.TRANSLATE,
+        disabled=False,
+    )
 
     def do_translate(e):
+        nonlocal src_lang, dst_lang, use_context
+
         text = (input_text.value or "").strip()
         if not text:
             page.snack_bar.content.value = "Vui lòng nhập nội dung"
@@ -202,11 +224,16 @@ def main(page: ft.Page):
         dst_code = _lang_code(dst_lang.value)
         domain = domain_dd.value if use_context.value else None
 
+        # Khi bắt đầu dịch
+        translate_btn.text = "Đang dịch..."
+        translate_btn.icon = None
         translate_btn.disabled = True
+        loading_ring.visible = True
         prog.visible = True
         page.update()
 
         def worker():
+            nonlocal text
             try:
                 result = translate_text(text, src_code, dst_code, domain)
             except Exception as ex:
@@ -214,8 +241,12 @@ def main(page: ft.Page):
 
             add_history(src_code, dst_code, text, result, domain)
 
+            # Khi hoàn tất → trả lại trạng thái nút ban đầu
             output_text.value = result
+            translate_btn.text = "Dịch"
+            translate_btn.icon = ft.Icons.TRANSLATE
             translate_btn.disabled = False
+            loading_ring.visible = False
             prog.visible = False
             page.update()
 
@@ -261,19 +292,17 @@ def main(page: ft.Page):
 
     # -------------------- Layout --------------------
     page.add(
-        ft.Row([src_lang, swap_btn, dst_lang, file_btn, img_btn, mic_btn, history_btn, theme_btn], alignment="start", scroll="adaptive"),
+        ft.Row([src_lang, swap_btn, dst_lang, file_btn, img_btn, mic_btn, record_spinner, history_btn, theme_btn], alignment="start", scroll="adaptive"),
         input_text,
         ft.Row(
             [ 
                 ft.Row([use_context, domain_dd],spacing= 30),
-                translate_btn,
-                prog
+                ft.Row([translate_btn,prog], spacing =10, alignment="center")
             ],
-            alignment="spaceBetween"),
+            alignment="spaceBetween"
+        ),
         output_text,
         ft.Row([copy_btn, speak_btn], alignment="end"),
     )
     page.overlay.append(page.snack_bar)
     page.horizontal_alignment = "stretch"
-
-

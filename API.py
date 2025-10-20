@@ -17,7 +17,6 @@ CONTEXTS = [
 LANGUAGES = []
 
 def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> str:
-    """Dịch văn bản bằng Gemini API — tự động nhận biết từ đơn hoặc câu"""
     if not text.strip():
         return ""
 # Tự động nhận dạng ngôn ngữ nếu người chọn "auto"
