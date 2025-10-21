@@ -116,26 +116,24 @@ def main(page: ft.Page):
         img_path = e.files[0].path
         try:
             img = Image.open(img_path)
+            # Lấy mã ngôn ngữ OCR
             src_code = _lang_code(src_lang.value)
-            lang_code = {
-                "vi": "vie",
-                "en": "eng"
-            }.get(src_code, "eng")  # fallback nếu không rõ
             if src_lang.value == "Auto Detect":
                 ocr_lang = "vie+eng"
-                page.snack_bar.content.value = "Ảnh có nhiều ngôn ngữ, đang dùng OCR: vie+eng"
-                page.snack_bar.open = True
-                page.update()
+            elif src_code == "vi":
+                ocr_lang = "vie"
             else:
-                ocr_lang = lang_code
-            text = pytesseract.image_to_string(img, lang=ocr_lang)
-            input_text.value = text
+                ocr_lang = "eng"
+            # Thêm config để cải thiện OCR tiếng Việt
+            config = "--oem 1 --psm 6"  # engine LSTM + layout dạng đoạn văn
+            text = pytesseract.image_to_string(img, lang=ocr_lang, config=config)
+            input_text.value = text.strip()
             page.snack_bar.content.value = "Đã trích xuất chữ từ ảnh"
             page.snack_bar.open = True
             page.update()
         except Exception as ex:
             input_text.value = f"[Lỗi OCR: {ex}]"
-        page.update()
+            page.update()
 
     pick_img.on_result = on_pick_image
 
