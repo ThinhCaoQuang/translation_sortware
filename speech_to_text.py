@@ -36,7 +36,18 @@ def stop_recording():
     if not frames:
         return None
     audio = np.concatenate(frames, axis=0)
-    return audio
+    try:
+        import noisereduce as nr
+        print("Đang lọc nhiễu, vui lòng đợi...")
+        reduced = nr.reduce_noise(y=audio.astype(np.float32), sr=samplerate)
+        print("Hoàn tất lọc nhiễu.")
+        return reduced.astype(np.int16)  # chuyển lại int16 để lưu WAV
+    except ImportError:
+        print("Chưa cài noisereduce. Dùng âm thanh gốc.")
+        return audio
+    except Exception as e:
+        print(f"Lỗi khi lọc nhiễu: {e}")
+        return audio
 
 def transcribe_audio(lang="vi"):
     """Dừng ghi và gửi audio đến Gemini để nhận dạng"""
