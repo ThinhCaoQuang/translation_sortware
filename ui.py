@@ -4,7 +4,7 @@ from api import translate_text, LANGUAGES, CONTEXTS
 from text_to_speech import speak
 from speech_to_text import transcribe_audio, start_recording
 from languages import LANGUAGES
-from history import init_db, add_history, get_history   
+from history import init_db, add_history, get_history
 
 
 def _lang_code(display: str) -> str:
@@ -14,11 +14,13 @@ def _lang_code(display: str) -> str:
 def main(page: ft.Page):
     page.title = "Phần mềm dịch thuật"
     page.theme_mode = "dark"
+    page.window_maximized = True    
     page.padding = 20
     page.vertical_alignment = "start"
     page.scroll = "adaptive"
     page.snack_bar = ft.SnackBar(content=ft.Text(""), duration=3000)
     init_db()
+
 
     # -------------------- Language controls --------------------
     src_lang = ft.Dropdown(
@@ -71,6 +73,8 @@ def main(page: ft.Page):
         expand=True,
         read_only=True,
     )
+    last_history = ft.Text("", selectable=True, size=13, color=toggle_theme)
+
 
     # -------------------- Context / Domain --------------------
     use_context = ft.Checkbox(label="Dịch theo ngữ cảnh")
@@ -238,7 +242,13 @@ def main(page: ft.Page):
                 result = f"[Lỗi] {ex}"
 
             add_history(src_code, dst_code, text, result, domain)
-
+            from datetime import datetime
+            now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            last_history.value = (
+            f"Lịch sử dịch mới nhất:\n"
+            f"{src_code} → {dst_code} | {now}\n"
+            f"{text} → {result}"
+            )
             # Khi hoàn tất → trả lại trạng thái nút ban đầu
             output_text.value = result
             translate_btn.text = "Dịch"
@@ -262,31 +272,73 @@ def main(page: ft.Page):
             page.update()
             return
 
+        search_box = ft.TextField(label="Tìm kiếm", width=400)
         history_view = ft.ListView(expand=True)
-        for src, dst, text_in, text_out, ctx, created in items:
-            history_view.controls.append(
-                ft.ListTile(
-                    title=ft.Text(f"{src} → {dst} | {ctx or 'Không rõ ngữ cảnh'} | {created}"),
-                    subtitle=ft.Text(f" {text_in}\n {text_out}"),
-                    dense=True
+
+        def refresh_view(keyword=""):
+            history_view.controls.clear()
+            for src, dst, text_in, text_out, ctx, created in items:
+                if keyword.lower() in text_in.lower() or keyword.lower() in text_out.lower():
+                    text_color = ft.Colors.BLACK if page.theme_mode == "light" else ft.Colors.WHITE
+                    sub_color = ft.Colors.GREY_800 if page.theme_mode == "light" else ft.Colors.GREY_400
+                    history_view.controls.append(
+                    ft.ListTile(
+                        title=ft.Text(f"{src} → {dst} | {ctx or 'Không có ngữ cảnh'} | {created}",color=text_color, weight="bold",),
+                        subtitle=ft.Text(f" {text_in}\n {text_out}", color= sub_color, selectable= True),
+                        dense=True
+                    )
                 )
-            )
+            page.update()
+
+        refresh_view()
+
+        def on_search(e):
+            refresh_view(search_box.value)
+
+        def clear_history(e):
+            import sqlite3
+            conn = sqlite3.connect("history.db")
+            conn.execute("DELETE FROM history")
+            conn.commit()
+            conn.close()
+            history_view.controls.clear()
+            page.snack_bar.content.value = "Đã xóa toàn bộ lịch sử"
+            page.snack_bar.open = True
+            page.update()
+
+        def export_history(e):
+            with open("history_export.txt", "w", encoding="utf-8") as f:
+                for src, dst, text_in, text_out, ctx, created in items:
+                    f.write(f"{created} | {src} → {dst} ({ctx})\n{text_in}\n→ {text_out}\n\n")
+            page.snack_bar.content.value = "Đã xuất ra file history_export.txt"
+            page.snack_bar.open = True
+            page.update()
+
+        actions = [
+            ft.TextButton("Tìm", on_click=on_search),
+            ft.TextButton("Xuất lịch sử", on_click=export_history),
+            ft.TextButton("Xóa lịch sử", on_click=clear_history),
+            ft.TextButton("Đóng", on_click=lambda e: close_dialog(e)),
+        ]
 
         def close_dialog(e):
             page.dialog.open = False
             page.update()
 
         dlg = ft.AlertDialog(
-            title=ft.Text(" Lịch sử dịch gần đây"),
-            content=ft.Container(history_view, width=600, height=400),
-            actions=[ft.TextButton("Đóng", on_click=close_dialog)]
+            title=ft.Text("📜 Lịch sử dịch"),
+            content=ft.Container(
+                ft.Column([search_box, history_view], expand=True),
+                width=600,
+                height=450
+            ),
+            actions=actions
         )
 
         page.dialog = dlg
         page.dialog.open = True
         page.update()
-
-    history_btn.on_click = show_history    
+    history_btn.on_click = show_history
 
     # -------------------- Layout --------------------
     page.add(
@@ -301,6 +353,7 @@ def main(page: ft.Page):
         ),
         output_text,
         ft.Row([copy_btn, speak_btn], alignment="end"),
+        last_history,
     )
     page.overlay.append(page.snack_bar)
     page.horizontal_alignment = "stretch"
