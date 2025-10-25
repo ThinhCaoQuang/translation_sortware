@@ -260,12 +260,12 @@ def main(page: ft.Page):
         realtime_indicator.visible = realtime_enabled
         
         if realtime_enabled:
-            page.snack_bar.content.value = "⚡ Đã bật dịch tự động - Gõ để dịch ngay lập tức"
+            page.snack_bar.content.value = " Đã bật dịch tự động - Gõ để dịch ngay lập tức"
             # Reset trạng thái nút dịch khi ẩn
             translate_btn.text = "Dịch"
             translate_btn.disabled = False
         else:
-            page.snack_bar.content.value = "⏸️ Đã tắt dịch tự động - Sử dụng nút dịch thủ công"
+            page.snack_bar.content.value = "⏸ Đã tắt dịch tự động - Sử dụng nút dịch thủ công"
         
         page.snack_bar.open = True
         page.update()
@@ -384,11 +384,11 @@ def main(page: ft.Page):
                                 history_text = ""
                                 
                                 for i, (src, dst, text_in, text_out, ctx, created) in enumerate(recent_items, 1):
-                                    history_text += f"🔹 {created} | {src} → {dst}\n"
-                                    history_text += f"📝 Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
-                                    history_text += f"✨ Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
+                                    history_text += f" {created} | {src} → {dst}\n"
+                                    history_text += f" Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
+                                    history_text += f" Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
                                     if ctx:
-                                        history_text += f"🏷️ Ngữ cảnh: {ctx}\n"
+                                        history_text += f" Ngữ cảnh: {ctx}\n"
                                     history_text += "─" * 50 + "\n\n"
                                 
                                 last_history.value = history_text.strip()
@@ -778,21 +778,21 @@ def main(page: ft.Page):
                         text = r.recognize_google(audio, language=recognition_lang)
                         if text.strip():
                             input_text.value = text
-                            page.snack_bar.content.value = f"✅ Đã chuyển đổi: {text[:40]}{'...' if len(text) > 40 else ''}"
+                            page.snack_bar.content.value = f" Đã chuyển đổi: {text[:40]}{'...' if len(text) > 40 else ''}"
                         else:
-                            page.snack_bar.content.value = "⚠️ Không phát hiện được giọng nói rõ ràng"
+                            page.snack_bar.content.value = " Không phát hiện được giọng nói rõ ràng"
                     
                     except sr.UnknownValueError:
-                        page.snack_bar.content.value = "❌ Không thể nhận dạng giọng nói. Hãy thử nói rõ hơn."
+                        page.snack_bar.content.value = " Không thể nhận dạng giọng nói. Hãy thử nói rõ hơn."
                     except sr.RequestError as ex:
-                        page.snack_bar.content.value = f"❌ Lỗi dịch vụ nhận dạng: {str(ex)[:50]}..."
+                        page.snack_bar.content.value = f" Lỗi dịch vụ nhận dạng: {str(ex)[:50]}..."
                     except Exception as ex:
-                        page.snack_bar.content.value = f"❌ Lỗi: {str(ex)[:50]}..."
+                        page.snack_bar.content.value = f" Lỗi: {str(ex)[:50]}..."
                         
                 except sr.WaitTimeoutError:
-                    page.snack_bar.content.value = "⏰ Hết thời gian chờ. Vui lòng thử lại."
+                    page.snack_bar.content.value = " Hết thời gian chờ. Vui lòng thử lại."
                 except Exception as ex:
-                    page.snack_bar.content.value = f"❌ Lỗi ghi âm: {str(ex)[:50]}..."
+                    page.snack_bar.content.value = f" Lỗi ghi âm: {str(ex)[:50]}..."
                 
                 finally:
                     # Reset trạng thái UI
@@ -899,11 +899,11 @@ def main(page: ft.Page):
                     history_text = ""
                     
                     for i, (src, dst, text_in, text_out, ctx, created) in enumerate(recent_items, 1):
-                        history_text += f"🔹 {created} | {src} → {dst}\n"
-                        history_text += f"📝 Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
-                        history_text += f"✨ Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
+                        history_text += f" {created} | {src} → {dst}\n"
+                        history_text += f" Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
+                        history_text += f" Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
                         if ctx:
-                            history_text += f"🏷️ Ngữ cảnh: {ctx}\n"
+                            history_text += f" Ngữ cảnh: {ctx}\n"
                         history_text += "─" * 50 + "\n\n"
                     
                     last_history.value = history_text.strip()
