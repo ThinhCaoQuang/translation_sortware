@@ -950,11 +950,11 @@ def main(page: ft.Page):
             history_text = ""
             
             for i, (src, dst, text_in, text_out, ctx, created) in enumerate(recent_items, 1):
-                history_text += f"🔹 {created} | {src} → {dst}\n"
-                history_text += f"📝 Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
-                history_text += f"✨ Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
+                history_text += f" {created} | {src} → {dst}\n"
+                history_text += f" Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
+                history_text += f" Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
                 if ctx:
-                    history_text += f"🏷️ Ngữ cảnh: {ctx}\n"
+                    history_text += f" Ngữ cảnh: {ctx}\n"
                 history_text += "─" * 50 + "\n\n"
             
             last_history.value = history_text.strip()
