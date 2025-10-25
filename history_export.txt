@@ -1,0 +1,471 @@
+2025-10-25 23:35:04 | auto → vi (Không có ngữ cảnh)
+Đầu vào: hello
+Kết quả: Nghĩa : Xin chào
+Loại từ : interjektio (thán từ)
+Phiên âm : N/A
+Giải thích : Yleinen tervehdys – Lời chào hỏi thông thường
+Ví dụ :
+1. Hello, how are you? – Xin chào, bạn khỏe không?
+2. She said hello and smiled. – Cô ấy nói xin chào và mỉm cười.
+3. Just say hello, it's polite. – Chỉ cần nói xin chào, đó là lịch sự.
+
+
+2025-10-25 23:20:03 | en → vi (Daily)
+Đầu vào: angel
+Kết quả: Nghĩa : thiên thần
+Loại từ : noun (danh từ)
+Phiên âm : /ˈeɪndʒəl/
+Giải thích : a very kind, helpful, or beautiful person – một người rất tốt bụng, hay giúp đỡ hoặc xinh đẹp
+Ví dụ :
+1. My sister is an absolute angel for helping me with the kids. – Chị gái tôi thật sự là một thiên thần khi giúp tôi chăm sóc bọn trẻ.
+2. She's been an angel to me since I lost my job. – Cô ấy đã rất tốt với tôi kể từ khi tôi mất việc.
+3. He’s such an angel, he always helps me with the shopping. – Anh ấy thật là một người tốt bụng, anh ấy luôn giúp tôi mua sắm.
+
+
+2025-10-25 23:19:51 | auto → vi (Daily)
+Đầu vào: angel
+Kết quả: Nghĩa : thiên thần, người tốt bụng
+Loại từ : substantiv (danh từ)
+Phiên âm : [ˈæŋɡəl]
+Giải thích : En person, der er meget venlig, hjælpsom og uselvisk – Một người rất tốt bụng, hay giúp đỡ và vị tha
+Ví dụ :
+1. Hun er en engel, der altid hjælper andre. – Cô ấy là một thiên thần, luôn giúp đỡ người khác.
+2. Min mor er en engel i mit liv. – Mẹ tôi là một thiên thần trong cuộc đời tôi.
+3. Du er en engel for at hjælpe mig med dette. – Bạn thật là một thiên thần khi giúp tôi việc này.
+
+
+2025-10-25 23:16:05 | en → vi (Technical/IT)
+Đầu vào: public class HelloWord{
+	public stactic void main (string [] args){
+			System.out.println ("Hello Word");
+	}
+}
+Kết quả: ```java
+public class HelloWord{
+	public stactic void main (string [] args){
+			System.out.println ("Hello Word");
+	}
+}
+```
+
+
+2025-10-25 23:16:01 | en → vi (Không có ngữ cảnh)
+Đầu vào: public class HelloWord{
+	public stactic void main (string [] args){
+			System.out.println ("Hello Word");
+	}
+}
+Kết quả: public class HelloWord{
+	public stactic void main (string [] args){
+			System.out.println ("Hello Word");
+	}
+}
+
+
+2025-10-25 23:15:53 | en → vi (Không có ngữ cảnh)
+Đầu vào: public class HelloWord{
+	public stactic void main (string [] args){
+			System.out.println ("Hello Word");
+	}
+}
+Kết quả: public class HelloWord{
+	public stactic void main (string [] args){
+			System.out.println ("Hello Word");
+	}
+}
+
+
+2025-10-25 23:15:43 | en → vi (Không có ngữ cảnh)
+Đầu vào: hello im Thinh from group3_ DH22TIN04
+Kết quả: xin chào tôi là Thinh từ nhóm3_ DH22TIN04
+
+
+2025-10-25 23:15:07 | en → vi (Không có ngữ cảnh)
+Đầu vào: hello
+Kết quả: Nghĩa : xin chào
+Loại từ : interjection (thán từ)
+Phiên âm : /hɛˈloʊ/
+Giải thích : a greeting – lời chào
+Ví dụ :
+1. Hello, how are you? – Xin chào, bạn khỏe không?
+2. Hello, is anyone there? – Xin chào, có ai ở đó không?
+3. Just say hello when you see her. – Hãy nói xin chào khi bạn gặp cô ấy.
+
+
+2025-10-24 14:04:05 | auto → en (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : hello/hi
+Loại từ : thán từ (interjection)
+Phiên âm : /ˌsɪn ˈtʃaʊ/
+Giải thích : lời chào hỏi lịch sự khi gặp mặt hoặc bắt đầu cuộc trò chuyện – a polite greeting used when meeting someone or starting a conversation.
+Ví dụ :
+1. Xin chào, rất vui được gặp bạn! – Hello, nice to meet you!
+2. Xin chào mọi người, tôi là Lan. – Hi everyone, I'm Lan.
+3. "Xin chào" là cách nói "hello" trong tiếng Việt. – "Xin chào" is how you say "hello" in Vietnamese.
+
+
+2025-10-21 16:14:56 | auto → en (Không có ngữ cảnh)
+Đầu vào: cuộc sống
+Kết quả: Nghĩa : life
+Loại từ : danh từ (noun)
+Phiên âm : /laɪf/
+Giải thích : trạng thái tồn tại, hoạt động và phát triển của con người hoặc sinh vật – the condition that distinguishes organisms from inorganic matter, including the capacity for growth, reproduction, functional activity, and continual change preceding death.
+Ví dụ :
+1. Cuộc sống ở thành phố rất ồn ào. – Life in the city is very noisy.
+2. Tôi yêu cuộc sống của tôi. – I love my life.
+3. Cô ấy đã có một cuộc sống hạnh phúc. – She had a happy life.
+
+
+2025-10-21 16:14:26 | auto → vi (Không có ngữ cảnh)
+Đầu vào: chào
+Kết quả: Nghĩa : lời nói hoặc cử chỉ khi gặp hoặc tạm biệt
+Loại từ : danh từ (danh từ), động từ (động từ)
+Phiên âm : [tɕaw]
+Giải thích : Lời nói hoặc hành động thể hiện sự tôn trọng, thân thiện khi gặp gỡ hoặc chia tay. – Một cách để thể hiện sự tôn trọng, thân thiện khi gặp mặt hoặc tạm biệt ai đó.
+Ví dụ :
+1. Chào buổi sáng! – Chúc một buổi sáng tốt lành!
+2. Cô ấy chào tôi bằng một nụ cười tươi. – Cô ấy chào tôi bằng một nụ cười tươi.
+3. Chúng ta nên chào hỏi mọi người một cách lịch sự. – Chúng ta nên chào hỏi mọi người một cách lịch sự.
+
+
+2025-10-21 16:13:48 | auto → vi (Không có ngữ cảnh)
+Đầu vào: hehe
+Kết quả: [Error when translating: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70]
+
+2025-10-21 16:13:08 | auto → vi (Không có ngữ cảnh)
+Đầu vào: chào
+Kết quả: Nghĩa : lời nói hoặc cử chỉ khi gặp mặt hoặc tạm biệt
+Loại từ : danh từ (danh từ)
+Phiên âm : [tɕaːw]
+Giải thích : Hành động thể hiện sự tôn trọng, thân thiện khi gặp gỡ hoặc chia tay ai đó. – Hành động thể hiện sự tôn trọng, thân thiện khi gặp gỡ hoặc chia tay ai đó.
+Ví dụ :
+1. "Chào buổi sáng!" – "Chào buổi sáng!"
+2. Anh ta gật đầu chào tôi. – Anh ta gật đầu chào tôi.
+3. Chúng tôi vẫy tay chào tạm biệt. – Chúng tôi vẫy tay chào tạm biệt.
+
+
+2025-10-21 16:11:46 | auto → vi (Không có ngữ cảnh)
+Đầu vào: Xin chào
+Kết quả: [Error when translating: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70]
+
+2025-10-21 15:57:41 | auto → vi (Không có ngữ cảnh)
+Đầu vào: chào mọi người
+Kết quả: chào mọi người
+
+
+2025-10-21 15:57:14 | auto → vi (Không có ngữ cảnh)
+Đầu vào: Xin chào
+Kết quả: Nghĩa : lời chào hỏi
+Loại từ : thán từ (từ cảm thán)
+Phiên âm : [sin tɕaːw]
+Giải thích : lời nói dùng khi gặp mặt để thể hiện sự tôn trọng hoặc lịch sự – a greeting
+Ví dụ :
+1. Xin chào mọi người! – Hello everyone!
+2. Tôi xin chào và chúc mừng tất cả quý vị đại biểu. – I would like to greet and congratulate all the delegates.
+3. Xin chào, tôi có thể giúp gì cho bạn? – Hello, how can I help you?
+
+
+2025-10-21 15:56:07 | auto → en (Không có ngữ cảnh)
+Đầu vào: chài
+Kết quả: Nghĩa : to cast a net
+Loại từ : động từ (verb)
+Phiên âm : /tʃaɪ/
+Giải thích : hành động quăng lưới để bắt cá hoặc tôm – the action of casting a net to catch fish or shrimp
+Ví dụ :
+1. Anh ấy đang chài cá trên sông. – He is casting a net to catch fish on the river.
+2. Người dân ở đây sống bằng nghề chài lưới. – The people here live by fishing.
+3. Chài tôm là một hoạt động phổ biến ở vùng quê này. – Shrimp netting is a common activity in this rural area.
+
+
+2025-10-21 15:56:02 | auto → en (Không có ngữ cảnh)
+Đầu vào: chài
+Kết quả: [Error when translating: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70]
+
+2025-10-21 15:54:58 | auto → vi (Không có ngữ cảnh)
+Đầu vào: cahò
+Kết quả: Nghĩa : tiếng reo hò, cổ vũ
+Loại từ : danh từ (danh từ)
+Phiên âm : /kaːˈhoː/
+Giải thích : tiếng la lớn thể hiện sự phấn khích, ủng hộ hoặc cổ vũ. – tiếng reo hò, cổ vũ
+
+Ví dụ :
+1. Tiếng cahò vang dội khắp sân vận động khi đội nhà ghi bàn. – Tiếng reo hò vang dội khắp sân vận động khi đội nhà ghi bàn.
+2. Anh ta nhận được những tràng cahò từ đám đông sau bài phát biểu đầy cảm hứng. – Anh ấy nhận được những tràng reo hò từ đám đông sau bài phát biểu đầy cảm hứng.
+3. Đoàn người cahò nhiệt tình khi nhìn thấy thần tượng của mình. – Đoàn người reo hò nhiệt tình khi nhìn thấy thần tượng của mình.
+
+
+2025-10-21 15:54:09 | auto → en (Không có ngữ cảnh)
+Đầu vào: chào mày
+Kết quả: Nghĩa : hello (informal)
+Loại từ : thán từ (interjection)
+Phiên âm : /ˌtʃaʊ ˈmaɪ/
+Giải thích : Cách chào thân mật, suồng sã giữa những người quen biết hoặc bạn bè, thường được dùng trong giao tiếp không trang trọng. – An informal greeting used between acquaintances or friends, typically in casual settings.
+Ví dụ :
+1. Chào mày, khỏe không? – Hey, how are you?
+2. Chào mày, lâu rồi không gặp! – Hi, long time no see!
+3. Chào mày, đi đâu đấy? – Hello, where are you going?
+
+
+2025-10-21 15:47:58 | en → vi (Không có ngữ cảnh)
+Đầu vào: fucking crazy
+Kết quả: Nghĩa : vô cùng điên rồ
+Loại từ : adjective phrase (cụm tính từ)
+Phiên âm : N/A
+Giải thích : Extremely crazy; intensifies the adjective "crazy", often used for emphasis or to express strong emotion. – Cực kỳ điên rồ; tăng cường ý nghĩa của tính từ "crazy", thường được sử dụng để nhấn mạnh hoặc thể hiện cảm xúc mạnh mẽ.
+Ví dụ :
+1. That was a fucking crazy party last night! – Bữa tiệc tối qua thật là điên rồ!
+2. He's driving me fucking crazy with all his questions. – Anh ta làm tôi phát điên với tất cả những câu hỏi của anh ta.
+3. This traffic is fucking crazy! – Giao thông này thật điên rồ!
+
+
+2025-10-21 15:47:47 | en → vi (Không có ngữ cảnh)
+Đầu vào: fuck
+Kết quả: Nghĩa : chửi thề, giao cấu
+Loại từ : verb (động từ)
+Phiên âm : N/A
+Giải thích : A vulgar term used as an expletive, to express anger, contempt, or annoyance, or to describe sexual intercourse. – Một từ ngữ thô tục được sử dụng như một lời chửi thề, để thể hiện sự tức giận, khinh bỉ hoặc khó chịu, hoặc để mô tả sự giao hợp.
+Ví dụ :
+1. Fuck this shit! – Địt mẹ cái thứ rác rưởi này!
+2. He told me to fuck off. – Anh ta bảo tôi cút xéo đi.
+3. I don't give a fuck. – Tôi đếch quan tâm.
+
+
+2025-10-21 15:47:32 | en → vi (Idiom)
+Đầu vào: fuck
+Kết quả: Nghĩa : chửi thề, giao cấu
+Loại từ : interjection (thán từ), verb (động từ)
+Phiên âm : N/A
+Giải thích : As an interjection, it expresses strong emotions like anger, frustration, or surprise. As a verb, it refers to sexual intercourse. In idioms, it's often used to intensify meaning or express disdain. – Là một thán từ, nó diễn tả những cảm xúc mạnh mẽ như tức giận, thất vọng hoặc ngạc nhiên. Là một động từ, nó đề cập đến giao hợp. Trong thành ngữ, nó thường được sử dụng để tăng cường ý nghĩa hoặc thể hiện sự khinh miệt.
+Ví dụ :
+1. Fuck! I can't believe I forgot my keys. – Chết tiệt! Tôi không thể tin được là tôi đã quên chìa khóa.
+2. He told me to fuck off. – Anh ta bảo tôi biến đi.
+3. Don't fuck with me. – Đừng có mà gây sự với tôi.
+
+
+2025-10-21 15:47:27 | en → vi (Idiom)
+Đầu vào: fuck boy
+Kết quả: Nghĩa : trai đểu
+Loại từ : noun (danh từ)
+Phiên âm : N/A
+Giải thích : A man who manipulates and mistreats women emotionally. – Một người đàn ông thao túng và đối xử tệ bạc với phụ nữ về mặt tình cảm.
+Ví dụ :
+1. He's a total fuck boy, always leading girls on and then disappearing. – Hắn ta là một thằng trai đểu chính hiệu, luôn tán tỉnh con gái rồi biến mất.
+2. I should have known he was a fuck boy when he started love-bombing me. – Lẽ ra tôi nên biết hắn ta là một thằng trai đểu khi hắn bắt đầu oanh tạc tình yêu tôi.
+3. Don't waste your time on him, he's just another fuck boy looking for a quick ego boost. – Đừng lãng phí thời gian vào hắn, hắn chỉ là một thằng trai đểu khác đang tìm kiếm sự thỏa mãn cái tôi nhanh chóng.
+
+
+2025-10-21 15:47:22 | en → vi (Idiom)
+Đầu vào: fuck boy
+Kết quả: Nghĩa : trai đểu, sở khanh
+Loại từ : noun (danh từ)
+Phiên âm : N/A
+Giải thích : A man who is perceived as being disrespectful, manipulative, and dishonest in his relationships with women. Often characterized by a lack of commitment and emotional unavailability. – Một người đàn ông bị coi là thiếu tôn trọng, hay thao túng và không trung thực trong các mối quan hệ với phụ nữ. Thường được đặc trưng bởi sự thiếu cam kết và không sẵn sàng về mặt cảm xúc.
+Ví dụ :
+1. He's such a fuck boy; he strings girls along and then ghosts them. – Anh ta đúng là một thằng trai đểu; anh ta lừa dối các cô gái và sau đó biến mất.
+2. I used to fall for fuck boys all the time, but now I know better. – Trước đây tôi toàn yêu phải mấy thằng sở khanh, nhưng giờ tôi khôn ra rồi.
+3. Don't be a fuck boy; treat women with respect. – Đừng là một thằng trai đểu; hãy đối xử với phụ nữ một cách tôn trọng.
+
+
+2025-10-21 15:46:57 | en → vi (Idiom)
+Đầu vào: fuck boy
+Kết quả: Nghĩa : trai đểu
+Loại từ : noun (danh từ)
+Phiên âm : N/A
+Giải thích : A man who dates multiple women, manipulates them, and avoids commitment. – Một người đàn ông hẹn hò với nhiều phụ nữ, thao túng họ và trốn tránh sự cam kết.
+Ví dụ :
+1. He's a total fuck boy, don't trust him. – Anh ta là một thằng trai đểu chính hiệu, đừng tin anh ta.
+2. She realized he was a fuck boy when he started ghosting her. – Cô ấy nhận ra anh ta là một thằng trai đểu khi anh ta bắt đầu bơ cô ấy.
+3. Avoid fuck boys at all costs, they'll break your heart. – Tránh xa những thằng trai đểu bằng mọi giá, chúng sẽ làm tan nát trái tim bạn.
+
+
+2025-10-21 15:46:46 | vi → en (Idiom)
+Đầu vào: con người tệ bạc
+Kết quả: ungrateful person
+
+
+2025-10-21 15:45:32 | auto → vi (Không có ngữ cảnh)
+Đầu vào: its coming from
+Kết quả: của nó đến từ
+
+
+2025-10-21 15:38:43 | auto → en (Không có ngữ cảnh)
+Đầu vào: con người
+Kết quả: Nghĩa : human being; person
+Loại từ : danh từ (noun)
+Phiên âm : /ˈpiːrsn/
+Giải thích : một cá nhân thuộc loài người – an individual of the human species
+Ví dụ :
+1. Con người có khả năng suy nghĩ và học hỏi. – Human beings have the ability to think and learn.
+2. Mỗi con người đều có quyền bình đẳng. – Every person has equal rights.
+3. Nghiên cứu về con người là một lĩnh vực khoa học rộng lớn. – The study of human beings is a vast field of science.
+
+
+2025-10-21 15:38:00 | auto → vi (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : lời chào hỏi
+Loại từ : cụm từ (cụm từ)
+Phiên âm : [sin tɕaw]
+Giải thích : lời chào trang trọng, lịch sự khi gặp mặt hoặc bắt đầu một cuộc trò chuyện – lời chào trang trọng, lịch sự khi gặp mặt hoặc bắt đầu một cuộc trò chuyện.
+Ví dụ :
+1. "Xin chào, rất vui được gặp bạn!" – "Xin chào, rất vui được gặp bạn!"
+2. "Xin chào mọi người, tôi là..." – "Xin chào mọi người, tôi là..."
+3. Cô ấy nói "xin chào" với một nụ cười tươi. – Cô ấy nói "xin chào" với một nụ cười tươi.
+
+
+2025-10-21 15:36:28 | auto → vi (Không có ngữ cảnh)
+Đầu vào: konichiwa
+Kết quả: Nghĩa : Xin chào (tiếng Nhật)
+Loại từ : nomino (danh từ)
+Phiên âm : [ko.ni.t͡ɕi.wa]
+Giải thích : Salamu ya Kijapani inayotumika wakati wa mchana – Lời chào tiếng Nhật thường được sử dụng vào ban ngày.
+Ví dụ :
+1. Alisema "Konichiwa" alipoingia ofisini. – Anh ấy nói "Konichiwa" khi bước vào văn phòng.
+2. Wanafunzi walisema konichiwa kwa mwalimu wao. – Các học sinh chào "Konichiwa" với giáo viên của họ.
+3. Katika somo la Kijapani, tulijifunza kusema konichiwa. – Trong bài học tiếng Nhật, chúng tôi đã học cách nói konichiwa.
+
+
+2025-10-21 15:34:58 | auto → ko (Không có ngữ cảnh)
+Đầu vào: xin chào mọi người
+Kết quả: 안녕하세요 모든 사람
+
+
+2025-10-21 15:28:02 | auto → vi (Không có ngữ cảnh)
+Đầu vào: i cant do this
+Kết quả: Tôi không thể làm điều này.
+
+
+2025-10-21 15:25:04 | auto → vi (Idiom)
+Đầu vào: break a leg
+Kết quả: Chúc may mắn!
+
+
+2025-10-21 15:24:12 | auto → ko (Không có ngữ cảnh)
+Đầu vào: xem
+Kết quả: Nghĩa : 보다
+Loại từ : động từ (동사)
+Phiên âm : [sem]
+Giải thích : Hành động sử dụng mắt để nhận biết hoặc quan sát một cái gì đó. – 눈을 사용하여 무언가를 인지하거나 관찰하는 행위.
+Ví dụ :
+1. Tôi muốn xem phim tối nay. – 오늘 밤 영화를 보고 싶어요.
+2. Bạn đã xem tin tức chưa? – 뉴스를 봤어요?
+3. Hãy xem xét vấn đề này một cách cẩn thận. – 이 문제를 신중하게 검토해 봅시다.
+
+
+2025-10-21 15:22:35 | auto → vi (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : lời chào hỏi
+Loại từ : cụm từ (cụm từ)
+Phiên âm : [sin tɕaw]
+Giải thích : Lời chào trang trọng và lịch sự trong tiếng Việt, thường được sử dụng khi bắt đầu một cuộc trò chuyện hoặc gặp gỡ ai đó. – A formal and polite greeting in Vietnamese, typically used when starting a conversation or meeting someone.
+Ví dụ :
+1. Xin chào, rất vui được gặp bạn. – Hello, nice to meet you.
+2. Xin chào buổi sáng! – Good morning!
+3. Xin chào tất cả mọi người! – Hello everyone!
+
+
+2025-10-21 15:21:38 | auto → th (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : สวัสดี
+Loại từ : cụm từ (วลี)
+Phiên âm : [sàʔwàtdii]
+Giải thích : lời chào hỏi thông thường trong tiếng Việt, dùng để thể hiện sự tôn trọng và lịch sự khi gặp gỡ ai đó – คำทักทายทั่วไปในภาษาเวียดนาม ใช้แสดงความเคารพและสุภาพเมื่อพบปะใครบางคน
+Ví dụ :
+1. Xin chào, rất vui được gặp bạn! – สวัสดี ยินดีที่ได้รู้จักค่ะ/ครับ!
+2. Tôi muốn học cách nói "xin chào" bằng tiếng Việt. – ฉันอยากเรียนรู้วิธีพูดคำว่า "สวัสดี" เป็นภาษาเวียดนาม
+3. Khi đến Việt Nam, bạn nên nói "xin chào" để chào mọi người. – เมื่อมาถึงเวียดนาม คุณควรพูดว่า "สวัสดี" เพื่อทักทายทุกคน
+
+
+2025-10-21 15:04:13 | auto → en (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : hello
+Loại từ : thán từ (interjection)
+Phiên âm : [ˌsɪn ˈtʃaʊ]
+Giải thích : lời chào hỏi lịch sự, thường dùng khi bắt đầu một cuộc trò chuyện hoặc gặp gỡ ai đó – a polite greeting, commonly used to start a conversation or when meeting someone.
+Ví dụ :
+1. Xin chào, rất vui được gặp bạn! – Hello, nice to meet you!
+2. Xin chào buổi sáng! – Good morning!
+3. Tôi muốn nói "xin chào" với tất cả mọi người. – I want to say "hello" to everyone.
+
+
+2025-10-21 15:04:06 | auto → vi (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : lời chào
+Loại từ : cụm từ (cụm từ)
+Phiên âm : [sin t͡ɕaːw]
+Giải thích : lời chào hỏi trang trọng, lịch sự khi gặp mặt hoặc bắt đầu một cuộc trò chuyện – lời chào
+Ví dụ :
+1. Xin chào, rất vui được gặp bạn. – Chào bạn, rất vui được gặp bạn.
+2. Xin chào quý khách, chúng tôi có thể giúp gì cho quý khách? – Xin chào quý khách, chúng tôi có thể giúp gì cho quý khách?
+3. Cô ấy nói "xin chào" với một nụ cười tươi. – Cô ấy nói "xin chào" với một nụ cười tươi.
+
+
+2025-10-21 14:57:59 | auto → vi (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: Nghĩa : lời chào
+Loại từ : cụm từ (cụm từ)
+Phiên âm : [sin tɕaːw]
+Giải thích : Lời chào hỏi trang trọng, lịch sự khi gặp mặt hoặc bắt đầu một cuộc giao tiếp – một lời chào trang trọng, lịch sự khi gặp ai đó hoặc bắt đầu một cuộc trò chuyện.
+Ví dụ :
+1. Xin chào, rất vui được gặp bạn. – Xin chào, rất vui được gặp bạn.
+2. Cô ấy nói "xin chào" và mỉm cười. – Cô ấy nói "xin chào" và mỉm cười.
+3. Xin chào tất cả mọi người, tôi là... – Xin chào tất cả mọi người, tôi là...
+
+
+2025-10-21 14:57:55 | auto → vi (Không có ngữ cảnh)
+Đầu vào: xin chào
+Kết quả: [Error when translating: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70]
+
+2025-10-21 10:37:10 | auto → vi (Không có ngữ cảnh)
+Đầu vào: 谢谢，谢谢啊。
+Kết quả: Cảm ơn, cảm ơn nhé.
+
+
+2025-10-21 10:37:01 | auto → vi (Không có ngữ cảnh)
+Đầu vào: 谢谢 哥哥。
+Kết quả: Cảm ơn anh trai.
+
+
+2025-10-21 10:36:44 | auto → vi (Không có ngữ cảnh)
+Đầu vào: 你好
+Kết quả: Nghĩa : Xin chào
+Loại từ : 问候语 (Lời chào)
+Phiên âm : [ɲǐ xǎo]
+Giải thích : 表示问候，相当于英语的“Hello” – Lời chào, tương đương với "Hello" trong tiếng Anh.
+Ví dụ :
+1. 你好，最近怎么样？ – Xin chào, dạo này bạn thế nào?
+2. 你好，很高兴认识你。 – Xin chào, rất vui được làm quen với bạn.
+3. 你好！欢迎来到中国！ – Xin chào! Chào mừng đến Trung Quốc!
+
+
+2025-10-21 10:36:39 | auto → vi (Không có ngữ cảnh)
+Đầu vào: 你好。
+Kết quả: 你好。
+
+你好。
+
+
+2025-10-21 10:36:05 | auto → vi (Không có ngữ cảnh)
+Đầu vào: สวัสดีครับ
+Kết quả: Chào bạn ạ.
+
+
+2025-10-21 09:52:57 | fr → vi (Idiom)
+Đầu vào: Merci beaucoup.
+Kết quả: Cảm ơn rất nhiều.
+
+
+2025-10-21 09:49:43 | auto → vi (Idiom)
+Đầu vào: What the fuck?
+Kết quả: Cái đéo gì vậy?
+
+
+2025-10-21 09:49:35 | auto → vi (Không có ngữ cảnh)
+Đầu vào: What the fuck?
+Kết quả: Cái gì sự giao cấu?
+
+
+2025-10-21 09:09:18 | en → vi (Idiom)
+Đầu vào: break a leg
+Kết quả: Chúc may mắn!
+
+

@@ -39,7 +39,11 @@ def speak(text: str, lang_display: str = "Tiếng Anh"):
         pygame.mixer.init()
         pygame.mixer.music.load(temp_path)
         pygame.mixer.music.play()
+        
+        # Chờ cho đến khi phát xong hoặc bị dừng
+        import time
         while pygame.mixer.music.get_busy():
+            time.sleep(0.1)  # Check mỗi 100ms
             continue
 
         pygame.mixer.music.unload()
@@ -47,3 +51,22 @@ def speak(text: str, lang_display: str = "Tiếng Anh"):
 
     except Exception as ex:
         raise RuntimeError(f"TTS lỗi: {ex}")
+
+def stop_speaking():
+    """Dừng phát âm thanh TTS"""
+    try:
+        if pygame.mixer.get_init():
+            pygame.mixer.music.stop()
+            pygame.mixer.music.unload()
+        return True
+    except:
+        return False
+
+def is_speaking():
+    """Kiểm tra xem có đang phát âm thanh không"""
+    try:
+        if pygame.mixer.get_init():
+            return pygame.mixer.music.get_busy()
+        return False
+    except:
+        return False
