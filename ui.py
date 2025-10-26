@@ -486,3 +486,80 @@ def main(page: ft.Page):
     history_btn.on_click = lambda e: HistoryHandler.show_history(
         e, page, history_container, last_history
     )
+    # Input text container
+    input_container = ft.Container(
+        content=ft.Column([
+            ft.Text("Văn bản đầu vào", size=18, weight=ft.FontWeight.BOLD, 
+                   color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_600)),
+            input_text,
+        ], spacing=10),
+        padding=ft.padding.all(20),
+        margin=ft.margin.only(bottom=15),
+        bgcolor=ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.6, ft.Colors.BLUE_50),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        ),
+        border=ft.border.all(1, ft.Colors.with_opacity(0.4, ft.Colors.BLUE)),
+        border_radius=15,
+        shadow=ft.BoxShadow(
+            spread_radius=1,
+            blur_radius=5,
+            color=ft.Colors.with_opacity(0.05, ft.Colors.BLUE),
+            offset=ft.Offset(0, 2),
+        ),
+        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+    )
+
+    # Context and translate section
+    action_container = ft.Container(
+        content=ft.Row([
+            ft.Container(
+                content=ft.Row([use_context, domain_dd], spacing=20),
+                expand=True
+            ),
+            ft.Container(
+                content=ft.Column([
+                    ft.Row([realtime_toggle_container, loading_ring], 
+                          spacing=8, alignment=ft.MainAxisAlignment.END),
+                    prog
+                ], spacing=8),
+                width=250  # Giảm width vì ít control hơn
+            )
+        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+        padding=ft.padding.all(20),
+        margin=ft.margin.only(bottom=15),
+        bgcolor=ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.6, ft.Colors.TEAL_50),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        ),
+        border=ft.border.all(1, ft.Colors.with_opacity(0.4, ft.Colors.TEAL)),
+        border_radius=15,
+        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+    )
+
+    # Output text container
+    output_container = ft.Container(
+        content=ft.Column([
+            ft.Row([
+                ft.Text("Kết quả dịch", size=18, weight=ft.FontWeight.BOLD, 
+                       color=ThemeHandler.get_border_color(page, ft.Colors.GREEN_600)),
+                ft.Row([copy_btn, speak_btn], spacing=10),
+            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+            output_text,
+        ], spacing=10),
+        padding=ft.padding.all(20),
+        margin=ft.margin.only(bottom=15),
+        bgcolor=ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.6, ft.Colors.GREEN_50),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        ),
+        border=ft.border.all(1, ft.Colors.with_opacity(0.4, ft.Colors.GREEN)),
+        border_radius=15,
+        shadow=ft.BoxShadow(
+            spread_radius=1,
+            blur_radius=5,
+color=ft.Colors.with_opacity(0.05, ft.Colors.GREEN),
+            offset=ft.Offset(0, 2),
+        ),
+        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+    )
