@@ -268,3 +268,52 @@ def main(page: ft.Page):
         inactive_track_color=ft.Colors.GREY_300,
         visible=False,  # Ẩn switch
     )
+
+    realtime_toggle_container = ft.Container(
+        content=ft.Row([
+            ft.Icon(ft.Icons.AUTORENEW, size=16, color=ft.Colors.GREEN_600),
+            ft.Text("Dịch tự động", size=13, weight=ft.FontWeight.W_500, color=ft.Colors.GREEN_600),
+        ], spacing=8, alignment=ft.MainAxisAlignment.END),
+        padding=ft.padding.symmetric(horizontal=8, vertical=4),
+        border_radius=8,
+        visible=True,  # Luôn hiển thị thông báo
+    )
+    
+    # Indicator trạng thái realtime
+    realtime_indicator = ft.Container(
+        content=ft.Row([
+            ft.Icon(ft.Icons.AUTORENEW, size=14, color=ft.Colors.WHITE),
+            ft.Text("AUTO", size=10, color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD)
+        ], spacing=3, alignment=ft.MainAxisAlignment.CENTER),
+        visible=False,
+        animate_opacity=300,
+        padding=ft.padding.symmetric(horizontal=8, vertical=4),
+        bgcolor=ft.Colors.GREEN_600,
+        border_radius=12,
+        width=65,
+        height=26,
+    )
+    
+    # Nút dịch thủ công - ẩn vì dùng realtime
+    translate_btn = ft.ElevatedButton(
+        text="Dịch",
+        disabled=False,
+        height=45,
+        width=100,
+        visible=False,  # Ẩn nút dịch thủ công
+        animate_opacity=300,
+        style=ft.ButtonStyle(
+            color={
+                ft.ControlState.DEFAULT: ft.Colors.WHITE,
+                ft.ControlState.DISABLED: ft.Colors.GREY_400,
+            },
+            bgcolor={
+                ft.ControlState.DEFAULT: ft.Colors.BLUE_600,
+                ft.ControlState.HOVERED: ft.Colors.BLUE_700,
+                ft.ControlState.PRESSED: ft.Colors.BLUE_800,
+                ft.ControlState.DISABLED: ft.Colors.GREY_300,
+            },
+            elevation={ft.ControlState.DEFAULT: 2, ft.ControlState.HOVERED: 4},
+            shape=ft.RoundedRectangleBorder(radius=8),
+        )
+    )
