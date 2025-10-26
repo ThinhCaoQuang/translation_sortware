@@ -211,3 +211,21 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.DEEP_ORANGE)},
         )
     )
+    # Nút ghi âm
+    mic_btn = ft.IconButton(
+        icon=ft.Icons.MIC, 
+        tooltip="🎤 Ghi âm để dịch",
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.RED_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.RED)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.RED)},
+        )
+    )
+    
+    record_spinner = ft.ProgressRing(
+        width=20, 
+        height=20, 
+        visible=False, 
+        color=ft.Colors.RED_600,
+        stroke_width=3
+    )
