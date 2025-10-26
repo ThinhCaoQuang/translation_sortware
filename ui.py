@@ -1,8 +1,3 @@
-"""
-File giao diện chính cho ứng dụng dịch thuật
-Chỉ chứa các thành phần UI và layout, logic xử lý được tách ra handlers.py
-"""
-
 import flet as ft
 from api import CONTEXTS
 from languages import LANGUAGES
@@ -15,7 +10,6 @@ from handlers import (
 
 def main(page: ft.Page):
     """Hàm chính khởi tạo giao diện ứng dụng"""
-    
     # ==================== CẤU HÌNH TRANG CHÍNH ====================
     page.title = "🌐 Translation App"
     page.theme_mode = "dark"
@@ -273,22 +267,23 @@ def main(page: ft.Page):
     
     # ==================== REALTIME CONTROLS ====================
     
-    # Toggle switch cho realtime
+    # Toggle switch cho realtime - ẩn vì luôn bật
     realtime_switch = ft.Switch(
-        value=False,
+        value=True,  # Bật mặc định
         active_color=ft.Colors.GREEN_600,
         inactive_thumb_color=ft.Colors.GREY_400,
         inactive_track_color=ft.Colors.GREY_300,
+        visible=False,  # Ẩn switch
     )
     
     realtime_toggle_container = ft.Container(
         content=ft.Row([
-            ft.Icon(ft.Icons.BOLT, size=18, color=ft.Colors.BLUE_600),
-            ft.Text("Dịch tự động", size=13, weight=ft.FontWeight.W_500, color=ft.Colors.BLACK87),
-            realtime_switch,
+            ft.Icon(ft.Icons.AUTORENEW, size=16, color=ft.Colors.GREEN_600),
+            ft.Text("Dịch tự động", size=13, weight=ft.FontWeight.W_500, color=ft.Colors.GREEN_600),
         ], spacing=8, alignment=ft.MainAxisAlignment.END),
         padding=ft.padding.symmetric(horizontal=8, vertical=4),
         border_radius=8,
+        visible=True,  # Luôn hiển thị thông báo
     )
     
     # Indicator trạng thái realtime
@@ -306,13 +301,13 @@ def main(page: ft.Page):
         height=26,
     )
     
-    # Nút dịch thủ công
+    # Nút dịch thủ công - ẩn vì dùng realtime
     translate_btn = ft.ElevatedButton(
         text="Dịch",
         disabled=False,
         height=45,
         width=100,
-        visible=True,
+        visible=False,  # Ẩn nút dịch thủ công
         animate_opacity=300,
         style=ft.ButtonStyle(
             color={
@@ -422,10 +417,12 @@ def main(page: ft.Page):
     theme_btn.on_click = toggle_theme
     
     # Gán event handlers cho các controls
-    realtime_switch.on_change = lambda e: translation_handler.toggle_realtime(
-        e, page, translate_btn, loading_ring, prog, realtime_indicator
-    )
+    # Realtime switch ẩn nhưng vẫn cần event handler (không dùng nữa)
+    # realtime_switch.on_change = lambda e: translation_handler.toggle_realtime(
+    #     e, page, translate_btn, loading_ring, prog, realtime_indicator
+    # )
     
+    # Realtime đã được bật mặc định trong AppState, chỉ cần setup input handler
     input_text.on_change = lambda e: translation_handler.on_input_change(
         e, page, input_text, output_text, prog, src_lang, dst_lang, 
         domain_dd, use_context, history_container, last_history
@@ -536,11 +533,11 @@ def main(page: ft.Page):
             ),
             ft.Container(
                 content=ft.Column([
-                    ft.Row([realtime_toggle_container, realtime_indicator, loading_ring, translate_btn], 
+                    ft.Row([realtime_toggle_container, loading_ring], 
                           spacing=8, alignment=ft.MainAxisAlignment.END),
                     prog
                 ], spacing=8),
-                width=340
+                width=250  # Giảm width vì ít control hơn
             )
         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
         padding=ft.padding.all(20),

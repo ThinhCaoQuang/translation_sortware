@@ -1,0 +1,477 @@
+📊 LỊCH SỬ DỊCH THUẬT - XUẤT NGÀY 26/10/2025 17:12:52
+============================================================
+
+[001] 2025-10-26 17:08:27 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: that was fire
+✅ Kết quả: chất phát ngất
+
+--------------------------------------------------
+
+[002] 2025-10-26 17:08:21 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: that was fire
+✅ Kết quả: cháy quá
+
+--------------------------------------------------
+
+[003] 2025-10-26 17:08:18 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: that was fire
+✅ Kết quả: cháy quá
+
+--------------------------------------------------
+
+[004] 2025-10-26 17:08:16 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: that was fire
+✅ Kết quả: cháy quá
+
+--------------------------------------------------
+
+[005] 2025-10-26 17:08:08 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: that was fire
+✅ Kết quả: cháy quá
+
+--------------------------------------------------
+
+[006] 2025-10-26 17:08:00 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: that was lit
+✅ Kết quả: cháy quá!
+
+--------------------------------------------------
+
+[007] 2025-10-26 17:07:55 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: that was lit
+✅ Kết quả: cháy hết mình
+
+--------------------------------------------------
+
+[008] 2025-10-26 17:07:48 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: that was lit
+✅ Kết quả: Cháy quá!
+
+--------------------------------------------------
+
+[009] 2025-10-26 17:07:20 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: he lit
+✅ Kết quả: anh ấy ngầu đét
+
+--------------------------------------------------
+
+[010] 2025-10-26 17:07:15 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he lit
+✅ Kết quả: anh ấy chuồn
+
+--------------------------------------------------
+
+[011] 2025-10-26 17:07:13 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he lit
+✅ Kết quả: anh ấy chuồn
+
+--------------------------------------------------
+
+[012] 2025-10-26 17:07:10 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he lits
+✅ Kết quả: anh ta "bật đèn xanh"
+
+--------------------------------------------------
+
+[013] 2025-10-26 17:07:05 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he lit
+✅ Kết quả: anh ấy chuồn
+
+--------------------------------------------------
+
+[014] 2025-10-26 17:06:43 | auto → vi
+📝 Đầu vào: he lit
+✅ Kết quả: Nghĩa : Anh ấy đã thắp/đốt/chiếu sáng
+Loại từ : Động từ (quá khứ đơn)
+Phiên âm : /hiː lɪt/
+Giải thích : "He lit" là dạng quá khứ đơn của động từ "to light" (thắp, đốt, chiếu sáng) ngôi thứ ba số ít, diễn tả hành động thắp sáng, đốt lửa hoặc làm cho vật gì đó sáng lên do một người đàn ông hoặc con trai thực hiện trong quá khứ.
+Ví dụ :
+* He lit a candle in the dark room. (Anh ấy đã thắp một ngọn nến trong căn phòng tối.)
+* He lit the campfire to keep warm. (Anh ấy đã đốt đống lửa trại để giữ ấm.)
+* He lit up the room with his smile. (Anh ấy đã làm bừng sáng cả căn phòng bằng nụ cười của mình.)
+
+--------------------------------------------------
+
+[015] 2025-10-26 17:04:42 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: function
+✅ Kết quả: chức năng
+
+--------------------------------------------------
+
+[016] 2025-10-26 17:04:25 | auto → vi
+🏷 Ngữ cảnh: Technical/IT
+📝 Đầu vào: function
+✅ Kết quả: Nghĩa : Hàm, Chức năng
+Loại từ : Danh từ (Noun), Động từ (Verb)
+Phiên âm : /ˈfʌŋkʃən/
+
+Giải thích :
+
+*   **Danh từ (Noun):** Trong lĩnh vực kỹ thuật và IT, "function" thường được hiểu là **hàm** (trong lập trình) hoặc **chức năng** (của một hệ thống, phần mềm, thiết bị).
+    *   **Hàm (trong lập trình):** Là một khối mã (code) được đặt tên, thực hiện một tác vụ cụ thể và có thể được gọi (call) nhiều lần từ các phần khác nhau của chương trình. Hàm có thể nhận các tham số (parameters) làm đầu vào và trả về một giá trị (return value) sau khi thực hiện xong. Hàm giúp chia nhỏ các bài toán phức tạp thành các phần nhỏ hơn, dễ quản lý và tái sử dụng.
+    *   **Chức năng (của hệ thống, phần mềm, thiết bị):** Là một khả năng hoặc nhiệm vụ cụ thể mà hệ thống, phần mềm hoặc thiết bị có thể thực hiện. Ví dụ: chức năng in của một máy in, chức năng tìm kiếm của một trang web.
+
+*   **Động từ (Verb):** "Function" có nghĩa là hoạt động, vận hành, hoặc thực hiện một nhiệm vụ cụ thể. Ví dụ, "The program functions as intended" (Chương trình hoạt động như mong đợi). Tuy nhiên, cách sử dụng này ít phổ biến hơn trong ngữ cảnh kỹ thuật/IT so với nghĩa danh từ.
+
+Ví dụ :
+
+1.  This `calculateSum` function takes two numbers as input and returns their sum. – Hàm `calculateSum` này nhận hai số làm đầu vào và trả về tổng của chúng.
+2.  The main function of this software is to manage user accounts. – Chức năng chính của phần mềm này là quản lý tài khoản người dùng.
+3.  The search function allows users to quickly find information on the website. – Chức năng tìm kiếm cho phép người dùng nhanh chóng tìm kiếm thông tin trên trang web.
+
+--------------------------------------------------
+
+[017] 2025-10-26 17:03:50 | auto → vi
+📝 Đầu vào: function
+✅ Kết quả: Nghĩa : Chức năng, hàm số, buổi lễ
+Loại từ : Danh từ (noun), Động từ (verb)
+Phiên âm : /ˈfʌŋkʃən/
+Giải thích :
+
+*   **Danh từ (noun):**
+    *   **Chức năng:** Nhiệm vụ, mục đích mà một vật, người hoặc hệ thống được thiết kế để thực hiện.
+    *   **Hàm số (Toán học):** Một mối quan hệ giữa một tập hợp các đầu vào và một tập hợp các đầu ra có thể, với quy tắc là mỗi đầu vào chỉ liên quan đến một đầu ra duy nhất.
+    *   **Buổi lễ:** Một sự kiện hoặc buổi họp mặt đặc biệt được tổ chức cho một mục đích cụ thể, thường là trang trọng.
+
+*   **Động từ (verb):** Hoạt động, vận hành, thực hiện chức năng của một cái gì đó.
+
+Ví dụ :
+
+*   **Danh từ:**
+    *   The primary *function* of the heart is to pump blood throughout the body. (Chức năng chính của tim là bơm máu đi khắp cơ thể.)
+    *   In mathematics, a *function* is a relation between a set of inputs and a set of permissible outputs. (Trong toán học, hàm số là một mối quan hệ giữa một tập hợp các đầu vào và một tập hợp các đầu ra cho phép.)
+    *   They attended a formal *function* at the embassy. (Họ đã tham dự một buổi lễ trang trọng tại đại sứ quán.)
+
+*   **Động từ:**
+    *   The new software is designed to *function* more efficiently. (Phần mềm mới được thiết kế để hoạt động hiệu quả hơn.)
+    *   If the printer doesn't *function* properly, you should call technical support. (Nếu máy in không hoạt động đúng cách, bạn nên gọi bộ phận hỗ trợ kỹ thuật.)
+
+--------------------------------------------------
+
+[018] 2025-10-26 17:00:57 | auto → vi
+📝 Đầu vào: function
+✅ Kết quả: Chức năng
+
+--------------------------------------------------
+
+[019] 2025-10-26 17:00:44 | auto → vi
+📝 Đầu vào: function
+✅ Kết quả: Chức năng
+
+--------------------------------------------------
+
+[020] 2025-10-26 16:59:58 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: function
+✅ Kết quả: Chức năng
+
+--------------------------------------------------
+
+[021] 2025-10-26 16:59:50 | auto → vi
+🏷 Ngữ cảnh: Technical/IT
+📝 Đầu vào: function
+✅ Kết quả: Nghĩa : Hàm, chức năng
+Loại từ : Danh từ (noun), động từ (verb)
+Phiên âm : /ˈfʌŋkʃən/
+
+Giải thích :
+
+*   **Danh từ (noun):** Trong ngữ cảnh kỹ thuật/công nghệ thông tin, "function" (hàm) là một khối mã lệnh được thiết kế để thực hiện một nhiệm vụ cụ thể. Hàm nhận đầu vào (arguments, parameters), xử lý dữ liệu và trả về kết quả (return value). Hàm giúp tái sử dụng mã, làm cho code dễ đọc, dễ bảo trì và quản lý hơn. Trong lập trình hướng đối tượng, hàm còn có thể được gọi là "method" khi nó được định nghĩa trong một class. Hàm còn có thể là một chức năng của một thiết bị hoặc hệ thống, ví dụ như chức năng in của một máy in.
+*   **Động từ (verb):** Hoạt động, vận hành, thực hiện chức năng. Ví dụ: "The program functions correctly" (Chương trình hoạt động chính xác).
+
+Ví dụ :
+
+1.  This function calculates the average of a list of numbers. – Hàm này tính trung bình của một danh sách các số.
+2.  The `printf()` function in C is used to display output to the console. – Hàm `printf()` trong C được sử dụng để hiển thị đầu ra lên giao diện điều khiển.
+3.  The main function is the entry point of the program. – Hàm main là điểm bắt đầu của chương trình.
+
+--------------------------------------------------
+
+[022] 2025-10-26 16:59:37 | auto → vi
+📝 Đầu vào: function
+✅ Kết quả: Chức năng
+
+--------------------------------------------------
+
+[023] 2025-10-26 16:57:08 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: keep it up
+✅ Kết quả: Tiếng Việt: Cố lên!
+
+--------------------------------------------------
+
+[024] 2025-10-26 16:57:04 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: keep it
+✅ Kết quả: Giữ lấy nó.
+
+--------------------------------------------------
+
+[025] 2025-10-26 16:56:59 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: keep it up
+✅ Kết quả: Tiếng Việt: Cố lên!
+
+--------------------------------------------------
+
+[026] 2025-10-26 16:56:49 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: keep it up
+✅ Kết quả: Cứ tiếp tục như vậy nhé.
+
+--------------------------------------------------
+
+[027] 2025-10-26 16:56:45 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: keep it up
+✅ Kết quả: Tiếng Việt: Cố lên!
+
+--------------------------------------------------
+
+[028] 2025-10-26 16:56:32 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: raise your flag
+✅ Kết quả: French: hisser votre drapeau
+
+Vietnamese: giương cao ngọn cờ của bạn
+
+--------------------------------------------------
+
+[029] 2025-10-26 16:56:23 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: raise your flag
+✅ Kết quả: giương cao lá cờ của bạn
+
+--------------------------------------------------
+
+[030] 2025-10-26 16:56:15 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: raise your flag
+✅ Kết quả: French: hisser votre drapeau
+
+Vietnamese: giương cao ngọn cờ của bạn
+
+--------------------------------------------------
+
+[031] 2025-10-26 16:55:51 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he losing his mind
+✅ Kết quả: Translation: Anh ta mất trí / Anh ta phát điên.
+
+--------------------------------------------------
+
+[032] 2025-10-26 16:55:38 | auto → vi
+📝 Đầu vào: he losing his mind
+✅ Kết quả: Anh ấy phát điên rồi.
+
+--------------------------------------------------
+
+[033] 2025-10-26 16:55:33 | auto → vi
+📝 Đầu vào: he losing
+✅ Kết quả: Anh ấy thua.
+
+--------------------------------------------------
+
+[034] 2025-10-26 16:54:17 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: losing my mind
+✅ Kết quả: Có lẽ dịch sát nghĩa nhất, và cũng thường dùng nhất trong văn nói là:
+
+* **Tớ/Tôi phát điên mất.** (Tớ/Tôi: I - use "tớ" when talking to friends, "tôi" more formal)
+* **Chắc tớ điên mất thôi.**
+
+Another option, depending on the context, could be:
+
+* **Tớ sắp phát rồ rồi.** (a bit stronger, implies a wilder frustration)
+* **Tớ chịu hết nổi rồi.** (more about reaching a limit)
+
+--------------------------------------------------
+
+[035] 2025-10-26 16:54:12 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: losing my mind
+✅ Kết quả: Có lẽ dịch sát nghĩa nhất, và cũng thường dùng nhất trong văn nói là:
+
+* **Tớ/Tôi phát điên mất.** (Tớ/Tôi: I - use "tớ" when talking to friends, "tôi" more formal)
+* **Chắc tớ điên mất thôi.**
+
+Another option, depending on the context, could be:
+
+* **Tớ sắp phát rồ rồi.** (a bit stronger, implies a wilder frustration)
+* **Tớ chịu hết nổi rồi.** (more about reaching a limit)
+
+--------------------------------------------------
+
+[036] 2025-10-26 16:53:55 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: losing my mind
+✅ Kết quả: Translation: phát điên
+
+--------------------------------------------------
+
+[037] 2025-10-26 16:53:21 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he broke
+✅ Kết quả: Anh ấy phá sản / Anh ấy hết tiền.
+
+--------------------------------------------------
+
+[038] 2025-10-26 16:53:08 | auto → vi
+📝 Đầu vào: he broke
+✅ Kết quả: Anh ấy làm vỡ.
+
+--------------------------------------------------
+
+[039] 2025-10-26 16:49:57 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: im broke
+✅ Kết quả: Nghĩa : Hoàn toàn hết tiền, cháy túi, không còn một xu dính túi.
+Loại từ : Thành ngữ/Câu cảm thán (informal)
+Phiên âm : [aɪm broʊk]
+Giải thích : "I'm broke" là một cách diễn đạt thông tục (informal) để thông báo rằng bạn không có tiền. Nó nhấn mạnh tình trạng tài chính tồi tệ, thường mang ý nghĩa tạm thời (ví dụ: cho đến khi nhận lương) nhưng đôi khi có thể chỉ tình trạng khó khăn tài chính lâu dài hơn. Cụm từ này thường được sử dụng trong các cuộc trò chuyện hàng ngày, không trang trọng. "Broke" ở đây là tính từ, và cả cụm từ "I'm broke" có thể hoạt động như một câu cảm thán khi diễn tả sự thất vọng hoặc chán nản về việc không có tiền.
+Ví dụ :
+1. "I'm broke until payday, so I can't go to the movies this weekend." – "Tôi cháy túi đến tận ngày nhận lương, nên tôi không thể đi xem phim vào cuối tuần này."
+2. "Can you lend me some money? I'm broke and need to buy groceries." – "Bạn có thể cho tôi vay ít tiền được không? Tôi hết tiền rồi và cần mua đồ ăn."
+3. "She told her friend, 'I'm broke, but I'll find a way to make it to your wedding.'" – "Cô ấy nói với bạn mình: 'Tớ hết tiền rồi, nhưng tớ sẽ tìm cách đến dự đám cưới của cậu.'"
+
+--------------------------------------------------
+
+[040] 2025-10-26 16:49:40 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he broke
+✅ Kết quả: Nghĩa : (trong ngữ cảnh thành ngữ) Anh ta phá vỡ, anh ta vượt qua, anh ta làm trái. Cụm từ "he broke" có thể là phần đầu của nhiều thành ngữ khác nhau, mỗi thành ngữ mang một ý nghĩa riêng biệt.
+
+Loại từ : Động từ (cụ thể là quá khứ đơn của động từ "break" đi kèm với đại từ "he")
+
+Phiên âm : /hiː broʊk/ (English)
+
+Giải thích :
+
+*   **Ý nghĩa cơ bản của "break"**: Trong ngữ cảnh thông thường, "break" có nghĩa là làm vỡ, làm hỏng, hoặc vi phạm (luật lệ, lời hứa...). Khi kết hợp với "he" (anh ta), nó chỉ hành động mà người đó thực hiện.
+*   **Ý nghĩa thành ngữ**: Giá trị của "he broke" trong một thành ngữ phụ thuộc hoàn toàn vào những từ đi kèm. "Broke" có thể chỉ sự kết thúc của một mối quan hệ, sự tiết lộ thông tin, hoặc sự vi phạm các quy tắc xã hội. Nó cũng có thể mang nghĩa đen hơn, tùy thuộc vào ngữ cảnh.
+
+Ví dụ :
+
+1.  He broke the ice at the party by telling a funny joke. – Anh ta phá tan bầu không khí ngại ngùng ở bữa tiệc bằng cách kể một câu chuyện cười. (Thành ngữ: break the ice - phá vỡ sự ngại ngùng, bắt đầu một cuộc trò chuyện)
+2.  He broke the news to her gently about the accident. – Anh ta nhẹ nhàng báo tin cho cô ấy về vụ tai nạn. (Thành ngữ: break the news - báo tin, thường là tin xấu)
+3.  He broke his promise to help me move. – Anh ta đã thất hứa giúp tôi chuyển nhà. (Thành ngữ: break a promise - thất hứa, không giữ lời hứa)
+
+--------------------------------------------------
+
+[041] 2025-10-26 16:49:34 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he brokes
+✅ Kết quả: Nghĩa : Câu "he brokes" là một dạng sai ngữ pháp trong tiếng Anh. Không có thành ngữ (idiom) nào sử dụng cụm từ này một cách chính xác. Nó có thể được sử dụng một cách hài hước hoặc intentionally sai để nhấn mạnh một điểm nào đó, nhưng bản thân nó không mang nghĩa thành ngữ đặc biệt nào. Trong ngữ cảnh thành ngữ, nó có thể được hiểu là một sự diễn đạt vụng về, hài hước hoặc một nỗ lực bắt chước cách nói của người không thạo tiếng Anh.
+
+Loại từ : Không có (sai ngữ pháp)
+
+Phiên âm :  /hiː ˈbɹoʊks/ (phát âm sai)
+
+Giải thích :
+*   Cấu trúc ngữ pháp sai: Trong tiếng Anh, sau chủ ngữ "he" (ngôi thứ ba số ít), động từ ở thì hiện tại đơn phải được chia theo quy tắc. "Break" (làm vỡ, phá vỡ) khi chia ở ngôi thứ ba số ít phải là "breaks", không phải "brokes". "Brokes" không phải là một dạng động từ đúng trong bất kỳ thì nào của động từ "break".
+*   Ngữ cảnh thành ngữ (Idiom): "He brokes" không phải là một thành ngữ. Thành ngữ là những cụm từ có nghĩa khác với nghĩa đen của từng từ riêng lẻ. Trong trường hợp này, "he brokes" chỉ là một lỗi ngữ pháp.
+*   Sử dụng sai có chủ ý (Intentional Misuse): Đôi khi, người ta có thể cố tình sử dụng sai ngữ pháp để tạo hiệu ứng hài hước, trào phúng, hoặc để bắt chước giọng điệu của người không rành tiếng Anh. Trong trường hợp này, ý nghĩa sẽ phụ thuộc vào ngữ cảnh cụ thể và mục đích của người nói.
+
+Ví dụ :
+
+1.  (Giả định một nhân vật nói sai ngữ pháp) "He brokes the window when he played soccer in the house." – "Anh ta đập bể cửa sổ khi chơi đá banh trong nhà." (Đây là một cách diễn đạt sai ngữ pháp, nhưng người nghe vẫn có thể hiểu ý nghĩa.)
+2.  (Trong một tình huống hài hước, một người nói sai ngữ pháp để chọc cười) "Teacher, he brokes the rule!" – "Cô ơi, anh ta phá luật rồi!" (Một cách nói cường điệu, nhấn mạnh sự phá phách.)
+3.  (Một nhân vật đang cố gắng học tiếng Anh, nhưng mắc lỗi) "I think he brokes it." – "Tôi nghĩ anh ấy làm vỡ nó rồi." (Cho thấy sự khó khăn trong việc học ngữ pháp.)
+
+--------------------------------------------------
+
+[042] 2025-10-26 16:49:22 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: he brokes
+✅ Kết quả: anh ấy làm vỡ
+
+--------------------------------------------------
+
+[043] 2025-10-26 16:48:40 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: he broke
+✅ Kết quả: Nghĩa : (trong ngữ cảnh thành ngữ) Anh ta phá vỡ, anh ta vượt qua, anh ta làm trái. Cụm từ "he broke" có thể là phần đầu của nhiều thành ngữ khác nhau, mỗi thành ngữ mang một ý nghĩa riêng biệt.
+
+Loại từ : Động từ (cụ thể là quá khứ đơn của động từ "break" đi kèm với đại từ "he")
+
+Phiên âm : /hiː broʊk/ (English)
+
+Giải thích :
+
+*   **Ý nghĩa cơ bản của "break"**: Trong ngữ cảnh thông thường, "break" có nghĩa là làm vỡ, làm hỏng, hoặc vi phạm (luật lệ, lời hứa...). Khi kết hợp với "he" (anh ta), nó chỉ hành động mà người đó thực hiện.
+*   **Ý nghĩa thành ngữ**: Giá trị của "he broke" trong một thành ngữ phụ thuộc hoàn toàn vào những từ đi kèm. "Broke" có thể chỉ sự kết thúc của một mối quan hệ, sự tiết lộ thông tin, hoặc sự vi phạm các quy tắc xã hội. Nó cũng có thể mang nghĩa đen hơn, tùy thuộc vào ngữ cảnh.
+
+Ví dụ :
+
+1.  He broke the ice at the party by telling a funny joke. – Anh ta phá tan bầu không khí ngại ngùng ở bữa tiệc bằng cách kể một câu chuyện cười. (Thành ngữ: break the ice - phá vỡ sự ngại ngùng, bắt đầu một cuộc trò chuyện)
+2.  He broke the news to her gently about the accident. – Anh ta nhẹ nhàng báo tin cho cô ấy về vụ tai nạn. (Thành ngữ: break the news - báo tin, thường là tin xấu)
+3.  He broke his promise to help me move. – Anh ta đã thất hứa giúp tôi chuyển nhà. (Thành ngữ: break a promise - thất hứa, không giữ lời hứa)
+
+--------------------------------------------------
+
+[044] 2025-10-26 16:48:22 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: live your life
+✅ Kết quả: Sống cuộc đời của bạn.
+
+--------------------------------------------------
+
+[045] 2025-10-26 16:48:12 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: live your life
+✅ Kết quả: sống cuộc sống của bạn
+
+--------------------------------------------------
+
+[046] 2025-10-26 16:48:02 | auto → vi
+🏷 Ngữ cảnh: Daily
+📝 Đầu vào: live my life
+✅ Kết quả: sống cuộc đời của tôi
+
+--------------------------------------------------
+
+[047] 2025-10-26 16:47:45 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: keep it real
+✅ Kết quả: Sống thật với chính mình.
+
+--------------------------------------------------
+
+[048] 2025-10-26 16:47:42 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: keep it real
+✅ Kết quả: Sống thật với chính mình.
+
+--------------------------------------------------
+
+[049] 2025-10-26 16:47:33 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: keep it real
+✅ Kết quả: sống thật
+
+--------------------------------------------------
+
+[050] 2025-10-26 16:47:19 | auto → vi
+🏷 Ngữ cảnh: Slang
+📝 Đầu vào: brokes a leg
+✅ Kết quả: chúc may mắn
+
+--------------------------------------------------
+
+
+📈 Tổng số bản dịch: 50
+📁 File được tạo: data\history_export_20251026_171252.txt

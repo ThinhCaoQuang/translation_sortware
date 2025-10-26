@@ -1,0 +1,53 @@
+📊 LỊCH SỬ DỊCH THUẬT - XUẤT NGÀY 26/10/2025 15:54:45
+============================================================
+
+[001] 2025-10-26 15:54:38 | auto → vi
+🏷 Ngữ cảnh: Idiom
+📝 Đầu vào: losing my mind
+✅ Kết quả: mất trí
+
+--------------------------------------------------
+
+[002] 2025-10-26 15:54:30 | auto → vi
+📝 Đầu vào: losing my mind
+✅ Kết quả: mất trí / phát điên / đầu óc quay cuồng / sắp phát điên lên / gần như mất trí
+
+--------------------------------------------------
+
+[003] 2025-10-26 15:54:14 | auto → vi
+📝 Đầu vào: goodbye
+✅ Kết quả: Nghĩa : tạm biệt, lời chào tạm biệt
+Loại từ : thán từ (interjection), danh từ (noun)
+Phiên âm : /ˌɡʊdˈbaɪ/
+Giải thích :
+*   **Thán từ (Interjection):** "Goodbye" được sử dụng như một lời chào khi một người rời đi hoặc kết thúc một cuộc trò chuyện. Nó là một cách lịch sự để nói lời chia tay.
+*   **Danh từ (Noun):** "Goodbye" cũng có thể được sử dụng như một danh từ, chỉ hành động nói lời tạm biệt hoặc thời điểm chia tay.
+
+Ví dụ :
+1.  Goodbye! See you tomorrow. – Tạm biệt! Hẹn gặp lại ngày mai.
+2.  We said our goodbyes at the airport. – Chúng tôi nói lời tạm biệt ở sân bay.
+3.  It's hard to say goodbye to close friends. – Thật khó để nói lời tạm biệt với những người bạn thân.
+
+--------------------------------------------------
+
+[004] 2025-10-26 15:53:53 | auto → vi
+📝 Đầu vào: hello
+✅ Kết quả: Nghĩa : xin chào, alo
+Loại từ : lời chào (danh từ), thán từ
+Phiên âm : /həˈloʊ/
+Giải thích :
+
+*   **Lời chào (danh từ):** "Hello" được dùng như một lời chào thông thường khi gặp ai đó, hoặc khi bắt đầu một cuộc trò chuyện. Nó là một cách bày tỏ sự thân thiện và bắt đầu giao tiếp.
+*   **Thán từ:** "Hello" cũng có thể được dùng như một thán từ để thu hút sự chú ý, biểu lộ sự ngạc nhiên, hoặc để đáp lời khi có ai đó gọi mình. Trong bối cảnh nghe điện thoại, "hello" thường được dùng để xác nhận rằng bạn đã kết nối với người gọi.
+
+Ví dụ :
+
+1.  Hello, how are you today? – Xin chào, hôm nay bạn khỏe không?
+2.  I heard a noise and called out, "Hello? Is anyone there?" – Tôi nghe thấy tiếng động và gọi lớn, "Alo? Có ai ở đó không?"
+3.  Hello? Is that John? – Alo? Có phải John không?
+
+--------------------------------------------------
+
+
+📈 Tổng số bản dịch: 4
+📁 File được tạo: data\history_export_20251026_155445.txt
