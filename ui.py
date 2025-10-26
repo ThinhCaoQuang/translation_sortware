@@ -88,3 +88,42 @@ def main(page: ft.Page):
         ),
         on_click=lambda e: UtilityHandler.do_swap(e, page, src_lang, dst_lang)
     )
+# ==================== TEXT FIELDS ====================
+    
+    # Trường nhập text
+    input_text = ft.TextField(
+        label="Nhập văn bản cần dịch",
+        multiline=True,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+        border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_400),
+        focused_border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_600),
+        bgcolor=ThemeHandler.get_textfield_bgcolor(page),
+        content_padding=ft.padding.all(15),
+        text_style=ft.TextStyle(size=16),
+    )
+    
+    # Trường hiển thị kết quả
+    output_text = ft.TextField(
+        label="Kết quả dịch",
+        multiline=True,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+        read_only=True,
+        border_color=ThemeHandler.get_border_color(page, ft.Colors.GREEN_400),
+        focused_border_color=ThemeHandler.get_border_color(page, ft.Colors.GREEN_600),
+        bgcolor=ThemeHandler.get_textfield_bgcolor(page),
+        content_padding=ft.padding.all(15),
+        text_style=ft.TextStyle(size=16, weight=ft.FontWeight.W_500),
+    )
+    
+    # Text hiển thị lịch sử
+    last_history = ft.Text(
+        "", 
+        selectable=True, 
+        size=14, 
+        color=ThemeHandler.get_history_text_color(page),
+        style=ft.TextStyle(weight=ft.FontWeight.W_400)
+    )
