@@ -558,8 +558,52 @@ def main(page: ft.Page):
         shadow=ft.BoxShadow(
             spread_radius=1,
             blur_radius=5,
-color=ft.Colors.with_opacity(0.05, ft.Colors.GREEN),
+            color=ft.Colors.with_opacity(0.05, ft.Colors.GREEN),
             offset=ft.Offset(0, 2),
         ),
         animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
     )
+    # History container - ẩn ban đầu
+    history_container = ft.Container(
+        content=ft.Column([
+            ft.Row([
+                ft.Text("Lịch sử gần nhất", size=16, weight=ft.FontWeight.BOLD, 
+                       color=ThemeHandler.get_text_color(page)),
+                history_actions,
+            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+            last_history,
+        ], spacing=8),
+        padding=ft.padding.all(15),
+        bgcolor=ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.4, ft.Colors.GREY_100),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        ),
+        border=ft.border.all(1, ft.Colors.with_opacity(0.3, ft.Colors.BLUE_GREY)),
+        border_radius=10,
+        visible=False,  # Ẩn ban đầu
+        animate_opacity=300,
+        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+    )
+
+    # Main container
+    main_container = ft.Container(
+        content=ft.Column([
+            controls_card,
+            input_container,
+            action_container,
+            output_container,
+            history_container,
+        ], spacing=0),
+        padding=ft.padding.all(20),
+        expand=True,
+    )
+
+    # ==================== THÊM VÀO TRANG ====================
+    page.add(main_container)
+    page.overlay.append(page.snack_bar)
+    page.horizontal_alignment = "stretch"
+
+
+if __name__ == "__main__":
+    import flet as ft
+    ft.app(target=main)
