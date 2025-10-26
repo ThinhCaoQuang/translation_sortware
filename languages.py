@@ -21,6 +21,7 @@ LANGUAGES = {
     "Tiếng Nepali": "ne",
     "Tiếng Sinhala": "si",
     "Tiếng Tagalog": "tl",
+    
     # Châu Âu
     "Tiếng Anh": "en",
     "Tiếng Pháp": "fr",
@@ -47,5 +48,16 @@ LANGUAGES = {
     "Tiếng Slovenia": "sl",
     "Tiếng Albania": "sq",
     "Tiếng Hy Lạp": "el",
+    
+    # Trung Đông và Châu Phi
+    "Tiếng Ả Rập": "ar",
+    "Tiếng Do Thái": "he",
+    "Tiếng Thổ Nhĩ Kỳ": "tr",
+    "Tiếng Ba Tư (Farsi)": "fa",
+    "Tiếng Swahili": "sw",
+    "Tiếng Somali": "so",
+    "Tiếng Hausa": "ha",
+    "Tiếng Yoruba": "yo",
+    "Tiếng Igbo": "ig",
 
 }
