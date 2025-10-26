@@ -151,3 +151,26 @@ def main(page: ft.Page):
     )
     
     use_context.on_change = lambda e: UtilityHandler.toggle_context(e, page, domain_dd, use_context)
+    # ==================== FILE PICKERS ====================
+    
+    pick_txt = ft.FilePicker()
+    pick_img = ft.FilePicker()
+    page.overlay.append(pick_txt)
+    page.overlay.append(pick_img)
+    
+    # ==================== BUTTONS ====================
+    
+    # Nút upload file
+    file_btn = ft.IconButton(
+        icon=ft.Icons.UPLOAD_FILE,
+        tooltip="📄 Mở file .txt/.docx",
+        on_click=lambda e: pick_txt.pick_files(
+            allow_multiple=False, 
+            allowed_extensions=["txt", "docx"]
+        ),
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.INDIGO_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.INDIGO)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.INDIGO)},
+        )
+    )
