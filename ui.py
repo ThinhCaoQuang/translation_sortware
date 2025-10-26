@@ -189,3 +189,25 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.PINK)},
         )
     )
+# Nút copy
+    copy_btn = ft.IconButton(
+        icon=ft.Icons.CONTENT_COPY, 
+        tooltip="📋 Copy kết quả",
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.CYAN_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.CYAN)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.CYAN)},
+        ),
+        on_click=lambda e: UtilityHandler.do_copy(e, page, output_text)
+    )
+    
+    # Nút text-to-speech
+    speak_btn = ft.IconButton(
+        icon=ft.Icons.VOLUME_UP, 
+        tooltip="🔊 Đọc kết quả dịch",
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.DEEP_ORANGE_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.DEEP_ORANGE)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.DEEP_ORANGE)},
+        )
+    )
