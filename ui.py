@@ -29,6 +29,7 @@ def main(page: ft.Page):
         margin=ft.margin.all(10),
         behavior=ft.SnackBarBehavior.FLOATING
     )
+    
     # Khởi tạo database
     init_db()
     
@@ -65,7 +66,7 @@ def main(page: ft.Page):
         content_padding=ft.padding.symmetric(horizontal=15, vertical=12),
         text_style=ft.TextStyle(size=14),
     )
-
+    
     # Nút chuyển đổi theme
     theme_btn = ft.IconButton(
         icon=ft.Icons.LIGHT_MODE, 
@@ -88,7 +89,8 @@ def main(page: ft.Page):
         ),
         on_click=lambda e: UtilityHandler.do_swap(e, page, src_lang, dst_lang)
     )
-# ==================== TEXT FIELDS ====================
+    
+    # ==================== TEXT FIELDS ====================
     
     # Trường nhập text
     input_text = ft.TextField(
@@ -127,8 +129,8 @@ def main(page: ft.Page):
         color=ThemeHandler.get_history_text_color(page),
         style=ft.TextStyle(weight=ft.FontWeight.W_400)
     )
-
-# ==================== CONTEXT/DOMAIN CONTROLS ====================
+    
+    # ==================== CONTEXT/DOMAIN CONTROLS ====================
     
     use_context = ft.Checkbox(
         label="Dịch theo ngữ cảnh chuyên môn",
@@ -136,6 +138,7 @@ def main(page: ft.Page):
         active_color=ft.Colors.TEAL_400,
         label_style=ft.TextStyle(size=14, weight=ft.FontWeight.W_500)
     )
+    
     domain_dd = ft.Dropdown(
         label="Lĩnh vực chuyên môn",
         options=[ft.dropdown.Option(x) for x in CONTEXTS],
@@ -151,6 +154,7 @@ def main(page: ft.Page):
     )
     
     use_context.on_change = lambda e: UtilityHandler.toggle_context(e, page, domain_dd, use_context)
+    
     # ==================== FILE PICKERS ====================
     
     pick_txt = ft.FilePicker()
@@ -174,7 +178,7 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.INDIGO)},
         )
     )
-
+    
     # Nút OCR từ ảnh
     img_btn = ft.IconButton(
         icon=ft.Icons.IMAGE,
@@ -189,7 +193,8 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.PINK)},
         )
     )
-# Nút copy
+    
+    # Nút copy
     copy_btn = ft.IconButton(
         icon=ft.Icons.CONTENT_COPY, 
         tooltip="📋 Copy kết quả",
@@ -211,6 +216,7 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.DEEP_ORANGE)},
         )
     )
+    
     # Nút ghi âm
     mic_btn = ft.IconButton(
         icon=ft.Icons.MIC, 
@@ -229,8 +235,8 @@ def main(page: ft.Page):
         color=ft.Colors.RED_600,
         stroke_width=3
     )
-
-# Nút lịch sử
+    
+    # Nút lịch sử
     history_btn = ft.IconButton(
         icon=ft.Icons.HISTORY, 
         tooltip="📜 Xem lịch sử dịch",
@@ -239,47 +245,6 @@ def main(page: ft.Page):
             bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.BROWN)},
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.BROWN)},
         )
-    )
-    
-    # ==================== HISTORY ACTIONS ====================
-    
-    history_actions = ft.Row([
-        ft.TextButton("Xuất lịch sử", on_click=lambda e: HistoryHandler.export_history_action(e, page)),
-        ft.TextButton("Xóa lịch sử", on_click=lambda e: HistoryHandler.clear_history_action(e, page, last_history, history_container)),
-        ft.TextButton("Ẩn", on_click=lambda e: setattr(history_container, 'visible', False) or page.update()),
-    ], alignment=ft.MainAxisAlignment.END, spacing=10)
-    
-    # ==================== LAYOUT CONTAINERS ====================
-    
-    # Controls container
-    controls_card = ft.Container(
-        content=ft.Column([
-            ft.Row([
-                src_lang, 
-                ft.Container(swap_btn, margin=ft.margin.only(top=15)), 
-                dst_lang
-            ], alignment=ft.MainAxisAlignment.CENTER, spacing=20),
-            ft.Row([
-                file_btn, img_btn, mic_btn, record_spinner, 
-                ft.Container(width=20),  # Spacer
-                history_btn, theme_btn
-            ], alignment=ft.MainAxisAlignment.CENTER, spacing=15),
-        ], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-        padding=ft.padding.all(25),
-        margin=ft.margin.only(top=10, bottom=20),
-        bgcolor=ThemeHandler.get_container_bgcolor(page,
-            ft.Colors.with_opacity(0.8, ft.Colors.WHITE),
-            ft.Colors.with_opacity(0.3, ft.Colors.BLUE_GREY_800)
-        ),
-        border=ft.border.all(1, ft.Colors.with_opacity(0.4, ft.Colors.BLUE_GREY)),
-        border_radius=15,
-        shadow=ft.BoxShadow(
-            spread_radius=1,
-            blur_radius=8,
-            color=ft.Colors.with_opacity(0.1, ft.Colors.BLACK),
-            offset=ft.Offset(0, 2),
-        ),
-        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
     )
     
     # ==================== PROGRESS & LOADING ====================
@@ -310,7 +275,7 @@ def main(page: ft.Page):
         inactive_track_color=ft.Colors.GREY_300,
         visible=False,  # Ẩn switch
     )
-
+    
     realtime_toggle_container = ft.Container(
         content=ft.Row([
             ft.Icon(ft.Icons.AUTORENEW, size=16, color=ft.Colors.GREEN_600),
@@ -359,7 +324,7 @@ def main(page: ft.Page):
             shape=ft.RoundedRectangleBorder(radius=8),
         )
     )
-
+    
     # ==================== THIẾT LẬP EVENT HANDLERS ====================
     
     def toggle_theme(e):
@@ -450,6 +415,13 @@ def main(page: ft.Page):
         page.update()
     
     theme_btn.on_click = toggle_theme
+    
+    # Gán event handlers cho các controls
+    # Realtime switch ẩn nhưng vẫn cần event handler (không dùng nữa)
+    # realtime_switch.on_change = lambda e: translation_handler.toggle_realtime(
+    #     e, page, translate_btn, loading_ring, prog, realtime_indicator
+    # )
+    
     # Realtime đã được bật mặc định trong AppState, chỉ cần setup input handler
     input_text.on_change = lambda e: translation_handler.on_input_change(
         e, page, input_text, output_text, prog, src_lang, dst_lang, 
@@ -486,6 +458,48 @@ def main(page: ft.Page):
     history_btn.on_click = lambda e: HistoryHandler.show_history(
         e, page, history_container, last_history
     )
+    
+    # ==================== HISTORY ACTIONS ====================
+    
+    history_actions = ft.Row([
+        ft.TextButton("Xuất lịch sử", on_click=lambda e: HistoryHandler.export_history_action(e, page)),
+        ft.TextButton("Xóa lịch sử", on_click=lambda e: HistoryHandler.clear_history_action(e, page, last_history, history_container)),
+        ft.TextButton("Ẩn", on_click=lambda e: setattr(history_container, 'visible', False) or page.update()),
+    ], alignment=ft.MainAxisAlignment.END, spacing=10)
+    
+    # ==================== LAYOUT CONTAINERS ====================
+    
+    # Controls container
+    controls_card = ft.Container(
+        content=ft.Column([
+            ft.Row([
+                src_lang, 
+                ft.Container(swap_btn, margin=ft.margin.only(top=15)), 
+                dst_lang
+            ], alignment=ft.MainAxisAlignment.CENTER, spacing=20),
+            ft.Row([
+                file_btn, img_btn, mic_btn, record_spinner, 
+                ft.Container(width=20),  # Spacer
+                history_btn, theme_btn
+            ], alignment=ft.MainAxisAlignment.CENTER, spacing=15),
+        ], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        padding=ft.padding.all(25),
+        margin=ft.margin.only(top=10, bottom=20),
+        bgcolor=ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.8, ft.Colors.WHITE),
+            ft.Colors.with_opacity(0.3, ft.Colors.BLUE_GREY_800)
+        ),
+        border=ft.border.all(1, ft.Colors.with_opacity(0.4, ft.Colors.BLUE_GREY)),
+        border_radius=15,
+        shadow=ft.BoxShadow(
+            spread_radius=1,
+            blur_radius=8,
+            color=ft.Colors.with_opacity(0.1, ft.Colors.BLACK),
+            offset=ft.Offset(0, 2),
+        ),
+        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+    )
+
     # Input text container
     input_container = ft.Container(
         content=ft.Column([
@@ -563,6 +577,7 @@ def main(page: ft.Page):
         ),
         animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
     )
+
     # History container - ẩn ban đầu
     history_container = ft.Container(
         content=ft.Column([
