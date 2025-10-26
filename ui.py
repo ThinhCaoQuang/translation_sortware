@@ -408,3 +408,39 @@ def main(page: ft.Page):
         page.update()
     
     theme_btn.on_click = toggle_theme
+    # Realtime đã được bật mặc định trong AppState, chỉ cần setup input handler
+    input_text.on_change = lambda e: translation_handler.on_input_change(
+        e, page, input_text, output_text, prog, src_lang, dst_lang, 
+        domain_dd, use_context, history_container, last_history
+    )
+    
+    translate_btn.on_click = lambda e: translation_handler.do_translate(
+        e, page, input_text, output_text, src_lang, dst_lang, domain_dd, 
+        use_context, translate_btn, loading_ring, prog, history_container, last_history
+    )
+    
+    pick_txt.on_result = lambda e: FileHandler.on_pick_txt(e, input_text, page)
+    
+    # Định nghĩa callback cho auto-translate sau OCR
+    def auto_translate_callback(e):
+        if app_state.realtime_enabled:
+            translation_handler.do_translate(
+                e, page, input_text, output_text, src_lang, dst_lang, domain_dd, 
+                use_context, translate_btn, loading_ring, prog, history_container, last_history
+            )
+    
+    pick_img.on_result = lambda e: FileHandler.on_pick_image(
+        e, input_text, img_btn, page, src_lang, app_state.realtime_enabled, auto_translate_callback
+    )
+    
+    speak_btn.on_click = lambda e: audio_handler.do_speak(
+        e, page, output_text, speak_btn, dst_lang
+    )
+    
+    mic_btn.on_click = lambda e: audio_handler.do_record(
+        e, page, input_text, mic_btn, record_spinner, src_lang
+    )
+    
+    history_btn.on_click = lambda e: HistoryHandler.show_history(
+        e, page, history_container, last_history
+    )
