@@ -65,3 +65,26 @@ def main(page: ft.Page):
         content_padding=ft.padding.symmetric(horizontal=15, vertical=12),
         text_style=ft.TextStyle(size=14),
     )
+
+    # Nút chuyển đổi theme
+    theme_btn = ft.IconButton(
+        icon=ft.Icons.LIGHT_MODE, 
+        tooltip="🌓 Chuyển chế độ nền",
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.AMBER_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.AMBER)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.AMBER)},
+        )
+    )
+    
+    # Nút đổi chiều ngôn ngữ
+    swap_btn = ft.IconButton(
+        icon=ft.Icons.SWAP_HORIZ, 
+        tooltip="🔄 Đổi chiều ngôn ngữ",
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.PURPLE_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.PURPLE)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.PURPLE)},
+        ),
+        on_click=lambda e: UtilityHandler.do_swap(e, page, src_lang, dst_lang)
+    )
