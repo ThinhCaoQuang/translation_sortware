@@ -317,3 +317,94 @@ def main(page: ft.Page):
             shape=ft.RoundedRectangleBorder(radius=8),
         )
     )
+
+    # ==================== THIẾT LẬP EVENT HANDLERS ====================
+    
+    def toggle_theme(e):
+        """Xử lý chuyển đổi theme"""
+        page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
+        theme_btn.icon = ft.Icons.DARK_MODE if page.theme_mode == "light" else ft.Icons.LIGHT_MODE
+        
+        # Cập nhật màu nền trang
+        page.bgcolor = ThemeHandler.get_page_bgcolor(page)
+        
+        # Cập nhật snackbar
+        snackbar_colors = ThemeHandler.get_snackbar_colors(page)
+        page.snack_bar.content.color = snackbar_colors["content_color"]
+        page.snack_bar.bgcolor = snackbar_colors["bgcolor"]
+        
+        # Cập nhật màu nền dropdowns và textfields
+        dropdown_bg = ThemeHandler.get_dropdown_bgcolor(page)
+        src_lang.bgcolor = dropdown_bg
+        dst_lang.bgcolor = dropdown_bg
+        domain_dd.bgcolor = dropdown_bg
+        
+        # Cập nhật border colors cho dropdowns
+        src_lang.border_color = ThemeHandler.get_border_color(page, ft.Colors.BLUE_400)
+        src_lang.focused_border_color = ThemeHandler.get_border_color(page, ft.Colors.BLUE_600)
+        dst_lang.border_color = ThemeHandler.get_border_color(page, ft.Colors.GREEN_400)
+        dst_lang.focused_border_color = ThemeHandler.get_border_color(page, ft.Colors.GREEN_600)
+        domain_dd.border_color = ThemeHandler.get_border_color(page, ft.Colors.TEAL_400)
+        domain_dd.focused_border_color = ThemeHandler.get_border_color(page, ft.Colors.TEAL_600)
+        
+        textfield_bg = ThemeHandler.get_textfield_bgcolor(page)
+        input_text.bgcolor = textfield_bg
+        output_text.bgcolor = textfield_bg
+        
+        # Cập nhật border colors cho textfields
+        input_text.border_color = ThemeHandler.get_border_color(page, ft.Colors.BLUE_400)
+        input_text.focused_border_color = ThemeHandler.get_border_color(page, ft.Colors.BLUE_600)
+        output_text.border_color = ThemeHandler.get_border_color(page, ft.Colors.GREEN_400)
+        output_text.focused_border_color = ThemeHandler.get_border_color(page, ft.Colors.GREEN_600)
+        
+        # Cập nhật màu containers
+        controls_card.bgcolor = ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.8, ft.Colors.WHITE),
+            ft.Colors.with_opacity(0.3, ft.Colors.BLUE_GREY_800)
+        )
+        
+        input_container.bgcolor = ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.6, ft.Colors.BLUE_50),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        )
+        
+        action_container.bgcolor = ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.6, ft.Colors.TEAL_50),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        )
+        
+        output_container.bgcolor = ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.6, ft.Colors.GREEN_50),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        )
+        
+        history_container.bgcolor = ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.4, ft.Colors.GREY_100),
+            ft.Colors.with_opacity(0.2, ft.Colors.BLUE_GREY_900)
+        )
+        
+        # Cập nhật text colors cho section headers
+        input_header = input_container.content.controls[0]
+        output_header = output_container.content.controls[0].controls[0]
+        
+        input_header.color = ThemeHandler.get_border_color(page, ft.Colors.BLUE_600)
+        output_header.color = ThemeHandler.get_border_color(page, ft.Colors.GREEN_600)
+        
+        # Cập nhật history header và text nếu đang hiển thị
+        if history_container.visible:
+            history_header = history_container.content.controls[0].controls[0]
+            history_header.color = ThemeHandler.get_text_color(page)
+            
+        # Cập nhật màu text của lịch sử
+        last_history.color = ThemeHandler.get_history_text_color(page)
+        
+        # Cập nhật màu cho toggle realtime
+        is_dark = page.theme_mode == "dark"
+        toggle_icon = realtime_toggle_container.content.controls[0]
+        toggle_text = realtime_toggle_container.content.controls[1]
+        toggle_icon.color = ft.Colors.BLUE_400 if is_dark else ft.Colors.BLUE_600
+        toggle_text.color = ft.Colors.WHITE70 if is_dark else ft.Colors.BLACK87
+        
+        page.update()
+    
+    theme_btn.on_click = toggle_theme
