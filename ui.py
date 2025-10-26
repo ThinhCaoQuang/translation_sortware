@@ -229,3 +229,14 @@ def main(page: ft.Page):
         color=ft.Colors.RED_600,
         stroke_width=3
     )
+
+# Nút lịch sử
+    history_btn = ft.IconButton(
+        icon=ft.Icons.HISTORY, 
+        tooltip="📜 Xem lịch sử dịch",
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.BROWN_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.BROWN)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.BROWN)},
+        )
+    )
