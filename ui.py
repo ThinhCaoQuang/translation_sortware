@@ -240,3 +240,31 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.BROWN)},
         )
     )
+    # ==================== PROGRESS & LOADING ====================
+    
+    prog = ft.ProgressBar(
+        visible=False, 
+        color=ft.Colors.BLUE_600, 
+        bgcolor=ft.Colors.with_opacity(0.2, ft.Colors.BLUE),
+        height=3,
+        border_radius=2,
+    )
+    
+    loading_ring = ft.ProgressRing(
+        width=16, 
+        height=16, 
+        visible=False, 
+        color=ft.Colors.BLUE_600,
+        stroke_width=2
+    )
+    
+    # ==================== REALTIME CONTROLS ====================
+    
+    # Toggle switch cho realtime - ẩn vì luôn bật
+    realtime_switch = ft.Switch(
+        value=True,  # Bật mặc định
+        active_color=ft.Colors.GREEN_600,
+        inactive_thumb_color=ft.Colors.GREY_400,
+        inactive_track_color=ft.Colors.GREY_300,
+        visible=False,  # Ẩn switch
+    )
