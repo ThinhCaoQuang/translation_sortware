@@ -174,3 +174,18 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.INDIGO)},
         )
     )
+
+    # Nút OCR từ ảnh
+    img_btn = ft.IconButton(
+        icon=ft.Icons.IMAGE,
+        tooltip="🖼️ Trích xuất văn bản từ ảnh",
+        on_click=lambda e: pick_img.pick_files(
+            allow_multiple=False, 
+            allowed_extensions=["jpg", "jpeg", "png", "bmp", "tiff", "tif", "webp"]
+        ),
+        style=ft.ButtonStyle(
+            color={ft.ControlState.DEFAULT: ft.Colors.PINK_600},
+            bgcolor={ft.ControlState.HOVERED: ft.Colors.with_opacity(0.1, ft.Colors.PINK)},
+            overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.PINK)},
+        )
+    )
