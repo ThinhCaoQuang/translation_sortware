@@ -240,6 +240,48 @@ def main(page: ft.Page):
             overlay_color={ft.ControlState.PRESSED: ft.Colors.with_opacity(0.2, ft.Colors.BROWN)},
         )
     )
+    
+    # ==================== HISTORY ACTIONS ====================
+    
+    history_actions = ft.Row([
+        ft.TextButton("Xuất lịch sử", on_click=lambda e: HistoryHandler.export_history_action(e, page)),
+        ft.TextButton("Xóa lịch sử", on_click=lambda e: HistoryHandler.clear_history_action(e, page, last_history, history_container)),
+        ft.TextButton("Ẩn", on_click=lambda e: setattr(history_container, 'visible', False) or page.update()),
+    ], alignment=ft.MainAxisAlignment.END, spacing=10)
+    
+    # ==================== LAYOUT CONTAINERS ====================
+    
+    # Controls container
+    controls_card = ft.Container(
+        content=ft.Column([
+            ft.Row([
+                src_lang, 
+                ft.Container(swap_btn, margin=ft.margin.only(top=15)), 
+                dst_lang
+            ], alignment=ft.MainAxisAlignment.CENTER, spacing=20),
+            ft.Row([
+                file_btn, img_btn, mic_btn, record_spinner, 
+                ft.Container(width=20),  # Spacer
+                history_btn, theme_btn
+            ], alignment=ft.MainAxisAlignment.CENTER, spacing=15),
+        ], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        padding=ft.padding.all(25),
+        margin=ft.margin.only(top=10, bottom=20),
+        bgcolor=ThemeHandler.get_container_bgcolor(page,
+            ft.Colors.with_opacity(0.8, ft.Colors.WHITE),
+            ft.Colors.with_opacity(0.3, ft.Colors.BLUE_GREY_800)
+        ),
+        border=ft.border.all(1, ft.Colors.with_opacity(0.4, ft.Colors.BLUE_GREY)),
+        border_radius=15,
+        shadow=ft.BoxShadow(
+            spread_radius=1,
+            blur_radius=8,
+            color=ft.Colors.with_opacity(0.1, ft.Colors.BLACK),
+            offset=ft.Offset(0, 2),
+        ),
+        animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
+    )
+    
     # ==================== PROGRESS & LOADING ====================
     
     prog = ft.ProgressBar(
