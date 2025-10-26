@@ -127,3 +127,27 @@ def main(page: ft.Page):
         color=ThemeHandler.get_history_text_color(page),
         style=ft.TextStyle(weight=ft.FontWeight.W_400)
     )
+
+# ==================== CONTEXT/DOMAIN CONTROLS ====================
+    
+    use_context = ft.Checkbox(
+        label="Dịch theo ngữ cảnh chuyên môn",
+        check_color=ft.Colors.TEAL_600,
+        active_color=ft.Colors.TEAL_400,
+        label_style=ft.TextStyle(size=14, weight=ft.FontWeight.W_500)
+    )
+    domain_dd = ft.Dropdown(
+        label="Lĩnh vực chuyên môn",
+        options=[ft.dropdown.Option(x) for x in CONTEXTS],
+        value="Daily",
+        width=300,
+        opacity=0,
+        animate_opacity=300,
+        border_color=ThemeHandler.get_border_color(page, ft.Colors.TEAL_400),
+        focused_border_color=ThemeHandler.get_border_color(page, ft.Colors.TEAL_600),
+        bgcolor=ThemeHandler.get_dropdown_bgcolor(page),
+        content_padding=ft.padding.symmetric(horizontal=15, vertical=10),
+        text_style=ft.TextStyle(size=14),
+    )
+    
+    use_context.on_change = lambda e: UtilityHandler.toggle_context(e, page, domain_dd, use_context)
