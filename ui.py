@@ -13,7 +13,6 @@ def main(page: ft.Page):
     # ==================== CẤU HÌNH TRANG CHÍNH ====================
     page.title = "🌐 Translation App"
     page.theme_mode = "dark"
-    page.window_maximized = True    
     page.padding = 0
     page.vertical_alignment = "start"
     page.scroll = "adaptive"
@@ -133,14 +132,14 @@ def main(page: ft.Page):
     # ==================== CONTEXT/DOMAIN CONTROLS ====================
     
     use_context = ft.Checkbox(
-        label="Dịch theo ngữ cảnh chuyên môn",
+        label="Dịch theo ngữ cảnh",
         check_color=ft.Colors.TEAL_600,
         active_color=ft.Colors.TEAL_400,
         label_style=ft.TextStyle(size=14, weight=ft.FontWeight.W_500)
     )
     
     domain_dd = ft.Dropdown(
-        label="Lĩnh vực chuyên môn",
+        label="Ngữ cảnh",
         options=[ft.dropdown.Option(x) for x in CONTEXTS],
         value="Daily",
         width=300,
@@ -265,49 +264,13 @@ def main(page: ft.Page):
         stroke_width=2
     )
     
-    # ==================== REALTIME CONTROLS ====================
     
-    # Toggle switch cho realtime - ẩn vì luôn bật
-    realtime_switch = ft.Switch(
-        value=True,  # Bật mặc định
-        active_color=ft.Colors.GREEN_600,
-        inactive_thumb_color=ft.Colors.GREY_400,
-        inactive_track_color=ft.Colors.GREY_300,
-        visible=False,  # Ẩn switch
-    )
-    
-    realtime_toggle_container = ft.Container(
-        content=ft.Row([
-            ft.Icon(ft.Icons.AUTORENEW, size=16, color=ft.Colors.GREEN_600),
-            ft.Text("Dịch tự động", size=13, weight=ft.FontWeight.W_500, color=ft.Colors.GREEN_600),
-        ], spacing=8, alignment=ft.MainAxisAlignment.END),
-        padding=ft.padding.symmetric(horizontal=8, vertical=4),
-        border_radius=8,
-        visible=True,  # Luôn hiển thị thông báo
-    )
-    
-    # Indicator trạng thái realtime
-    realtime_indicator = ft.Container(
-        content=ft.Row([
-            ft.Icon(ft.Icons.AUTORENEW, size=14, color=ft.Colors.WHITE),
-            ft.Text("AUTO", size=10, color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD)
-        ], spacing=3, alignment=ft.MainAxisAlignment.CENTER),
-        visible=False,
-        animate_opacity=300,
-        padding=ft.padding.symmetric(horizontal=8, vertical=4),
-        bgcolor=ft.Colors.GREEN_600,
-        border_radius=12,
-        width=65,
-        height=26,
-    )
-    
-    # Nút dịch thủ công - ẩn vì dùng realtime
     translate_btn = ft.ElevatedButton(
         text="Dịch",
         disabled=False,
         height=45,
         width=100,
-        visible=False,  # Ẩn nút dịch thủ công
+        visible=True,
         animate_opacity=300,
         style=ft.ButtonStyle(
             color={
@@ -405,28 +368,9 @@ def main(page: ft.Page):
         # Cập nhật màu text của lịch sử
         last_history.color = ThemeHandler.get_history_text_color(page)
         
-        # Cập nhật màu cho toggle realtime
-        is_dark = page.theme_mode == "dark"
-        toggle_icon = realtime_toggle_container.content.controls[0]
-        toggle_text = realtime_toggle_container.content.controls[1]
-        toggle_icon.color = ft.Colors.BLUE_400 if is_dark else ft.Colors.BLUE_600
-        toggle_text.color = ft.Colors.WHITE70 if is_dark else ft.Colors.BLACK87
-        
         page.update()
     
     theme_btn.on_click = toggle_theme
-    
-    # Gán event handlers cho các controls
-    # Realtime switch ẩn nhưng vẫn cần event handler (không dùng nữa)
-    # realtime_switch.on_change = lambda e: translation_handler.toggle_realtime(
-    #     e, page, translate_btn, loading_ring, prog, realtime_indicator
-    # )
-    
-    # Realtime đã được bật mặc định trong AppState, chỉ cần setup input handler
-    input_text.on_change = lambda e: translation_handler.on_input_change(
-        e, page, input_text, output_text, prog, src_lang, dst_lang, 
-        domain_dd, use_context, history_container, last_history
-    )
     
     translate_btn.on_click = lambda e: translation_handler.do_translate(
         e, page, input_text, output_text, src_lang, dst_lang, domain_dd, 
@@ -435,16 +379,8 @@ def main(page: ft.Page):
     
     pick_txt.on_result = lambda e: FileHandler.on_pick_txt(e, input_text, page)
     
-    # Định nghĩa callback cho auto-translate sau OCR
-    def auto_translate_callback(e):
-        if app_state.realtime_enabled:
-            translation_handler.do_translate(
-                e, page, input_text, output_text, src_lang, dst_lang, domain_dd, 
-                use_context, translate_btn, loading_ring, prog, history_container, last_history
-            )
-    
     pick_img.on_result = lambda e: FileHandler.on_pick_image(
-        e, input_text, img_btn, page, src_lang, app_state.realtime_enabled, auto_translate_callback
+        e, input_text, img_btn, page, src_lang
     )
     
     speak_btn.on_click = lambda e: audio_handler.do_speak(
@@ -533,7 +469,7 @@ def main(page: ft.Page):
             ),
             ft.Container(
                 content=ft.Column([
-                    ft.Row([realtime_toggle_container, loading_ring], 
+                    ft.Row([translate_btn,loading_ring], 
                           spacing=8, alignment=ft.MainAxisAlignment.END),
                     prog
                 ], spacing=8),
@@ -578,7 +514,7 @@ def main(page: ft.Page):
         animate=ft.Animation(300, ft.AnimationCurve.EASE_IN_OUT)
     )
 
-    # History container - ẩn ban đầu
+    # History container
     history_container = ft.Container(
         content=ft.Column([
             ft.Row([
