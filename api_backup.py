@@ -95,9 +95,9 @@ def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> st
             f"Phiên âm : <pronunciation - IPA for English target, local pronunciation for others>\n"
             f"Giải thích : <detailed explanation in {target_lang_full}>\n"
             f"Ví dụ :\n"
-            f"1. <example sentence in {src_lang}> – <translation in {target_lang_full}>\n"
-            f"2. <example sentence in {src_lang}> – <translation in {target_lang_full}>\n"
-            f"3. <example sentence in {src_lang}> – <translation in {target_lang_full}>\n\n"
+            f"1. <example sentence in {src_lang}> – <translation in {dst_lang}>\n"
+            f"2. <example sentence in {src_lang}> – <translation in {dst_lang}>\n"
+            f"3. <example sentence in {src_lang}> – <translation in {dst_lang}>\n\n"
             f"Word to analyze: {text}"
         )
     else:

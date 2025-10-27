@@ -101,12 +101,15 @@ def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> st
                 f"Just output the direct meaning.\n\n"
                 f"Phrase: {text}"
             )
-        elif domain and domain.lower() in ["daily", "none", ""] or not domain:
+        elif not domain or domain.lower() in ["daily", "none", ""]:
             prompt = (
-                f"Translate this phrase from {src_lang} to {target_lang_full}:\n"
-                f"Provide natural, everyday translation.\n"
-                f"Just give the translation, no explanations.\n\n"
-                f"Phrase: {text}"
+                f"You are a direct translator, not an interpreter.\n"
+                f"Translate the following text from {src_lang} to {target_lang_full} literally and directly.\n"
+                f"Do NOT interpret idioms, slang, or figurative meanings.\n"
+                f"Do NOT infer hidden intentions or cultural meanings.\n"
+                f"Focus strictly on the literal meaning of each word and phrase.\n"
+                f"Keep the translation clear and grammatically natural, but faithful to the original words.\n\n"
+                f"Text: {text}"
             )
         else:
             prompt = (
@@ -130,19 +133,21 @@ def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> st
         target_lang_full = target_lang_mapping.get(dst_lang, "Vietnamese")
         
         # Từ 1-2 từ luôn phải có giải thích chi tiết
-        if not domain or domain.lower() in ["daily", "none", ""] or domain.lower() == "daily":
+        if not domain or domain.lower() in ["none", ""] or domain.lower() == "daily":
             # KHÔNG có ngữ cảnh → Vẫn giải thích cơ bản
             prompt = (
                 f"You are a professional bilingual dictionary assistant.\n"
                 f"Analyze the word '{text}' from {src_lang}.\n"
                 f"Provide detailed information in {target_lang_full}.\n\n"
-                f"IMPORTANT: Provide explanations and examples in {target_lang_full}, but part of speech in {src_lang}.\n"
+                f"IMPORTANT: All explanations, examples, and the part of speech must be written in {target_lang_full}.\n"
                 f"Return your answer in this EXACT format:\n\n"
                 f"Nghĩa : <common meaning in {target_lang_full}>\n"
-                f"Loại từ : <part of speech in {src_lang}>\n"
+                f"Loại từ : <part of speech in {target_lang_full}>\n"
                 f"Phiên âm : <pronunciation - IPA for English target, local pronunciation for others>\n"
                 f"Giải thích : <one simple sentence explanation in {target_lang_full}>\n"
-                f"Ví dụ : <2-3 examples with translation in {target_lang_full}>\n\n"
+                f"1. <example in {domain} context> – <translation in {dst_lang}>\n"
+                f"2. <example in {domain} context> – <translation in {dst_lang}>\n"
+                f"3. <example in {domain} context> – <translation in {dst_lang}>\n\n"
                 f"Word: {text}"
             )
         elif domain and domain.lower() == "idiom":
@@ -162,16 +167,16 @@ def translate_text(text, src_lang="auto", dst_lang="vi", domain="General") -> st
                 f"You are a professional bilingual dictionary assistant.\n"
                 f"Analyze the word '{text}' from {src_lang} in the context of {domain}.\n"
                 f"Provide detailed information in {target_lang_full}.\n\n"
-                f"IMPORTANT: Provide explanations and examples in {target_lang_full}, but part of speech in {src_lang}.\n"
+                f"IMPORTANT: All explanations, examples, and the part of speech must be written in {target_lang_full}.\n"
                 f"Return your answer in this EXACT format:\n\n"
                 f"Nghĩa : <meaning in {domain} context in {target_lang_full}>\n"
-                f"Loại từ : <part of speech in {src_lang}>\n"
+                f"Loại từ : <part of speech in {target_lang_full}>\n"
                 f"Phiên âm : <pronunciation - IPA for English target, local pronunciation for others>\n"
                 f"Giải thích : <one simple sentence explanation for {domain} field in {target_lang_full}>\n"
                 f"Ví dụ :\n"
-                f"1. <example in {domain} context> – <translation in {target_lang_full}>\n"
-                f"2. <example in {domain} context> – <translation in {target_lang_full}>\n"
-                f"3. <example in {domain} context> – <translation in {target_lang_full}>\n\n"
+                f"1. <example in {domain} context> – <translation in {dst_lang}>\n"
+                f"2. <example in {domain} context> – <translation in {dst_lang}>\n"
+                f"3. <example in {domain} context> – <translation in {dst_lang}>\n\n"
                 f"Word to analyze: {text}"
             )
     else:

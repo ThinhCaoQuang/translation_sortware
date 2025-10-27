@@ -269,7 +269,7 @@ def main(page: ft.Page):
         text="Dịch",
         disabled=False,
         height=45,
-        width=100,
+        width=180,
         visible=True,
         animate_opacity=300,
         style=ft.ButtonStyle(
@@ -469,7 +469,7 @@ def main(page: ft.Page):
             ),
             ft.Container(
                 content=ft.Column([
-                    ft.Row([loading_ring], 
+                    ft.Row([translate_btn,loading_ring], 
                           spacing=8, alignment=ft.MainAxisAlignment.END),
                     prog
                 ], spacing=8),
