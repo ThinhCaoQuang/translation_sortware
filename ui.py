@@ -269,7 +269,7 @@ def main(page: ft.Page):
         text="Dịch",
         disabled=False,
         height=45,
-        width=100,
+        width=180,
         visible=True,
         animate_opacity=300,
         style=ft.ButtonStyle(
