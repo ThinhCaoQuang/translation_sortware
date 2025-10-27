@@ -34,7 +34,21 @@ except ImportError:
 def _lang_code(display: str) -> str:
     """Chuyển đổi tên hiển thị thành mã ngôn ngữ"""
     return LANGUAGES.get(display, "auto")
-
+    
+Tạo lớp khởi tạo phần mềm
+class AppState:
+    """Class để lưu trữ trạng thái của ứng dụng"""
+    def __init__(self):
+        self.realtime_enabled = True  # Bật mặc định
+        self.typing_timer = None
+        self.translation_cache = {}
+        self.recording = False
+        self.speaking = False
+        self.realtime_translating = False
+        self.recording_thread = None
+        self.last_audio_data = None  # Lưu audio data để xử lý sau khi dừng
+        self.force_stop_recording = False  # Flag để dừng recording ngay lập tức
+        
 class ThemeHandler:
     """Xử lý chế độ theme và màu sắc"""
     
