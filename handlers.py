@@ -44,12 +44,10 @@ def _lang_code(display: str) -> str:
 class AppState:
     """Class để lưu trữ trạng thái của ứng dụng"""
     def __init__(self):
-        self.realtime_enabled = True  # Bật mặc định
         self.typing_timer = None
         self.translation_cache = {}
         self.recording = False
         self.speaking = False
-        self.realtime_translating = False
         self.recording_thread = None
         self.last_audio_data = None  # Lưu audio data để xử lý sau khi dừng
         self.force_stop_recording = False  # Flag để dừng recording ngay lập tức
@@ -108,119 +106,6 @@ class TranslationHandler:
     
     def __init__(self, app_state: AppState):
         self.app_state = app_state
-    
-    def toggle_realtime(self, e, page, translate_btn, loading_ring, prog, 
-                       realtime_indicator):
-        """Bật/tắt chế độ dịch tự động"""
-        self.app_state.realtime_enabled = e.control.value
-        
-        # Ẩn/hiện nút dịch thủ công và các thành phần liên quan
-        translate_btn.visible = not self.app_state.realtime_enabled
-        loading_ring.visible = False if self.app_state.realtime_enabled else loading_ring.visible
-        prog.visible = False if self.app_state.realtime_enabled else prog.visible
-        realtime_indicator.visible = self.app_state.realtime_enabled
-        
-        if self.app_state.realtime_enabled:
-            page.snack_bar.content.value = "⚡ Đã bật dịch tự động - Gõ để dịch ngay lập tức"
-            # Reset trạng thái nút dịch khi ẩn
-            translate_btn.text = "Dịch"
-            translate_btn.disabled = False
-        else:
-            page.snack_bar.content.value = "⏸ Đã tắt dịch tự động - Sử dụng nút dịch thủ công"
-        
-        page.snack_bar.open = True
-        page.update()
-    
-    def on_input_change(self, e, page, input_text, output_text, prog, 
-                       src_lang, dst_lang, domain_dd, use_context,
-                       history_container, last_history):
-        """Xử lý khi text input thay đổi"""
-        if not input_text.value.strip():
-            output_text.value = ""
-            prog.visible = False
-            page.update()
-            return
-        
-        # Nếu realtime được bật
-        if self.app_state.realtime_enabled and not self.app_state.realtime_translating:
-            # Hủy timer cũ nếu có
-            if self.app_state.typing_timer:
-                self.app_state.typing_timer.cancel()
-            
-            # Tạo timer mới - dịch sau 1.0 giây ngừng gõ
-            def delayed_translate():
-                self.app_state.typing_timer = None
-                
-                text = input_text.value.strip()
-                if not text or len(text) < 2:
-                    return
-                
-                # Tránh dịch lại nếu đang dịch hoặc text không đổi
-                if self.app_state.realtime_translating:
-                    return
-                
-                # Bắt đầu dịch - hiển thị progress
-                self.app_state.realtime_translating = True
-                prog.visible = True
-                prog.value = None  # Indeterminate progress
-                page.update()
-                
-                src_code = _lang_code(src_lang.value)
-                dst_code = _lang_code(dst_lang.value)
-                domain = domain_dd.value if use_context.value else None
-                
-                def realtime_worker():
-                    try:
-                        # Tạo cache key
-                        cache_key = f"{text}_{src_code}_{dst_code}_{domain}"
-                        
-                        # Kiểm tra cache trước
-                        if cache_key in self.app_state.translation_cache:
-                            prog.value = 0.9
-                            page.update()
-                            result = self.app_state.translation_cache[cache_key]
-                        else:
-                            # Translate mới
-                            prog.value = 0.3
-                            page.update()
-                            
-                            result = translate_text(text, src_code, dst_code, domain)
-                            
-                            # Lưu vào cache (giới hạn 100 items để tránh memory leak)
-                            if len(self.app_state.translation_cache) > 100:
-                                # Xóa item cũ nhất
-                                first_key = next(iter(self.app_state.translation_cache))
-                                del self.app_state.translation_cache[first_key]
-                            self.app_state.translation_cache[cache_key] = result
-                        
-                        prog.value = 0.8
-                        page.update()
-                        
-                        output_text.value = result
-                        
-                        # Lưu vào lịch sử nếu dịch thành công và text đủ dài
-                        if len(text) > 5:
-                            add_history(src_code, dst_code, text, result, domain)
-                        
-                        # Cập nhật lịch sử nếu đang hiển thị
-                        if history_container.visible:
-                            self._update_history_display(last_history, page)
-                        
-                    except Exception as ex:
-                        # Không hiển thị lỗi cho realtime để tránh spam
-                        output_text.value = ""
-                    finally:
-                        # Reset trạng thái và ẩn progress
-                        self.app_state.realtime_translating = False
-                        prog.visible = False
-                        prog.value = 1.0
-                        page.update()
-                
-                page.run_thread(realtime_worker)
-            
-            # Import timer với thời gian giảm
-            self.app_state.typing_timer = threading.Timer(1.0, delayed_translate)
-            self.app_state.typing_timer.start()
     
     def do_translate(self, e, page, input_text, output_text, src_lang, dst_lang,
                     domain_dd, use_context, translate_btn, loading_ring, prog,
@@ -316,7 +201,7 @@ class FileHandler:
     
     @staticmethod
     def on_pick_image(e: ft.FilePickerResultEvent, input_text, img_btn, page,
-                     src_lang, realtime_enabled, do_translate_callback):
+                     src_lang, do_translate_callback):
         """Xử lý khi chọn file ảnh để OCR"""
         if not e.files:
             return
@@ -378,10 +263,6 @@ class FileHandler:
                 if text:
                     text = '\n'.join(line.strip() for line in text.split('\n') if line.strip())
                     input_text.value = text
-                    
-                    # Tự động dịch nếu realtime bật
-                    if realtime_enabled and text:
-                        threading.Timer(0.3, lambda: do_translate_callback(None)).start()
                 else:
                     input_text.value = ""
                     
