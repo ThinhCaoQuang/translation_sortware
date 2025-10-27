@@ -59,5 +59,11 @@ LANGUAGES = {
     "Tiếng Hausa": "ha",
     "Tiếng Yoruba": "yo",
     "Tiếng Igbo": "ig",
+    "Tiếng Zulu": "zu",
+    "Tiếng Xhosa": "xh",
+    "Tiếng Malay": "ms",
+    "Tiếng Iceland": "is",
+    "Tiếng Welsh": "cy",
+    "Tiếng Esperanto": "eo",
 
 }
