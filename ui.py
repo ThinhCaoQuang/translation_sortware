@@ -380,7 +380,7 @@ def main(page: ft.Page):
     pick_txt.on_result = lambda e: FileHandler.on_pick_txt(e, input_text, page)
     
     pick_img.on_result = lambda e: FileHandler.on_pick_image(
-        e, input_text, img_btn, page, src_lang
+    e, input_text, img_btn, page, src_lang
     )
     
     speak_btn.on_click = lambda e: audio_handler.do_speak(

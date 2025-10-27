@@ -193,24 +193,14 @@ class FileHandler:
         page.update()
     
     @staticmethod
-    def on_pick_image(e: ft.FilePickerResultEvent, input_text, img_btn, page, src_lang, do_translate_callback):
+    def on_pick_image(e: ft.FilePickerResultEvent, input_text, img_btn, page, src_lang):
         """Xử lý khi chọn file ảnh để OCR"""
         if not e.files:
             return
-    # Lấy ảnh từ path hoặc content (nếu chạy web)
-        try:
-            if hasattr(e.files[0], "content") and e.files[0].content:
-                import io
-                img = Image.open(io.BytesIO(e.files[0].content))
-            else:
-                img_path = e.files[0].path
-                img = Image.open(img_path)
-        except Exception as ex:
-            page.snack_bar.content.value = f"❌ Không thể mở ảnh: {ex}"
-            page.snack_bar.open = True
-            page.update()
-            return
 
+        img_path = e.files[0].path
+
+    # Hiển thị trạng thái loading
         img_btn.icon = ft.Icons.HOURGLASS_EMPTY
         img_btn.tooltip = "🔄 Đang xử lý..."
         page.update()
@@ -218,31 +208,65 @@ class FileHandler:
         def process_ocr():
             try:
                 if not PIL_AVAILABLE:
-                    raise ImportError("Pillow chưa được cài")
+                    raise ImportError("Pillow chưa được cài hoặc import lỗi.")
                 if not TESSERACT_CMD:
-                    raise FileNotFoundError("Không tìm thấy Tesseract OCR")
+                    raise FileNotFoundError("Không tìm thấy Tesseract OCR. Hãy kiểm tra lại cài đặt PATH.")
 
-            # ... (phần OCR giữ nguyên)
-                text = pytesseract.image_to_string(img, lang="vie+eng", config="--oem 3 --psm 6")
-                input_text.value = text.strip()
+                # Mở ảnh
+                img = Image.open(img_path)
 
-                if not input_text.value:
-                    page.snack_bar.content.value = "⚠ Không phát hiện được văn bản trong ảnh"
+            # Resize hợp lý (nếu quá nhỏ hoặc quá lớn)
+                width, height = img.size
+                if width < 600 or height < 600:
+                    scale = min(800 / width, 800 / height, 2.0)
+                    img = img.resize((int(width * scale), int(height * scale)), Image.Resampling.BILINEAR)
+                elif width > 2000 or height > 2000:
+                    scale = min(1500 / width, 1500 / height)
+                    img = img.resize((int(width * scale), int(height * scale)), Image.Resampling.BILINEAR)
+
+            # Ngôn ngữ OCR
+                src_code = _lang_code(src_lang.value)
+                if src_code == "vi":
+                    ocr_lang = "vie"
+                elif src_code == "en":
+                    ocr_lang = "eng"
+                elif src_code == "ja":
+                    ocr_lang = "jpn"
+                elif src_code in ["zh", "zh-tw"]:
+                    ocr_lang = "chi_sim"
+                elif src_code == "ko":
+                    ocr_lang = "kor"
                 else:
+                    ocr_lang = "vie+eng"
+
+            # OCR config
+                config = "--oem 3 --psm 6"
+                text = pytesseract.image_to_string(img, lang=ocr_lang, config=config).strip()
+
+                if text:
+                    text = "\n".join(line.strip() for line in text.split("\n") if line.strip())
+                    input_text.value = text
                     page.snack_bar.content.value = "✅ Đã trích xuất văn bản thành công"
+                else:
+                    input_text.value = ""
+                    page.snack_bar.content.value = "⚠ Không phát hiện được văn bản trong ảnh"
+
                 page.snack_bar.open = True
+                page.update()
 
             except Exception as ex:
                 input_text.value = ""
                 page.snack_bar.content.value = f"❌ Lỗi OCR: {ex}"
                 page.snack_bar.open = True
-
+                page.update()
             finally:
                 img_btn.icon = ft.Icons.IMAGE
                 img_btn.tooltip = "🖼️ Trích xuất văn bản từ ảnh"
                 page.update()
 
+        # Chạy OCR trong thread riêng để không khóa UI
         threading.Thread(target=process_ocr, daemon=True).start()
+
 
 
 class AudioHandler:
