@@ -480,7 +480,7 @@ class AudioHandler:
                 try:
                     import speech_recognition as sr
                     
-                    # Khởi tạo recognizer với cấu hình aggressive để bắt từ đầu tiên
+                    # Khởi tạo recognizer với cấu hình để bắt từ đầu tiên
                     r = sr.Recognizer()
                     
                     # Cài đặt để bắt được từ đầu tiên

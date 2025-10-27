@@ -133,14 +133,14 @@ def main(page: ft.Page):
     # ==================== CONTEXT/DOMAIN CONTROLS ====================
     
     use_context = ft.Checkbox(
-        label="Dịch theo ngữ cảnh chuyên môn",
+        label="Dịch theo ngữ cảnh",
         check_color=ft.Colors.TEAL_600,
         active_color=ft.Colors.TEAL_400,
         label_style=ft.TextStyle(size=14, weight=ft.FontWeight.W_500)
     )
     
     domain_dd = ft.Dropdown(
-        label="Lĩnh vực chuyên môn",
+        label="Ngữ cảnh",
         options=[ft.dropdown.Option(x) for x in CONTEXTS],
         value="Daily",
         width=300,
