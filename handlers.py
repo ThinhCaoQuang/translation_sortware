@@ -270,5 +270,332 @@ ocr_lang = "vie+eng"
         
         # Chạy OCR trong thread riêng
         threading.Thread(target=process_ocr, daemon=True).start()
+class AudioHandler:
+    """Xử lý các chức năng âm thanh"""
+    
+    def __init__(self, app_state: AppState):
+        self.app_state = app_state
+    
+    def do_speak(self, e, page, output_text, speak_btn, dst_lang):
+        """Xử lý text-to-speech"""
+        # Nếu đang phát, thì dừng lại
+        if self.app_state.speaking or is_speaking():
+            stop_speaking()
+            self.app_state.speaking = False
+            speak_btn.icon = ft.Icons.VOLUME_UP
+            speak_btn.tooltip = "🔊 Đọc kết quả dịch"
+            page.snack_bar.content.value = "⏸ Đã dừng đọc"
+            page.snack_bar.open = True
+            page.update()
+            return
+        
+        # Nếu không có text thì không làm gì
+        if not output_text.value or not output_text.value.strip():
+            page.snack_bar.content.value = "⚠ Chưa có kết quả dịch để đọc"
+            page.snack_bar.open = True
+            page.update()
+            return
+            
+        # Bắt đầu phát
+        try:
+            self.app_state.speaking = True
+            speak_btn.icon = ft.Icons.STOP
+            speak_btn.tooltip = "⏸️ Dừng đọc"
+            page.update()
+            
+            def speak_thread():
+                try:
+                    speak(output_text.value, _lang_code(dst_lang.value))
+                except Exception as ex:
+                    page.snack_bar.content.value = f"🔊 TTS lỗi: {ex}"
+                    page.snack_bar.open = True
+                finally:
+                    self.app_state.speaking = False
+                    speak_btn.icon = ft.Icons.VOLUME_UP
+                    speak_btn.tooltip = "🔊 Đọc kết quả dịch"
+                    page.update()
+            
+            threading.Thread(target=speak_thread, daemon=True).start()
+            
+        except Exception as ex:
+            self.app_state.speaking = False
+            speak_btn.icon = ft.Icons.VOLUME_UP
+            speak_btn.tooltip = "🔊 Đọc kết quả dịch"
+            page.snack_bar.content.value = f"🔊 TTS lỗi: {ex}"
+            page.snack_bar.open = True
+            page.update()
+    
+    def stop_recording(self, record_spinner, mic_btn, page):
+        """Dừng ghi âm và reset UI"""
+        self.app_state.recording = False
+        self.app_state.force_stop_recording = False
+        if self.app_state.recording_thread:
+            self.app_state.recording_thread = None
+        record_spinner.visible = False
+        mic_btn.icon_color = None
+        mic_btn.tooltip = "🎤 Ghi âm để dịch"
+        page.update()
+    
+    def do_record(self, e, page, input_text, mic_btn, record_spinner, src_lang):
+        """Xử lý speech-to-text với các cải tiến"""
+        if not self.app_state.recording:
+            # Bắt đầu ghi âm
+            self.app_state.recording = True
+            record_spinner.visible = True
+mic_btn.icon_color = "red"
+            mic_btn.tooltip = "🛑 Nhấn lại để dừng"
+            page.snack_bar.content.value = "🎤 Chuẩn bị ghi âm... Sẽ tự động bắt đầu khi có giọng nói!"
+            page.snack_bar.open = True
+            page.update()
+            
+            def record_worker():
+                recorded_text = None  # Biến lưu văn bản đã ghi âm
+                try:
+                    import speech_recognition as sr
+                    
+                    # Khởi tạo recognizer với cấu hình để bắt từ đầu tiên
+                    r = sr.Recognizer()
+                    
+                    # Cài đặt để bắt được từ đầu tiên
+                    r.pause_threshold = 0.8  # Thời gian im lặng để kết thúc
+                    r.phrase_time_limit = None  # Không giới hạn thời gian nói
+                    r.dynamic_energy_threshold = False  # Tắt auto-adjust để có control tốt hơn
+                    r.energy_threshold = 100  # Ngưỡng thấp để bắt giọng nói nhỏ
+                    r.non_speaking_duration = 0.2  # Thời gian im lặng trước khi recording
+                    
+                    with sr.Microphone() as source:
+                        # Điều chỉnh nhanh
+                        page.snack_bar.content.value = "🔧 Chuẩn bị micro..."
+                        page.snack_bar.open = True
+                        page.update()
+                        
+                        # Lấy mẫu nhiễu nền ngắn gọn
+                        r.adjust_for_ambient_noise(source, duration=0.2)
+                        
+                        # Lưu energy threshold sau khi điều chỉnh
+                        baseline_energy = r.energy_threshold
+                        # Đặt threshold thấp hơn baseline để sensitive hơn
+                        r.energy_threshold = max(50, baseline_energy * 0.3)
+                        
+                        if not self.app_state.recording:
+                            return
+                        
+                        page.snack_bar.content.value = "🎤 NÓI NGAY BÂY GIỜ! Đang lắng nghe..."
+                        page.snack_bar.open = True
+                        page.update()
+                        
+                        # Chiến lược mới: Listen với timeout rất ngắn để bắt đầu ngay
+                        try:
+                            # Thử bắt audio ngay lập tức
+                            audio = r.listen(
+                                source, 
+                                timeout=1,  # Bắt đầu nghe trong 1 giây
+                                phrase_time_limit=20  # Cho phép nói tối đa 20 giây
+                            )
+                        except sr.WaitTimeoutError:
+                            # Nếu timeout, thử lần nữa với threshold thấp hơn
+                            r.energy_threshold = max(30, r.energy_threshold * 0.5)
+page.snack_bar.content.value = "🎤 Đang chờ giọng nói... Hãy nói to hơn!"
+                            page.snack_bar.open = True
+                            page.update()
+                            
+                            audio = r.listen(
+                                source,
+                                timeout=10,
+                                phrase_time_limit=20
+                            )
+                    
+                    # Kiểm tra trạng thái ghi âm trước khi xử lý
+                    if not self.app_state.recording:
+                        # Nếu bị dừng thủ công, vẫn cố gắng xử lý audio đã ghi
+                        pass
+                    
+                    page.snack_bar.content.value = "🔄 Đang xử lý âm thanh..."
+                    page.snack_bar.open = True
+                    page.update()
+                    
+                    # Xác định ngôn ngữ với ưu tiên tiếng Việt
+                    src_code = _lang_code(src_lang.value)
+                    if src_code == "auto":
+                        src_code = "vi"  # Mặc định tiếng Việt cho người Việt Nam
+                    
+                    # Mapping mở rộng cho Google Speech Recognition
+                    lang_map = {
+                        "vi": "vi-VN", 
+                        "en": "en-US", 
+                        "zh": "zh-CN",
+                        "zh-tw": "zh-TW",
+                        "ja": "ja-JP", 
+                        "ko": "ko-KR", 
+                        "fr": "fr-FR",
+                        "de": "de-DE", 
+                        "es": "es-ES", 
+                        "it": "it-IT",
+                        "pt": "pt-BR", 
+                        "ru": "ru-RU", 
+                        "ar": "ar-SA",
+                        "th": "th-TH",
+                        "hi": "hi-IN"
+                    }
+                    
+                    recognition_lang = lang_map.get(src_code, "vi-VN")
+                    
+                    # Thử nhận dạng với ưu tiên ngôn ngữ được chọn
+                    recognition_attempts = []
+                    
+                    # Ưu tiên 1: Ngôn ngữ được chọn cụ thể
+                    if src_code != "auto":
+                        recognition_attempts.append(recognition_lang)
+                    
+                    # Ưu tiên 2: Nếu auto detect, thử tiếng Việt trước (cho người Việt)
+                    if src_code == "auto":
+                        recognition_attempts.append("vi-VN")
+                        recognition_attempts.append("en-US")
+                    
+                    # Ưu tiên 3: Fallback cho các trường hợp đặc biệt
+                    if src_code == "vi" and "en-US" not in recognition_attempts:
+                        recognition_attempts.append("en-US")  # Fallback cho tiếng Việt
+elif src_code == "en" and "vi-VN" not in recognition_attempts:
+                        recognition_attempts.append("vi-VN")  # Fallback cho tiếng Anh
+                    
+                    # Nhận dạng giọng nói với ưu tiên tiếng Việt
+                    best_confidence = 0
+                    best_text = None
+                    best_lang = None
+                    
+                    for attempt_lang in recognition_attempts:
+                        try:
+                            # Sử dụng show_all=True để có nhiều tùy chọn
+                            alternatives = r.recognize_google(audio, language=attempt_lang, show_all=True)
+                            
+                            if alternatives and "alternative" in alternatives:
+                                for alt in alternatives["alternative"]:
+                                    current_confidence = alt.get("confidence", 0.5)  # Default confidence
+                                    current_text = alt["transcript"]
+                                    
+                                    # Bonus điểm cho ngôn ngữ được chọn cụ thể
+                                    if attempt_lang == recognition_lang and src_code != "auto":
+                                        # Ưu tiên mạnh cho ngôn ngữ được chọn cụ thể
+                                        current_confidence += 0.4
+                                    elif attempt_lang == "vi-VN" and src_code == "auto":
+                                        # Kiểm tra xem có từ tiếng Việt không khi auto detect
+                                        vietnamese_words = ["là", "của", "và", "có", "tôi", "bạn", "này", "đó", "lớp", "học", "việt", "nam", "đi", "đến", "với", "trong"]
+                                        text_lower = current_text.lower()
+                                        has_vietnamese = any(word in text_lower for word in vietnamese_words)
+                                        
+                                        if has_vietnamese:
+                                            current_confidence += 0.3  # Bonus cho tiếng Việt có từ Việt
+                                        else:
+                                            current_confidence += 0.1  # Bonus nhỏ cho tiếng Việt
+                                    elif attempt_lang == "en-US" and src_code == "auto":
+                                        # Kiểm tra xem có từ tiếng Anh không khi auto detect  
+                                        english_words = ["the", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by"]
+                                        text_lower = current_text.lower()
+                                        has_english = any(word in text_lower for word in english_words)
+                                        
+                                        if has_english:
+current_confidence += 0.2  # Bonus cho tiếng Anh có từ Anh
+                                    
+                                    # Chọn kết quả tốt nhất
+                                    if current_confidence > best_confidence:
+                                        best_confidence = current_confidence
+                                        best_text = current_text
+                                        best_lang = attempt_lang
+                            else:
+                                # Fallback: thử phương thức cũ
+                                text = r.recognize_google(audio, language=attempt_lang)
+                                if text.strip():
+                                    confidence = 0.7 if attempt_lang == "vi-VN" else 0.5
+                                    if confidence > best_confidence:
+                                        best_confidence = confidence
+                                        best_text = text
+                                        best_lang = attempt_lang
+                                    
+                        except sr.UnknownValueError:
+                            continue  # Thử ngôn ngữ tiếp theo
+                        except sr.RequestError:
+                            continue  # Thử ngôn ngữ tiếp theo
+                        except Exception:
+                            continue  # Thử ngôn ngữ tiếp theo
+                    
+                    # Sử dụng kết quả tốt nhất
+                    if best_text and best_confidence > 0.4:  # Ngưỡng thấp hơn
+                        recorded_text = best_text
+                    
+                    # Xử lý kết quả
+                    if recorded_text and recorded_text.strip():
+                        # Làm sạch văn bản
+                        recorded_text = recorded_text.strip()
+                        
+                        # Sửa các từ thường bị nhầm lẫn khi nói tiếng Việt
+                        if best_lang == "vi-VN" or src_code == "vi":
+                            # Dictionary sửa lỗi phổ biến
+                            vietnamese_corrections = {
+                                "love": "lớp",
+                                "Love": "Lớp", 
+                                "class": "lớp",
+                                "Class": "Lớp",
+                                "home": "hôm",
+                                "Home": "Hôm",
+                                "time": "thời",
+                                "Time": "Thời",
+                                "name": "năm",
+                                "Name": "Năm",
+                                "house": "học",
+                                "House": "Học",
+                                "school": "trường",
+                                "School": "Trường",
+                                "book": "bước",
+                                "Book": "Bước",
+"water": "việt",
+                                "Water": "Việt",
+                                "come": "gọi",
+                                "Come": "Gọi",
+                                "go": "đi",
+                                "Go": "Đi"
+                            }
+                            
+                            # Thay thế từng từ
+                            words = recorded_text.split()
+                            corrected_words = []
+                            for word in words:
+                                # Loại bỏ dấu câu để check
+                                clean_word = word.strip(".,!?;:")
+                                punctuation = word[len(clean_word):]
+                                
+                                if clean_word in vietnamese_corrections:
+                                    corrected_words.append(vietnamese_corrections[clean_word] + punctuation)
+                                else:
+                                    corrected_words.append(word)
+                            
+                            recorded_text = " ".join(corrected_words)
+                        
+                        # Cập nhật UI
+                        input_text.value = recorded_text
+                        confidence_text = f" (tin cậy: {best_confidence:.1%})" if best_confidence > 0 else ""
+                        page.snack_bar.content.value = f"✅ {best_lang}: {recorded_text[:35]}{'...' if len(recorded_text) > 35 else ''}{confidence_text}"
+                    else:
+                        page.snack_bar.content.value = "⚠ Không thể nhận dạng giọng nói. Thử nói rõ hơn và gần micro."
+                        
+                except sr.WaitTimeoutError:
+                    page.snack_bar.content.value = "⏰ Không nghe thấy giọng nói. Thử nói to hơn hoặc gần micro hơn!"
+                except Exception as ex:
+                    page.snack_bar.content.value = f"❌ Lỗi ghi âm: {str(ex)[:50]}..."
+                
+                finally:
+                    # Reset trạng thái UI - LUÔN thực hiện
+                    self.stop_recording(record_spinner, mic_btn, page)
+                    page.snack_bar.open = True
+                    page.update()
+            
+            # Lưu reference thread và chạy
+            self.app_state.recording_thread = page.run_thread(record_worker)
+            
+        else:
+            # Dừng ghi âm thủ công - văn bản vẫn được xử lý
+            self.app_state.recording = False
+            page.snack_bar.content.value = "⏹️ Đang xử lý âm thanh đã ghi..."
+            page.snack_bar.open = True
+            page.update()
 
 
