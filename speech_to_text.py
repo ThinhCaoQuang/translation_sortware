@@ -1,72 +1,82 @@
-from gtts import gTTS
-import pygame
+import google.generativeai as genai
+import sounddevice as sd
+import numpy as np
 import tempfile
+import wave
+import threading
 import os
-from languages import LANGUAGES
 
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY", "AIzaSyDrF1Nq2RUxRJ10CPAYEt1_8bxqq45Of70"))
 
-# Bản đồ mã ngôn ngữ thân thiện -> mã ngôn ngữ của gTTS
-GTTS_LANG_MAP = {
-    "vi": "vi",        # Tiếng Việt
-    "en": "en",        # Tiếng Anh
-    "ja": "ja",        # Tiếng Nhật
-    "fr": "fr",        # Tiếng Pháp
-    "zh-tw": "zh-tw",  # Tiếng Trung phồn thể
-    "zh": "zh",     # Tiếng Trung giản thể
-    "ko": "ko",        # Tiếng Hàn
-    "de": "de",        # Tiếng Đức
-    "id": "id",        # Tiếng Indonesia
-    "th": "th",        # Tiếng Thái
-    # Thêm nếu cần
-}
+is_recording = False
+frames = []
+samplerate = 16000
 
-def speak(text: str, lang_display: str = "Tiếng Anh"):
-    if not text.strip():
-        return
+def _callback(indata, frames_count, time_info, status):
+    if is_recording:
+        frames.append(indata.copy())
 
-    # B1: lấy mã từ tên hiển thị ("Tiếng Việt" -> "vi")
-    lang_code = LANGUAGES.get(lang_display, lang_display)
+def start_recording():
+    global is_recording, frames
+    frames = []
+    is_recording = True
+    print("Bắt đầu ghi âm...")
+    threading.Thread(target=_record_thread, daemon=True).start()
 
-    # B2: lấy mã của gTTS (vì một số khác biệt, ví dụ "zh" → "zh-CN")
-    lang = GTTS_LANG_MAP.get(lang_code, lang_code)
+def _record_thread():
+    with sd.InputStream(channels=1, samplerate=samplerate, dtype='int16', callback=_callback):
+        while is_recording:
+            sd.sleep(100)
+
+def stop_recording():
+    global is_recording
+    is_recording = False
+    print("Dừng ghi âm.")
+    sd.sleep(200)  # đảm bảo ghi nốt phần cuối
+    if not frames:
+        return None
+    audio = np.concatenate(frames, axis=0)
+    try:
+        import noisereduce as nr
+        print("Đang lọc nhiễu, vui lòng đợi...")
+        reduced = nr.reduce_noise(y=audio.astype(np.float32), sr=samplerate)
+        print("Hoàn tất lọc nhiễu.")
+        return reduced.astype(np.int16)  # chuyển lại int16 để lưu WAV
+    except ImportError:
+        print("Chưa cài noisereduce. Dùng âm thanh gốc.")
+        return audio
+    except Exception as e:
+        print(f"Lỗi khi lọc nhiễu: {e}")
+        return audio
+
+def transcribe_audio(lang="vi"):
+    """Dừng ghi và gửi audio đến Gemini để nhận dạng"""
+    audio = stop_recording()
+    if audio is None:
+        return "[Không có âm thanh]"
 
     try:
-        tts = gTTS(text=text, lang=lang)
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as fp:
-            temp_path = fp.name
-            tts.save(temp_path)
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f:
+            with wave.open(f, 'wb') as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(2)
+                wf.setframerate(samplerate)
+                wf.writeframes(audio.tobytes())
+            f.flush()
 
-        pygame.mixer.init()
-        pygame.mixer.music.load(temp_path)
-        pygame.mixer.music.play()
-        
-        # Chờ cho đến khi phát xong hoặc bị dừng
-        import time
-        while pygame.mixer.music.get_busy():
-            time.sleep(0.1)  # Check mỗi 100ms
-            continue
+            model = genai.GenerativeModel("gemini-2.0-flash")
+            prompt = (f"Chuyển nội dung giọng nói trong file này thành văn bản"
+                      f"Nếu người nói dùng tiếng {lang}, hãy ghi lại nguyên văn bằng tiếng {lang}."
+                      f"Không tự động đưa ra kết quả dịch khi tôi nói tiếng {lang}")
 
-        pygame.mixer.music.unload()
-        os.remove(temp_path)
-
-    except Exception as ex:
-        raise RuntimeError(f"TTS lỗi: {ex}")
-
-def stop_speaking():
-    """Dừng phát âm thanh TTS"""
-    try:
-        if pygame.mixer.get_init():
-            pygame.mixer.music.stop()
-            pygame.mixer.music.unload()
-        return True
-    except:
-        return False
-
-def is_speaking():
-    """Kiểm tra xem có đang phát âm thanh không"""
-    try:
-        if pygame.mixer.get_init():
-            return pygame.mixer.music.get_busy()
-        return False
-    except:
-        return False
+            print("Đang nhận dạng bằng Gemini...")
+            response = model.generate_content([
+                prompt,
+                {"mime_type": "audio/wav", "data": open(f.name, "rb").read()}
+            ])
+            text = response.text.strip() if response.text else "[Không có kết quả]"
+            print("Kết quả:", text)
+            return text
+    except Exception as e:
+        print(f"Lỗi nhận dạng: {e}")
+        return f"[Lỗi: {e}]"
