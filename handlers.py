@@ -18,9 +18,7 @@ try:
     # Cache Tesseract path ngay từ đầu
     TESSERACT_CMD = None
     tesseract_paths = [
-        r"C:\Program Files\Tesseract-OCR\tesseract.exe",
-        r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
-        r"C:\tesseract\tesseract.exe",
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
     ]
     for path in tesseract_paths:
         if os.path.exists(path):
@@ -34,21 +32,20 @@ except ImportError:
 def _lang_code(display: str) -> str:
     """Chuyển đổi tên hiển thị thành mã ngôn ngữ"""
     return LANGUAGES.get(display, "auto")
-    
-Tạo lớp khởi tạo phần mềm
+
+
 class AppState:
     """Class để lưu trữ trạng thái của ứng dụng"""
     def __init__(self):
-        self.realtime_enabled = True  # Bật mặc định
         self.typing_timer = None
         self.translation_cache = {}
         self.recording = False
         self.speaking = False
-        self.realtime_translating = False
         self.recording_thread = None
         self.last_audio_data = None  # Lưu audio data để xử lý sau khi dừng
         self.force_stop_recording = False  # Flag để dừng recording ngay lập tức
-        
+
+
 class ThemeHandler:
     """Xử lý chế độ theme và màu sắc"""
     
@@ -95,7 +92,8 @@ class ThemeHandler:
     @staticmethod
     def get_history_text_color(page):
         return ft.Colors.BLACK87 if page.theme_mode == "light" else ft.Colors.WHITE70
-        Bổ sung handler chức năng dịch + file văn bản và hình ảnh
+
+
 class TranslationHandler:
     """Xử lý các chức năng dịch thuật"""
     
@@ -170,7 +168,8 @@ class TranslationHandler:
                 if ctx:
                     history_text += f"🏷 Ngữ cảnh: {ctx}\n"
                 history_text += "─" * 50 + "\n\n"
-last_history.value = history_text.strip()
+            
+            last_history.value = history_text.strip()
             last_history.color = ThemeHandler.get_history_text_color(page)
 
 
@@ -194,44 +193,38 @@ class FileHandler:
         page.update()
     
     @staticmethod
-    def on_pick_image(e: ft.FilePickerResultEvent, input_text, img_btn, page,
-                     src_lang, do_translate_callback):
+    def on_pick_image(e: ft.FilePickerResultEvent, input_text, img_btn, page, src_lang):
         """Xử lý khi chọn file ảnh để OCR"""
         if not e.files:
             return
-            
+
         img_path = e.files[0].path
-        
-        # Hiển thị loading và update ngay
+
+    # Hiển thị trạng thái loading
         img_btn.icon = ft.Icons.HOURGLASS_EMPTY
         img_btn.tooltip = "🔄 Đang xử lý..."
         page.update()
-        
+
         def process_ocr():
             try:
                 if not PIL_AVAILABLE:
-                    raise ImportError("PIL không có sẵn")
-                
+                    raise ImportError("Pillow chưa được cài hoặc import lỗi.")
                 if not TESSERACT_CMD:
-                    raise FileNotFoundError("Không tìm thấy Tesseract OCR")
-                
-                # Mở ảnh với optimization
+                    raise FileNotFoundError("Không tìm thấy Tesseract OCR. Hãy kiểm tra lại cài đặt PATH.")
+
+                # Mở ảnh
                 img = Image.open(img_path)
-                
-                # Tối ưu kích thước ảnh cho tốc độ
+
+            # Resize hợp lý (nếu quá nhỏ hoặc quá lớn)
                 width, height = img.size
-                
-                # Chỉ resize nếu ảnh quá nhỏ hoặc quá lớn
                 if width < 600 or height < 600:
-                    scale = min(800/width, 800/height, 2.0)
-                    new_size = (int(width * scale), int(height * scale))
-                    img = img.resize(new_size, Image.Resampling.BILINEAR)
+                    scale = min(800 / width, 800 / height, 2.0)
+                    img = img.resize((int(width * scale), int(height * scale)), Image.Resampling.BILINEAR)
                 elif width > 2000 or height > 2000:
-                    scale = min(1500/width, 1500/height)
-                    new_size = (int(width * scale), int(height * scale))
-                    img = img.resize(new_size, Image.Resampling.BILINEAR)
-                
-                # Tối ưu ngôn ngữ OCR
+                    scale = min(1500 / width, 1500 / height)
+                    img = img.resize((int(width * scale), int(height * scale)), Image.Resampling.BILINEAR)
+
+            # Ngôn ngữ OCR
                 src_code = _lang_code(src_lang.value)
                 if src_code == "vi":
                     ocr_lang = "vie"
@@ -239,37 +232,43 @@ class FileHandler:
                     ocr_lang = "eng"
                 elif src_code == "ja":
                     ocr_lang = "jpn"
-                elif src_code == "zh" or src_code == "zh-tw":
+                elif src_code in ["zh", "zh-tw"]:
                     ocr_lang = "chi_sim"
                 elif src_code == "ko":
                     ocr_lang = "kor"
                 else:
-ocr_lang = "vie+eng"
-                
-                # Config OCR tối ưu cho tốc độ
+                    ocr_lang = "vie+eng"
+
+            # OCR config
                 config = "--oem 3 --psm 6"
-                
-                # Thực hiện OCR
-                text = pytesseract.image_to_string(img, lang=ocr_lang, config=config)
-                
-                # Làm sạch text
-                text = text.strip()
+                text = pytesseract.image_to_string(img, lang=ocr_lang, config=config).strip()
+
                 if text:
-                    text = '\n'.join(line.strip() for line in text.split('\n') if line.strip())
+                    text = "\n".join(line.strip() for line in text.split("\n") if line.strip())
                     input_text.value = text
+                    page.snack_bar.content.value = "✅ Đã trích xuất văn bản thành công"
                 else:
                     input_text.value = ""
-                    
+                    page.snack_bar.content.value = "⚠ Không phát hiện được văn bản trong ảnh"
+
+                page.snack_bar.open = True
+                page.update()
+
             except Exception as ex:
                 input_text.value = ""
+                page.snack_bar.content.value = f"❌ Lỗi OCR: {ex}"
+                page.snack_bar.open = True
+                page.update()
             finally:
-                # Reset button state
                 img_btn.icon = ft.Icons.IMAGE
                 img_btn.tooltip = "🖼️ Trích xuất văn bản từ ảnh"
                 page.update()
-        
-        # Chạy OCR trong thread riêng
+
+        # Chạy OCR trong thread riêng để không khóa UI
         threading.Thread(target=process_ocr, daemon=True).start()
+
+
+
 class AudioHandler:
     """Xử lý các chức năng âm thanh"""
     
@@ -342,7 +341,7 @@ class AudioHandler:
             # Bắt đầu ghi âm
             self.app_state.recording = True
             record_spinner.visible = True
-mic_btn.icon_color = "red"
+            mic_btn.icon_color = "red"
             mic_btn.tooltip = "🛑 Nhấn lại để dừng"
             page.snack_bar.content.value = "🎤 Chuẩn bị ghi âm... Sẽ tự động bắt đầu khi có giọng nói!"
             page.snack_bar.open = True
@@ -395,7 +394,7 @@ mic_btn.icon_color = "red"
                         except sr.WaitTimeoutError:
                             # Nếu timeout, thử lần nữa với threshold thấp hơn
                             r.energy_threshold = max(30, r.energy_threshold * 0.5)
-page.snack_bar.content.value = "🎤 Đang chờ giọng nói... Hãy nói to hơn!"
+                            page.snack_bar.content.value = "🎤 Đang chờ giọng nói... Hãy nói to hơn!"
                             page.snack_bar.open = True
                             page.update()
                             
@@ -455,7 +454,7 @@ page.snack_bar.content.value = "🎤 Đang chờ giọng nói... Hãy nói to h�
                     # Ưu tiên 3: Fallback cho các trường hợp đặc biệt
                     if src_code == "vi" and "en-US" not in recognition_attempts:
                         recognition_attempts.append("en-US")  # Fallback cho tiếng Việt
-elif src_code == "en" and "vi-VN" not in recognition_attempts:
+                    elif src_code == "en" and "vi-VN" not in recognition_attempts:
                         recognition_attempts.append("vi-VN")  # Fallback cho tiếng Anh
                     
                     # Nhận dạng giọng nói với ưu tiên tiếng Việt
@@ -494,7 +493,7 @@ elif src_code == "en" and "vi-VN" not in recognition_attempts:
                                         has_english = any(word in text_lower for word in english_words)
                                         
                                         if has_english:
-current_confidence += 0.2  # Bonus cho tiếng Anh có từ Anh
+                                            current_confidence += 0.2  # Bonus cho tiếng Anh có từ Anh
                                     
                                     # Chọn kết quả tốt nhất
                                     if current_confidence > best_confidence:
@@ -547,7 +546,7 @@ current_confidence += 0.2  # Bonus cho tiếng Anh có từ Anh
                                 "School": "Trường",
                                 "book": "bước",
                                 "Book": "Bước",
-"water": "việt",
+                                "water": "việt",
                                 "Water": "Việt",
                                 "come": "gọi",
                                 "Come": "Gọi",
@@ -599,3 +598,142 @@ current_confidence += 0.2  # Bonus cho tiếng Anh có từ Anh
             page.update()
 
 
+class HistoryHandler:
+    """Xử lý các chức năng lịch sử"""
+    
+    @staticmethod
+    def show_history(e, page, history_container, last_history):
+        """Hiển thị/ẩn lịch sử"""
+        # Toggle hiển thị history container
+        if history_container.visible:
+            history_container.visible = False
+        else:
+            items = get_history()
+            if not items:
+                page.snack_bar.content.value = "📜 Chưa có lịch sử dịch"
+                page.snack_bar.open = True
+                page.update()
+                return
+            
+            # Hiển thị 5 lịch sử gần nhất
+            recent_items = items[:5] if len(items) >= 5 else items
+            history_text = ""
+            
+            for i, (src, dst, text_in, text_out, ctx, created) in enumerate(recent_items, 1):
+                history_text += f"📅 {created} | {src} → {dst}\n"
+                history_text += f"📝 Đầu vào: {text_in[:50]}{'...' if len(text_in) > 50 else ''}\n"
+                history_text += f"✅ Kết quả: {text_out[:50]}{'...' if len(text_out) > 50 else ''}\n"
+                if ctx:
+                    history_text += f"🏷 Ngữ cảnh: {ctx}\n"
+                history_text += "─" * 50 + "\n\n"
+            
+            last_history.value = history_text.strip()
+            last_history.color = ThemeHandler.get_history_text_color(page)
+            history_container.visible = True
+        
+        page.update()
+    
+    @staticmethod
+    def clear_history_action(e, page, last_history, history_container):
+        """Xóa lịch sử"""
+        import sqlite3
+        import os
+        
+        # Sử dụng cùng path với history.py
+        DB_PATH = "data/history.db"
+        
+        # Đảm bảo thư mục data tồn tại
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+        
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            conn.execute("DELETE FROM history")
+            conn.commit()
+            conn.close()
+            
+            last_history.value = ""
+            history_container.visible = False
+            page.snack_bar.content.value = "🗑️ Đã xóa toàn bộ lịch sử"
+            page.snack_bar.open = True
+            page.update()
+            
+        except Exception as ex:
+            page.snack_bar.content.value = f"❌ Lỗi xóa lịch sử: {str(ex)[:50]}..."
+            page.snack_bar.open = True
+            page.update()
+    
+    @staticmethod
+    def export_history_action(e, page):
+        """Xuất lịch sử ra file"""
+        import os
+        from datetime import datetime
+        
+        items = get_history()
+        if not items:
+            page.snack_bar.content.value = "📜 Không có lịch sử để xuất"
+            page.snack_bar.open = True
+            page.update()
+            return
+        
+        # Tạo tên file với timestamp để tránh ghi đè
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        export_filename = f"history_export_{timestamp}.txt"
+        export_path = os.path.join("data", export_filename)
+        
+        # Đảm bảo thư mục data tồn tại
+        os.makedirs("data", exist_ok=True)
+        
+        try:
+            with open(export_path, "w", encoding="utf-8") as f:
+                # Header thông tin
+                f.write(f"📊 LỊCH SỬ DỊCH THUẬT - XUẤT NGÀY {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
+                f.write("=" * 60 + "\n\n")
+                
+                for i, (src, dst, text_in, text_out, ctx, created) in enumerate(items, 1):
+                    f.write(f"[{i:03d}] {created} | {src} → {dst}\n")
+                    if ctx and ctx != "None":
+                        f.write(f"🏷 Ngữ cảnh: {ctx}\n")
+                    f.write(f"📝 Đầu vào: {text_in}\n")
+                    f.write(f"✅ Kết quả: {text_out}\n")
+                    f.write("-" * 50 + "\n\n")
+                
+                # Footer
+                f.write(f"\n📈 Tổng số bản dịch: {len(items)}\n")
+                f.write(f"📁 File được tạo: {export_path}\n")
+                
+            page.snack_bar.content.value = f"💾 Đã xuất {len(items)} lịch sử vào data/{export_filename}"
+            page.snack_bar.open = True
+            page.update()
+            
+        except Exception as ex:
+            page.snack_bar.content.value = f"❌ Lỗi xuất file: {str(ex)[:50]}..."
+            page.snack_bar.open = True
+            page.update()
+
+
+class UtilityHandler:
+    """Xử lý các chức năng tiện ích"""
+    
+    @staticmethod
+    def do_copy(e, page, output_text):
+        """Copy kết quả vào clipboard"""
+        if not output_text.value.strip():
+            page.snack_bar.content.value = "❌ Không có nội dung để copy"
+        else:
+            page.set_clipboard(output_text.value or "")
+            page.snack_bar.content.value = "📋 Đã copy vào clipboard"
+        page.snack_bar.open = True
+        page.update()
+    
+    @staticmethod
+    def do_swap(e, page, src_lang, dst_lang):
+        """Đổi chiều ngôn ngữ"""
+        s, d = src_lang.value, dst_lang.value
+        src_lang.value, dst_lang.value = d, s
+        page.update()
+    
+    @staticmethod
+    def toggle_context(e, page, domain_dd, use_context):
+        """Bật/tắt ngữ cảnh chuyên môn"""
+        domain_dd.opacity = 1.0 if use_context.value else 0.0
+        page.update()
