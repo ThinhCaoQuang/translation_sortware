@@ -118,7 +118,7 @@ def main(page: ft.Page):
         min_lines=5,
         max_lines=10,
         expand=True,
-        border_color=ThemeHandler.get_border_color(page,Ư ft.Colors.BLUE_400),
+        border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_400),
         focused_border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_600),
         bgcolor=ThemeHandler.get_textfield_bgcolor(page),
         content_padding=ft.padding.all(15),

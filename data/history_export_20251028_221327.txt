@@ -1,0 +1,83 @@
+LỊCH SỬ DỊCH THUẬT - XUẤT NGÀY 28/10/2025 22:13:27
+============================================================
+
+[001] 2025-10-28 22:13:07 | auto → vi
+📝 Đầu vào: bridewell
+✅ Kết quả: Nghĩa : trại cải tạo, nhà tù lao động
+Loại từ : danh từ
+Phiên âm : /ˈbraɪdwel/
+Giải thích : Một nhà tù hoặc trại cải tạo, đặc biệt là một nơi làm việc như một hình phạt.
+1. The bridewell was known for its harsh conditions and forced labor. – Nhà tù Bridewell nổi tiếng với điều kiện khắc nghiệt và lao động cưỡng bức.
+2. He was sentenced to a term in the bridewell for vagrancy. – Anh ta bị kết án một thời gian trong trại cải tạo vì tội lang thang.
+3. Bridewells were established to deal with petty criminals and vagrants. – Các trại cải tạo được thành lập để xử lý tội phạm vặt và người lang thang.
+
+--------------------------------------------------
+
+[002] 2025-10-28 22:12:58 | auto → vi
+📝 Đầu vào: well
+✅ Kết quả: Nghĩa : tốt, khỏe, giếng, ừ
+Loại từ : trạng từ, tính từ, danh từ, thán từ
+Phiên âm : /wel/
+Giải thích : 'Well' là một từ đa nghĩa trong tiếng Anh, có thể biểu thị trạng thái tốt, sức khỏe, một cái giếng, hoặc một lời khẳng định.
+1. I am feeling well today. – Hôm nay tôi cảm thấy khỏe.
+2. We get water from the well. – Chúng tôi lấy nước từ giếng.
+3. Well, let's see what happens. – ừm, hãy xem điều gì sẽ xảy ra.
+
+--------------------------------------------------
+
+[003] 2025-10-28 22:12:52 | auto → vi
+📝 Đầu vào: bride
+✅ Kết quả: Nghĩa : cô dâu
+Loại từ : danh từ
+Phiên âm : /braɪd/
+Giải thích : Người phụ nữ đang kết hôn hoặc vừa mới kết hôn.
+1. The bride wore a beautiful white dress. – Cô dâu mặc một chiếc váy trắng tuyệt đẹp.
+2. He nervously waited for his bride at the altar. – Anh ấy lo lắng chờ đợi cô dâu của mình tại bàn thờ.
+3. The bride and groom danced their first dance as a married couple. – Cô dâu và chú rể nhảy điệu nhảy đầu tiên của họ với tư cách là một cặp vợ chồng đã kết hôn.
+
+--------------------------------------------------
+
+[004] 2025-10-28 22:10:33 | auto → vi
+📝 Đầu vào: life
+✅ Kết quả: Nghĩa : cuộc sống, sự sống
+Loại từ : danh từ
+Phiên âm : /laɪf/
+Giải thích : Trạng thái của việc tồn tại, khác với cái chết.
+1. Life is precious. – Cuộc sống rất quý giá.
+2. He saved her life. – Anh ấy đã cứu mạng cô ấy.
+3. I want to travel the world and experience a different way of life. – Tôi muốn đi du lịch vòng quanh thế giới và trải nghiệm một lối sống khác.
+
+--------------------------------------------------
+
+[005] 2025-10-28 21:35:44 | auto → vi
+📝 Đầu vào: Technology has transformed the way we live, work, and communicate. In the past, people relied heavily on letters, newspapers, and face-to-face meetings. Today, instant communication tools such as email, video calls, and social media have made it possible to connect with anyone, anywhere in the world. This has opened up countless opportunities for education, business, and personal relationships.
+However, technology also brings challenges. Issues like privacy, cybersecurity, and screen addiction are becoming more serious as our dependence on digital tools grows. To make the most of technological progress, society must balance innovation with responsibility. By using technology wisely, we can build a future that benefits everyone.
+✅ Kết quả: Công nghệ đã biến đổi cách chúng ta sống, làm việc, và giao tiếp. Trong quá khứ, con người dựa dẫm nhiều vào thư từ, báo chí, và những cuộc gặp mặt trực tiếp. Ngày nay, những công cụ giao tiếp tức thời như là email, cuộc gọi video, và mạng xã hội đã làm cho nó có thể kết nối với bất kỳ ai, ở bất kỳ đâu trên thế giới. Điều này đã mở ra vô số cơ hội cho giáo dục, kinh doanh, và những mối quan hệ cá nhân.
+Tuy nhiên, công nghệ cũng mang đến những thách thức. Những vấn đề như là sự riêng tư, an ninh mạng, và nghiện màn hình đang trở nên nghiêm trọng hơn khi sự phụ thuộc của chúng ta vào những công cụ kỹ thuật số tăng lên. Để tận dụng tối đa những tiến bộ công nghệ, xã hội phải cân bằng sự đổi mới với trách nhiệm. Bằng việc sử dụng công nghệ một cách khôn ngoan, chúng ta có thể xây dựng một tương lai mà mang lại lợi ích cho mọi người.
+
+--------------------------------------------------
+
+[006] 2025-10-28 21:35:32 | auto → vi
+📝 Đầu vào: Leaming is a lifelong journey that goes far beyond the classroom.
+It is not only about memorizing facts, but also about developing critical thinking and creativity.
+Every mistake we make becomes an opportunity to grow and understand more deeply.
+In today’s digital age, knowledge is everywhere — what matters most is our curiosity and willingness to
+learn.
+A true learner never stops exploring new ideas and improving themselves.
+✅ Kết quả: Học tập là một hành trình cả đời mà đi xa hơn lớp học rất nhiều.
+Nó không chỉ là về việc ghi nhớ các sự kiện, mà còn là về việc phát triển tư duy phản biện và sự sáng tạo.
+Mỗi sai lầm chúng ta mắc phải trở thành một cơ hội để trưởng thành và hiểu sâu sắc hơn.
+Trong thời đại kỹ thuật số ngày nay, kiến thức ở khắp mọi nơi — điều quan trọng nhất là sự tò mò và sự sẵn lòng của chúng ta để học tập.
+Một người học thực sự không bao giờ ngừng khám phá những ý tưởng mới và cải thiện bản thân họ.
+
+--------------------------------------------------
+
+[007] 2025-10-28 21:35:14 | auto → vi
+📝 Đầu vào: good morning Vietnam
+✅ Kết quả: Chào buổi sáng Việt Nam
+
+--------------------------------------------------
+
+
+📈 Tổng số bản dịch: 7
+📁 File được tạo: data\history_export_20251028_221327.txt
