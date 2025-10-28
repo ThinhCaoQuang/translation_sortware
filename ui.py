@@ -90,21 +90,6 @@ def main(page: ft.Page):
     )
     
     # ==================== TEXT FIELDS ====================
-    
-    # Trường nhập text
-    input_text = ft.TextField(
-        label="Nhập văn bản cần dịch",
-        multiline=True,
-        min_lines=5,
-        max_lines=10,
-        expand=True,
-        border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_400),
-        focused_border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_600),
-        bgcolor=ThemeHandler.get_textfield_bgcolor(page),
-        content_padding=ft.padding.all(15),
-        text_style=ft.TextStyle(size=16),
-    )
-    
     # Trường hiển thị kết quả
     output_text = ft.TextField(
         label="Kết quả dịch",
@@ -119,6 +104,28 @@ def main(page: ft.Page):
         content_padding=ft.padding.all(15),
         text_style=ft.TextStyle(size=16, weight=ft.FontWeight.W_500),
     )
+    
+    def on_input_change(e):
+        if not e.control.value.strip():
+            output_text.value = ""
+            page.update()
+
+    # Trường nhập text
+    input_text = ft.TextField(
+        label="Nhập văn bản cần dịch",
+        multiline=True,
+        on_change= on_input_change,
+        min_lines=5,
+        max_lines=10,
+        expand=True,
+        border_color=ThemeHandler.get_border_color(page,Ư ft.Colors.BLUE_400),
+        focused_border_color=ThemeHandler.get_border_color(page, ft.Colors.BLUE_600),
+        bgcolor=ThemeHandler.get_textfield_bgcolor(page),
+        content_padding=ft.padding.all(15),
+        text_style=ft.TextStyle(size=16),
+    )
+    
+    
     
     # Text hiển thị lịch sử
     last_history = ft.Text(

@@ -686,7 +686,7 @@ class HistoryHandler:
         try:
             with open(export_path, "w", encoding="utf-8") as f:
                 # Header thông tin
-                f.write(f"📊 LỊCH SỬ DỊCH THUẬT - XUẤT NGÀY {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
+                f.write(f"LỊCH SỬ DỊCH THUẬT - XUẤT NGÀY {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
                 f.write("=" * 60 + "\n\n")
                 
                 for i, (src, dst, text_in, text_out, ctx, created) in enumerate(items, 1):
@@ -737,3 +737,5 @@ class UtilityHandler:
         """Bật/tắt ngữ cảnh chuyên môn"""
         domain_dd.opacity = 1.0 if use_context.value else 0.0
         page.update()
+
+
