@@ -159,7 +159,7 @@ class TranslationHandler:
         items = get_history()
         if items:
             recent_items = items[:5] if len(items) >= 5 else items
-            history_text = ""
+            history_text = ""   
             
             for i, (src, dst, text_in, text_out, ctx, created) in enumerate(recent_items, 1):
                 history_text += f"📅 {created} | {src} → {dst}\n"
@@ -572,7 +572,7 @@ class AudioHandler:
                         # Cập nhật UI
                         input_text.value = recorded_text
                         confidence_text = f" (tin cậy: {best_confidence:.1%})" if best_confidence > 0 else ""
-                        page.snack_bar.content.value = f"✅ {best_lang}: {recorded_text[:35]}{'...' if len(recorded_text) > 35 else ''}{confidence_text}"
+                        page.snack_bar.content.value = f"✅ {recorded_text[:35]}{'...' if len(recorded_text) > 35 else ''}{confidence_text}"
                     else:
                         page.snack_bar.content.value = "⚠ Không thể nhận dạng giọng nói. Thử nói rõ hơn và gần micro."
                         
